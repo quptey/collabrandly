@@ -1,0 +1,1068 @@
+
+> dev
+> vite dev
+
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+
+  [32m[1mVITE[22m v8.1.0[39m  [2mready in [0m[1m1744[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8084[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8084[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.20.10.8:[1m8084[22m/[39m
+Error: Error transforming route file C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx: SyntaxError: Identifier 'newColOpen' has already been declared. (117:9)
+    at file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29558:3)
+    at async EnvironmentPluginContainer.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29725:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:25531:3)
+Error: Error transforming route file C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx: SyntaxError: Identifier 'newColOpen' has already been declared. (117:9)
+    at file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29558:3)
+    at async EnvironmentPluginContainer.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29725:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:25531:3)
+Error: Error transforming route file C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx: SyntaxError: 'return' outside of function. (147:15)
+    at file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29558:3)
+    at async EnvironmentPluginContainer.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29725:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:25531:3)
+[2m23:10:21[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:10:22[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8085[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8085[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.20.10.8:[1m8085[22m/[39m
+[2m23:11:01[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:11:02[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8086[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8086[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.20.10.8:[1m8086[22m/[39m
+[2m23:11:03[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:11:03[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:11:24[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:12:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m23:12:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32m✨ new dependencies optimized: [33m@hookform/resolvers/zod, react-hook-form[32m[39m
+[2m23:12:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32m✨ optimized dependencies changed. reloading[39m
+[2m23:14:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:14:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/index.ts[22m
+[2m23:14:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:27:45[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:27:45[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.20.10.8:[1m8087[22m/[39m
+[2m23:28:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:31:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:31:10[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/index.ts[22m
+[2m23:31:10[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:49:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m23:49:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m23:49:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:49:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m23:49:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m02:06:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m02:06:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m02:06:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m02:06:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m02:06:48[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m02:24:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:04:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m03:04:38[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m03:04:38[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:05:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:05:14[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:05:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m03:05:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m03:05:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m03:05:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m03:10:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m03:10:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m03:10:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:10:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m03:10:48[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m03:10:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:10:52[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:15:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:15:24[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:15:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m03:15:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m03:15:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:15:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m03:15:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m03:22:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:22:06[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:26:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:26:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:26:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:27:03[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:27:03[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:27:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:27:15[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:27:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:27:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:30:33[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:30:33[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:30:33[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:33:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:33:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:33:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:35:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:35:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:35:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:37:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:37:08[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:37:08[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:39:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:39:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:47:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:47:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:47:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:51:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:51:36[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:51:36[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:57:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:57:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m03:57:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m03:57:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:57:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m03:57:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:57:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m03:57:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:57:49[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m03:58:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:58:02[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m03:58:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:58:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m03:58:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m03:58:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m03:58:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:29[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:42[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:42[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:51[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:51[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:58:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:58:59[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:34[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:39[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:43[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:48[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:52[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:55[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m03:59:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m03:59:59[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m04:00:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m04:00:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m04:00:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m04:00:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m04:00:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m04:00:17[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m04:00:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:00:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:00:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:00:44[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:00:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:00:45[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:00:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:00:46[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m04:00:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:00:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:01:03[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:01:03[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:01:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:01:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:01:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:01:05[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m04:01:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:01:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:01:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m04:01:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m04:01:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m04:01:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m04:06:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m04:06:14[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m04:06:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:06:25[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:06:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:06:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:06:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m04:06:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m04:06:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m04:06:40[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m04:06:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m04:06:46[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m04:06:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:06:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:06:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:06:56[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:07:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:00[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m04:07:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:19[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:07:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:07:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m04:07:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:34[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:07:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:36[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:07:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m04:07:42[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:42[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m04:07:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:43[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m04:07:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m04:07:44[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m14:10:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m14:10:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m14:10:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m14:10:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:10:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:10:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:10:59[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:11:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:11:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:11:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:11:08[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:11:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:11:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:11:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m14:11:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m14:17:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m14:17:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m14:17:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m14:48:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m14:48:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m14:48:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m14:48:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m21:20:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m21:20:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m21:20:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:20:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m21:20:31[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m21:21:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m21:21:45[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m21:21:45[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:21:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m21:21:46[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m21:34:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:34:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m21:34:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:34:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:34:55[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m21:34:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:34:58[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m21:35:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m21:35:08[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m21:55:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:55:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m21:55:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:55:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:55:38[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m21:55:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m21:55:39[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m21:55:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/hero-section.tsx, /src/styles.css?direct[22m
+[2m21:55:40[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/hero-section.tsx[22m
+[2m22:17:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/onboarding.tsx[22m
+[2m22:17:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/onboarding.tsx[22m
+[2m22:17:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m22:17:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/onboarding.tsx[22m
+[2m22:17:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/onboarding.tsx[22m
+[2m22:17:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m22:17:36[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m22:17:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m22:17:38[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m22:17:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m22:17:45[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m22:17:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:17:52[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m22:17:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:17:55[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m22:18:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:18:00[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m22:18:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/onboarding.tsx[22m
+[2m22:18:10[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/onboarding.tsx[22m
+[2m22:29:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/marketplace.tsx?tsr-split=component, /src/components/creator-card.tsx[22m
+[2m22:29:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m22:29:16[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/validation.ts[22m
+[2m22:29:16[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m22:29:33[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m22:29:33[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m22:29:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:29:40[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m22:29:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:29:44[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m22:29:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m22:29:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m23:03:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m23:03:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/validation.ts[22m
+[2m23:03:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:03:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m23:03:44[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m23:03:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m23:03:58[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m23:04:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m23:04:00[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m23:04:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m23:04:19[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m23:04:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx[22m
+[2m23:04:27[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m23:04:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx[22m
+[2m23:04:29[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m23:04:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m23:04:39[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m23:04:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m23:04:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m23:04:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/marketplace.tsx, /src/routes/marketplace.tsx?tsr-split=component[22m
+[2m23:04:54[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/marketplace.tsx[22m
+[2m23:05:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:05:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m23:05:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:05:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:05:29[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m23:05:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:05:38[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m23:18:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m23:18:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m23:18:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:18:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m23:18:39[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m23:35:13[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:35:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because lockfile has changed
+[2m23:35:17[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:35:17[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:35:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m23:35:20[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[2m23:35:24[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_ssr_client.js?v=1d43f3f2" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_ssr_client.js?v=1d43f3f2" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core.js?v=561cf7e4" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_router-core_isServer.js?v=2f01f5fe" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/seroval.js?v=b942baf7" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[33mThe file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react-dom_client.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react-dom_client.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[33mThe file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[33mThe file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react_jsx-runtime.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/react-dom.js?v=10d3404b" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:24[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: The file does not exist at "C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/.vite/deps/@tanstack_react-query.js?v=da6826e5" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+[2m23:35:25[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:35:25[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:35:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m23:35:30[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+Error in renderToReadableStream: Error: transport was disconnected, cannot call "fetchModule"
+    at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:546:14)
+    at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+    at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+    at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+    at async Promise.all (index 0)
+    at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34)
+    at async handleLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:450:60)
+    at async loadRouteMatch (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:483:4)
+    at async Promise.all (index 1)
+    at async loadMatches (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:530:3) {
+  runnerError: Error: RunnerError
+      at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:547:64)
+      at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+      at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+      at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+      at async Promise.all (index 0)
+      at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34)
+      at async handleLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:450:60)
+      at async loadRouteMatch (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:483:4)
+      at async Promise.all (index 1)
+      at async loadMatches (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:530:3)
+} { componentStack: [Getter] }
+[2m23:35:30[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:35:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:35:32[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+Error in renderToReadableStream: Error: transport was disconnected, cannot call "fetchModule"
+    at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:546:14)
+    at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+    at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+    at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+    at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/auth.tsx?tsr-split=component:8:31)
+    at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3)
+    at async ModuleRunner.directRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1259:59)
+    at async ModuleRunner.cachedRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1166:73)
+    at async Promise.all (index 0)
+    at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34) {
+  runnerError: Error: RunnerError
+      at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:547:64)
+      at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+      at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+      at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+      at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/auth.tsx?tsr-split=component:8:31)
+      at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3)
+      at async ModuleRunner.directRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1259:59)
+      at async ModuleRunner.cachedRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1166:73)
+      at async Promise.all (index 0)
+      at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34)
+} { componentStack: [Getter] }
+[2m23:35:33[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:46:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:46:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m23:46:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32m✨ new dependencies optimized: [33m@tanstack/router-core, @tanstack/router-core/isServer, @tanstack/router-core/ssr/client, seroval[32m[39m
+[2m23:46:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32m✨ optimized dependencies changed. reloading[39m
+[2m23:50:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m23:50:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m23:50:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:50:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m23:50:53[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m23:50:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m23:50:56[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m23:53:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct[22m
+[2m23:53:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/server.ts[22m
+[2m23:53:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:53:04[22m [31m[1m[vite][22m[39m [31m[2m(ssr)[22m[39m An error happened during full reload
+Failed to load url ../i18n (resolved id: ../i18n) in C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/server.ts. Does the file exist?
+Error: Failed to load url ../i18n (resolved id: ../i18n) in C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/server.ts. Does the file exist?
+    at loadAndTransform (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:19714:31)
+[2m23:53:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct[22m
+[2m23:53:07[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/server.ts[22m
+[2m23:53:07[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:53:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/components/language-switcher.tsx[22m
+[2m23:53:56[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/index.ts[22m
+[2m23:53:56[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:54:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m23:54:02[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m23:54:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/marketplace.tsx[22m
+[2m23:54:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/marketplace.tsx[22m
+[2m23:54:04[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:54:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m23:54:05[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m23:54:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx[22m
+[2m23:54:06[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m23:54:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m23:54:07[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m23:54:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/hero-section.tsx[22m
+[2m23:54:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m23:54:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/index.tsx, /src/routes/index.tsx?tsr-split=component[22m
+[2m23:54:10[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/index.tsx[22m
+[2m23:54:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/pricing.tsx[22m
+[2m23:54:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/pricing.tsx[22m
+[2m23:54:13[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+Error in renderToReadableStream: Error: useAuth must be used within AuthProvider
+    at useAuth (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\src\lib\auth-context.tsx:48:19)
+    at AuthPage (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\src\routes\auth.tsx:34:20)
+    at Object.react_stack_bottom_frame (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:10288:18)
+    at renderWithHooks (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:5298:19)
+    at renderElement (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:5733:23)
+    at retryNode (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:6664:31)
+    at renderNodeDestructive (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:6614:11)
+    at finishFunctionComponent (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:5342:13)
+    at renderElement (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:5788:11)
+    at retryNode (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\react-dom\cjs\react-dom-server.node.development.js:6664:31) { componentStack: [Getter] }
+[2m23:54:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/notifications-bell.tsx[22m
+[2m23:54:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/language-switcher.tsx[22m
+[2m23:54:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m23:54:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m23:54:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m23:55:05[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m23:55:06[22m [36m[1m[vite][22m[39m server restarted.
+[2m23:55:06[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m23:55:08[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+Error in renderToReadableStream: Error: transport was disconnected, cannot call "fetchModule"
+    at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:546:14)
+    at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+    at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+    at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+    at async Promise.all (index 0)
+    at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34)
+    at async handleLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:450:60)
+    at async loadRouteMatch (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:483:4)
+    at async Promise.all (index 1)
+    at async loadMatches (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:530:3) {
+  runnerError: Error: RunnerError
+      at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:547:64)
+      at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+      at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+      at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+      at async Promise.all (index 0)
+      at async runLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:377:34)
+      at async handleLoader (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:450:60)
+      at async loadRouteMatch (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:483:4)
+      at async Promise.all (index 1)
+      at async loadMatches (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-core/dist/esm/load-matches.js:530:3)
+} { componentStack: [Getter] }
+[2m23:55:09[22m [36m[1m[vite][22m[39m server restarted.
+[2m00:14:03[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m00:47:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:47:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+[2m00:47:20[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:47:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:47:27[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m00:47:27[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:47:42[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:47:42[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m00:47:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:47:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m00:48:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:48:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m00:48:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m00:48:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m00:48:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:48:53[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m00:48:53[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:49:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:49:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m00:49:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:49:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:49:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m00:49:23[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:49:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m00:49:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m00:50:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx[22m
+[2m00:50:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m00:51:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx[22m
+[2m00:51:11[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m00:51:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m00:51:16[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m00:51:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m00:51:24[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m00:51:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:51:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.json[22m
+[2m00:51:50[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:52:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:52:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/ru.json[22m
+[2m00:52:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m00:52:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/index.tsx?tsr-split=component, /src/components/hero-section.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m00:52:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/i18n/locales/kk.json[22m
+[2m00:52:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m01:46:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m01:46:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+[2m01:46:28[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m01:46:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m01:46:31[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+TanStack Start server functions are not protected by the CSRF middleware.
+
+Server functions are same-origin RPC endpoints and should be protected from cross-site requests.
+
+Add the CSRF middleware in src/start.ts:
+
+  const csrfMiddleware = createCsrfMiddleware({
+    filter: (ctx) => ctx.handlerType === 'serverFn',
+  })
+
+  export const startInstance = createStart(() => ({
+    requestMiddleware: [csrfMiddleware],
+  }))
+
+If you intentionally handle CSRF another way, disable this warning:
+
+  tanstackStart({
+    serverFns: {
+      disableCsrfMiddlewareWarning: true,
+    },
+  })
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[2m17:56:02[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m17:56:04[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[2m17:56:05[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.94.144.213:[1m8087[22m/[39m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.43:[1m8087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.94.144.213:[1m8087[22m/[39m
+[2m17:56:05[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m18:44:57[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:44:58[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:44:58[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m18:45:01[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+Error: transport was disconnected, cannot call "fetchModule"
+    at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:546:14)
+    ... 8 lines matching cause stack trace ...
+    at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3) {
+  cause: Error: transport was disconnected, cannot call "fetchModule"
+      at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:546:14)
+      at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+      at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+      at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+      at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routeTree.gen.ts:13:31)
+      at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3)
+      at async ModuleRunner.directRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1259:59)
+      at async ModuleRunner.cachedRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1166:73)
+      at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/router.tsx:6:31)
+      at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3) {
+    runnerError: Error: RunnerError
+        at reviveInvokeError (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:547:64)
+        at Object.invoke (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:620:11)
+        at async ModuleRunner.getModuleInformation (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1199:7)
+        at async request (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1216:83)
+        at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routeTree.gen.ts:13:31)
+        at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3)
+        at async ModuleRunner.directRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1259:59)
+        at async ModuleRunner.cachedRequest (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1166:73)
+        at async eval (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/router.tsx:6:31)
+        at async ESModulesEvaluator.runInlinedModule (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/module-runner.js:1006:3)
+  },
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+Error: h3 swallowed SSR error: {"status":500,"unhandled":true,"message":"HTTPError"}
+    at normalizeCatastrophicSsrResponse (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/server.ts:29:72)
+    at async Object.fetch (C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/server.ts:39:10)
+    at async file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/start-plugin-core/dist/esm/vite/dev-server-plugin/plugin.js:79:36
+[2m18:45:02[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:03[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:04[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:12[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:13[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:28[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:28[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:29[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:30[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:39[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:39[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:45:57[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:45:57[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:02[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:03[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:04[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:05[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:18[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:18[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:20[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:21[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:32[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:32[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:46:36[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:46:36[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:47:16[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:47:16[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:47:18[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:47:18[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:47:20[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:47:21[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:52:11[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:52:12[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:52:17[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[2m18:52:17[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:57:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+TanStack Start server functions are not protected by the CSRF middleware.
+
+Server functions are same-origin RPC endpoints and should be protected from cross-site requests.
+
+Add the CSRF middleware in src/start.ts:
+
+  const csrfMiddleware = createCsrfMiddleware({
+    filter: (ctx) => ctx.handlerType === 'serverFn',
+  })
+
+  export const startInstance = createStart(() => ({
+    requestMiddleware: [csrfMiddleware],
+  }))
+
+If you intentionally handle CSRF another way, disable this warning:
+
+  tanstackStart({
+    serverFns: {
+      disableCsrfMiddlewareWarning: true,
+    },
+  })
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[2m19:58:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx, /src/routes/admin.tsx?tsr-split=component[22m
+[2m19:58:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m19:58:32[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m19:58:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/lib/auth-context.tsx[22m
+[2m19:58:46[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/auth-context.tsx[22m
+[2m19:58:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/src/lib/auth-context.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m19:58:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/__root.tsx, /src/lib/subscription-context.tsx, /src/components/site-header.tsx, /src/components/language-switcher.tsx, /src/components/notifications-bell.tsx, /src/routes/auth.tsx?tsr-split=component, /src/routes/dashboard.index.tsx?tsr-split=component, /src/components/subscription-panel.tsx, /src/routes/onboarding.tsx?tsr-split=component, /src/routes/admin.tsx?tsr-split=component, /src/routes/marketplace.tsx?tsr-split=component, /src/routes/pricing.tsx?tsr-split=component[22m
+[2m19:58:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/src/lib/subscription-context.tsx[22m Could not Fast Refresh ("useSubscription" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m19:58:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/routes/__root.tsx, /src/routes/dashboard.index.tsx?tsr-split=component, /src/components/subscription-panel.tsx, /src/routes/pricing.tsx?tsr-split=component[22m
+Error: Error transforming route file C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx: SyntaxError: Identifier 'isCreator' has already been declared. (166:8)
+    at file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29558:3)
+    at async EnvironmentPluginContainer.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29725:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:25531:3)
+[2m19:59:03[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:03[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m19:59:03[22m [31m[1m[vite][22m[39m [31mInternal server error: Identifier 'isCreator' has already been declared. (166:8)[39m
+  Plugin: [35mtanstack-router:code-splitter:compile-virtual-file[39m
+  File: [36mC:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx?tsr-split=component[39m:166:8
+[33m  164 |    }
+  165 |  
+  166 |    const isCreator = profile.role === "creator";
+      |          ^
+  167 |    const isPending = profile.verification_status === "pending";
+  168 |    const isRejected = profile.verification_status === "rejected";[39m
+      at constructor (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6616:19)
+      at TypeScriptScopeHandler.checkRedeclarationInScope (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1619:19)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1585:12)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:4892:11)
+      at TypeScriptParserMixin.declareNameFromIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7584:16)
+      at TypeScriptParserMixin.checkIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7580:12)
+      at TypeScriptParserMixin.checkLVal (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7517:12)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13429:10)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:9769:11)
+[2m19:59:03[22m [31m[1m[vite][22m[39m [31mInternal server error: Identifier 'isCreator' has already been declared. (166:8)[39m
+  Plugin: [35mtanstack-router:code-splitter:compile-reference-file[39m
+  File: [36mC:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx[39m:166:8
+[33m  164 |    }
+  165 |  
+  166 |    const isCreator = profile.role === "creator";
+      |          ^
+  167 |    const isPending = profile.verification_status === "pending";
+  168 |    const isRejected = profile.verification_status === "rejected";[39m
+      at constructor (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6616:19)
+      at TypeScriptScopeHandler.checkRedeclarationInScope (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1619:19)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1585:12)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:4892:11)
+      at TypeScriptParserMixin.declareNameFromIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7584:16)
+      at TypeScriptParserMixin.checkIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7580:12)
+      at TypeScriptParserMixin.checkLVal (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7517:12)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13429:10)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:9769:11)
+[2m19:59:03[22m [31m[1m[vite][22m[39m [31mInternal server error: Identifier 'isCreator' has already been declared. (166:8)[39m
+  Plugin: [35mtanstack-router:code-splitter:compile-reference-file[39m
+  File: [36mC:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/dashboard.index.tsx[39m:166:8
+[33m  164 |    }
+  165 |  
+  166 |    const isCreator = profile.role === "creator";
+      |          ^
+  167 |    const isPending = profile.verification_status === "pending";
+  168 |    const isRejected = profile.verification_status === "rejected";[39m
+      at constructor (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6616:19)
+      at TypeScriptScopeHandler.checkRedeclarationInScope (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1619:19)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:1585:12)
+      at TypeScriptScopeHandler.declareName (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:4892:11)
+      at TypeScriptParserMixin.declareNameFromIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7584:16)
+      at TypeScriptParserMixin.checkIdentifier (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7580:12)
+      at TypeScriptParserMixin.checkLVal (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:7517:12)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13429:10)
+      at TypeScriptParserMixin.parseVarId (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:9769:11)
+[2m19:59:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:07[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m19:59:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:11[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m19:59:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m19:59:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:30[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m19:59:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/dashboard.index.tsx, /src/routes/dashboard.index.tsx?tsr-split=component[22m
+[2m19:59:37[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/dashboard.index.tsx[22m
+[2m20:01:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/brand.tsx[22m
+[2m20:01:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/brand.tsx[22m
+[2m20:01:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:01:29[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:01:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:01:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:01:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:01:49[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:01:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m20:01:57[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m20:15:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component, /src/routes/dashboard.index.tsx?tsr-split=component, /src/routes/onboarding.tsx?tsr-split=component[22m
+[2m20:15:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/validation.ts[22m
+[2m20:15:22[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m20:16:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:16:00[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:16:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:16:09[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:16:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:16:29[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:16:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:16:40[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:16:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:16:45[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:17:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:17:00[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/auth.tsx[22m
+[2m20:25:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:25:14[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+[2m20:25:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:25:21[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+[2m20:25:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component[22m
+[2m20:25:26[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/admin-notify.server.ts[22m
+TanStack Start server functions are not protected by the CSRF middleware.
+
+Server functions are same-origin RPC endpoints and should be protected from cross-site requests.
+
+Add the CSRF middleware in src/start.ts:
+
+  const csrfMiddleware = createCsrfMiddleware({
+    filter: (ctx) => ctx.handlerType === 'serverFn',
+  })
+
+  export const startInstance = createStart(() => ({
+    requestMiddleware: [csrfMiddleware],
+  }))
+
+If you intentionally handle CSRF another way, disable this warning:
+
+  tanstackStart({
+    serverFns: {
+      disableCsrfMiddlewareWarning: true,
+    },
+  })
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[2m21:24:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m21:24:05[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m21:24:05[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:24:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m21:24:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m21:24:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:24:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m21:24:24[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m21:24:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/site-header.tsx[22m
+[2m21:24:31[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/site-header.tsx[22m
+[2m21:24:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx, /src/routes/admin.tsx?tsr-split=component[22m
+[2m21:24:40[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+Error: Error transforming route file C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/admin.tsx: SyntaxError: Missing semicolon. (483:17)
+    at file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29558:3)
+    at async EnvironmentPluginContainer.watchChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:29725:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///C:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/node_modules/vite/dist/node/chunks/node.js:25531:3)
+[2m21:24:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx, /src/routes/admin.tsx?tsr-split=component[22m
+[2m21:24:47[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+[2m21:24:47[22m [31m[1m[vite][22m[39m [31mInternal server error: Missing semicolon. (483:17)[39m
+  Plugin: [35mtanstack-router:code-splitter:compile-reference-file[39m
+  File: [36mC:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/admin.tsx[39m:483:17
+[33m  481 |                      </td>
+  482 |                    </tr>
+  483 |                  ))}
+      |                   ^
+  484 |                </tbody>
+  485 |              </table>[39m
+      at constructor (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6616:19)
+      at TypeScriptParserMixin.semicolon (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6912:10)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13160:12)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12815:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:9525:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12784:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12764:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13333:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13326:10)
+[2m21:24:47[22m [31m[1m[vite][22m[39m [31mInternal server error: Missing semicolon. (483:17)[39m
+  Plugin: [35mtanstack-router:code-splitter:compile-reference-file[39m
+  File: [36mC:/Users/admin/Downloads/kz-creator-hub-new/kz-creator-hub-new/src/routes/admin.tsx[39m:483:17
+[33m  481 |                      </td>
+  482 |                    </tr>
+  483 |                  ))}
+      |                   ^
+  484 |                </tbody>
+  485 |              </table>[39m
+      at constructor (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:365:19)
+      at TypeScriptParserMixin.raise (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6616:19)
+      at TypeScriptParserMixin.semicolon (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:6912:10)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13160:12)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12815:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:9525:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12784:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:12764:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13333:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Users\admin\Downloads\kz-creator-hub-new\kz-creator-hub-new\node_modules\@babel\parser\lib\index.js:13326:10)
+[2m21:25:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/admin.tsx, /src/routes/admin.tsx?tsr-split=component[22m
+[2m21:25:18[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/admin.tsx[22m
+TanStack Start server functions are not protected by the CSRF middleware.
+
+Server functions are same-origin RPC endpoints and should be protected from cross-site requests.
+
+Add the CSRF middleware in src/start.ts:
+
+  const csrfMiddleware = createCsrfMiddleware({
+    filter: (ctx) => ctx.handlerType === 'serverFn',
+  })
+
+  export const startInstance = createStart(() => ({
+    requestMiddleware: [csrfMiddleware],
+  }))
+
+If you intentionally handle CSRF another way, disable this warning:
+
+  tanstackStart({
+    serverFns: {
+      disableCsrfMiddlewareWarning: true,
+    },
+  })
+[Supabase] Missing Supabase environment variable(s): SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY. Connect Supabase in Lovable Cloud.
+[2m21:52:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/auth.tsx?tsr-split=component, /src/routes/dashboard.index.tsx?tsr-split=component, /src/routes/onboarding.tsx?tsr-split=component, /src/routes/marketplace.tsx?tsr-split=component, /src/components/creator-card.tsx[22m
+[2m21:52:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/lib/constants.ts[22m
+[2m21:52:35[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:52:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/profile.tsx, /src/routes/profile.tsx?tsr-split=component[22m
+[2m21:52:55[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/profile.tsx[22m
+[2m21:52:55[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m21:53:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/profile.tsx, /src/routes/profile.tsx?tsr-split=component[22m
+[2m21:53:08[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/profile.tsx[22m
