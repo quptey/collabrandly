@@ -76,15 +76,13 @@ export function HeroSection() {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="mt-6 lg:mt-12 flex flex-col sm:flex-row gap-3 lg:gap-5 max-sm:mt-3 max-sm:gap-2"
               >
-                <Link to="/auth" search={{ mode: "signup", role: "brand" }} className="w-full sm:w-auto">
-                  <button className="w-full sm:w-[170px] h-14 sm:h-16 rounded-[14px] bg-[#111111] text-white text-sm sm:text-base font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] max-sm:h-11">
-                    {t("landing.heroBtnBrand")}
-                  </button>
+                <Link to="/auth" search={{ mode: "signup", role: "brand" }}
+                  className="w-full sm:w-[170px] h-14 sm:h-16 rounded-[14px] bg-[#111111] text-white text-sm sm:text-base font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] max-sm:h-11 inline-flex items-center justify-center no-underline">
+                  {t("landing.heroBtnBrand")}
                 </Link>
-                <Link to="/auth" search={{ mode: "signup", role: "creator" }} className="w-full sm:w-auto">
-                  <button className="w-full sm:w-[170px] h-14 sm:h-16 rounded-[14px] border-2 border-[#111111] bg-white text-[#111111] text-sm sm:text-base font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] max-sm:h-11">
-                    {t("landing.heroBtnCreator")}
-                  </button>
+                <Link to="/auth" search={{ mode: "signup", role: "creator" }}
+                  className="w-full sm:w-[170px] h-14 sm:h-16 rounded-[14px] border-2 border-[#111111] bg-white text-[#111111] text-sm sm:text-base font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] max-sm:h-11 inline-flex items-center justify-center no-underline">
+                  {t("landing.heroBtnCreator")}
                 </Link>
               </motion.div>
             </div>
