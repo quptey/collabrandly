@@ -166,7 +166,7 @@ export function HeroSection() {
             <div className="lg:hidden w-full mt-4 mb-6">
               {/* Girl image centered at top */}
               <div className="hero-img-wrap">
-                <div className="aspect-[4/5] w-full overflow-hidden rounded-[40px_40px_20px_20px/60px_60px_30px_30px] shadow-xl">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[40px_40px_20px_20px/60px_60px_30px_30px] shadow-xl">
                   <img src={images.main} alt={t("landing.heroAltMain")} className="h-full w-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/10 to-transparent" />
                 </div>
