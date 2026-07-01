@@ -23,7 +23,11 @@ export function SubscriptionPanel() {
   });
 
   if (loading) {
-    return <div className="rounded-3xl border border-border bg-card p-8 text-center text-muted-foreground">{t("common.loading")}</div>;
+    return (
+      <div className="rounded-3xl border border-border bg-card p-8 text-center text-muted-foreground">
+        {t("common.loading")}
+      </div>
+    );
   }
 
   const userRole = isBrandPlan ? "brand" : "creator";
@@ -35,7 +39,12 @@ export function SubscriptionPanel() {
     if (!target) return;
     const { error } = await supabase
       .from("subscriptions")
-      .upsert({ user_id: user.id, plan_id: target.id, status: "active", current_period_start: new Date().toISOString() })
+      .upsert({
+        user_id: user.id,
+        plan_id: target.id,
+        status: "active",
+        current_period_start: new Date().toISOString(),
+      })
       .eq("user_id", user.id);
     if (error) return toast.error(error.message);
     toast.success(t("subscription.switchedToast", { name: target.name }));
@@ -50,13 +59,20 @@ export function SubscriptionPanel() {
             <Crown className="h-6 w-6" />
           </div>
           <div>
-            <p className="font-display text-xl font-semibold">{plan?.name ?? t("subscription.free")}</p>
-            <p className="text-sm text-muted-foreground">
-              {plan?.price_monthly && plan.price_monthly > 0 ? `${plan.price_monthly.toLocaleString()} ${t("subscription.monthSuffix")}` : t("subscription.free")}
+            <p className="font-display text-xl font-semibold">
+              {plan?.name ?? t("subscription.free")}
             </p>
+            <p className="text-sm text-muted-foreground line-through">
+              {plan?.price_monthly && plan.price_monthly > 0
+                ? `${plan.price_monthly.toLocaleString()} ${t("subscription.monthSuffix")}`
+                : t("subscription.free")}
+            </p>
+            <p className="text-xs font-semibold text-accent">{t("subscription.freeDuringMVP")}</p>
           </div>
         </div>
-        {plan?.description && <p className="mt-4 text-sm text-muted-foreground">{plan.description}</p>}
+        {plan?.description && (
+          <p className="mt-4 text-sm text-muted-foreground">{plan.description}</p>
+        )}
       </div>
 
       <div className="space-y-4">
@@ -64,14 +80,24 @@ export function SubscriptionPanel() {
         {myPlans.map((p: any) => {
           const isCurrent = plan?.key === p.key;
           return (
-            <div key={p.id} className={`rounded-3xl border p-8 ${isCurrent ? "border-2 border-foreground bg-foreground text-background" : "border-border bg-card"}`}>
+            <div
+              key={p.id}
+              className={`rounded-3xl border p-8 ${isCurrent ? "border-2 border-foreground bg-foreground text-background" : "border-border bg-card"}`}
+            >
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="font-display text-xl font-semibold">{p.name}</p>
                   <p className="mt-1 text-sm opacity-70">{p.description}</p>
-                  <p className="mt-2 font-display text-3xl font-semibold">
-                    {p.price_monthly > 0 ? `${p.price_monthly.toLocaleString()} ${t("subscription.monthSuffix")}` : t("subscription.free")}
-                  </p>
+                  <div className="mt-2">
+                    <p className="font-display text-3xl font-semibold text-muted-foreground line-through">
+                      {p.price_monthly > 0
+                        ? `${p.price_monthly.toLocaleString()} ${t("subscription.monthSuffix")}`
+                        : t("subscription.free")}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-accent">
+                      {t("subscription.freeDuringMVP")}
+                    </p>
+                  </div>
                 </div>
                 {!isCurrent && (
                   <Button
@@ -79,7 +105,7 @@ export function SubscriptionPanel() {
                     className={isCurrent ? "" : "shrink-0"}
                     variant={isCurrent ? "secondary" : "default"}
                   >
-                    {p.price_monthly === 0 ? t("subscription.startFree") : t("subscription.upgradePro")}
+                    {t("subscription.startFree")}
                   </Button>
                 )}
                 {isCurrent && (
@@ -92,7 +118,9 @@ export function SubscriptionPanel() {
                 <ul className="mt-6 space-y-2">
                   {(p.features as string[]).map((f: string, i: number) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
-                      <Check className={`mt-0.5 h-4 w-4 shrink-0 ${isCurrent ? "" : "text-accent"}`} />
+                      <Check
+                        className={`mt-0.5 h-4 w-4 shrink-0 ${isCurrent ? "" : "text-accent"}`}
+                      />
                       <span>{f}</span>
                     </li>
                   ))}

@@ -24,7 +24,13 @@ const limitMessages: Record<string, { titleKey: string; descKey: string }> = {
   analytics: { titleKey: "upgrade.analyticsLimit", descKey: "upgrade.analyticsLimitDesc" },
 };
 
-export function UpgradeModal({ open, onOpenChange, title, description, type = "collections" }: UpgradeModalProps) {
+export function UpgradeModal({
+  open,
+  onOpenChange,
+  title,
+  description,
+  type = "collections",
+}: UpgradeModalProps) {
   const { t } = useT();
   const navigate = useNavigate();
 
@@ -54,7 +60,9 @@ export function UpgradeModal({ open, onOpenChange, title, description, type = "c
         </DialogHeader>
 
         <div className="space-y-3 rounded-2xl border border-border bg-card p-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t("upgrade.proIncludes")}</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t("upgrade.proIncludes")}
+          </p>
           {proFeatureKeys.map((k) => (
             <div key={k} className="flex items-start gap-2 text-sm">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -76,7 +84,11 @@ export function UpgradeModal({ open, onOpenChange, title, description, type = "c
           >
             {t("upgrade.upgradeButton")}
           </Button>
-          <Button variant="outline" className="w-full rounded-full" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="outline"
+            className="w-full rounded-full"
+            onClick={() => onOpenChange(false)}
+          >
             {t("upgrade.maybeLater")}
           </Button>
         </div>

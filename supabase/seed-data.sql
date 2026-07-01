@@ -1,5 +1,5 @@
--- =====================================================================
--- Seed Data — creator·kz marketplace
+﻿-- =====================================================================
+-- Seed Data — Collabrandly marketplace
 -- Run this entire script in Supabase SQL Editor
 -- All seed users have password: password123
 -- =====================================================================

@@ -6,7 +6,7 @@ import ru from "./locales/ru.json";
 import kk from "./locales/kk.json";
 
 export const SUPPORTED_LOCALES = ["ru", "kk", "en"] as const;
-export type Locale = typeof SUPPORTED_LOCALES[number];
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",

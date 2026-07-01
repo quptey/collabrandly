@@ -1,5 +1,5 @@
--- =====================================================================
--- Merged Idempotent Schema — kz-creator-hub
+﻿-- =====================================================================
+-- Merged Idempotent Schema — Collabrandly
 -- Generated from 6 migration files (safe to run multiple times)
 -- =====================================================================
 
@@ -12,8 +12,24 @@ END $$;
 
 DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'creator_category' AND typnamespace = 'public'::regnamespace) THEN
-    CREATE TYPE public.creator_category AS ENUM ('beauty', 'fashion', 'fitness', 'food', 'lifestyle', 'tech');
+    CREATE TYPE public.creator_category AS ENUM ('beauty', 'fashion', 'fitness', 'lifestyle', 'travel', 'food', 'technology', 'gaming', 'business', 'education', 'music', 'sports', 'photography', 'entertainment', 'marketing', 'other');
   END IF;
+END $$;
+
+-- Add new category values idempotently
+DO $$ BEGIN
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'travel';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'technology';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'gaming';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'business';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'education';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'music';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'sports';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'photography';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'entertainment';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'marketing';
+  ALTER TYPE public.creator_category ADD VALUE IF NOT EXISTS 'other';
+EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 DO $$ BEGIN
@@ -82,6 +98,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   avatar_url TEXT DEFAULT '',
   social_link TEXT DEFAULT '',
   category public.creator_category,
+  custom_category TEXT DEFAULT '',
   city public.kz_city,
   follower_range public.follower_range,
   brand_name TEXT DEFAULT '',
@@ -229,6 +246,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 -- =====================================================================
 
 ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS follower_count integer DEFAULT 0,
   ADD COLUMN IF NOT EXISTS instagram_url text DEFAULT '',
   ADD COLUMN IF NOT EXISTS tiktok_url text DEFAULT '',
   ADD COLUMN IF NOT EXISTS approved boolean NOT NULL DEFAULT true,
@@ -831,6 +849,50 @@ GRANT UPDATE ON public.applications TO authenticated;
 GRANT ALL ON public.applications TO service_role;
 
 -- =====================================================================
+-- 10c. REPORTS TABLE
+-- =====================================================================
+
+CREATE TABLE IF NOT EXISTS public.reports (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  reporter_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  reported_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_type TEXT NOT NULL CHECK (user_type IN ('creator', 'brand')),
+  reason TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'reviewed', 'resolved')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.reports ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users insert own reports" ON public.reports;
+CREATE POLICY "Users insert own reports" ON public.reports
+  FOR INSERT TO authenticated
+  WITH CHECK (auth.uid() = reporter_id);
+
+DROP POLICY IF EXISTS "Users read own reports" ON public.reports;
+CREATE POLICY "Users read own reports" ON public.reports
+  FOR SELECT TO authenticated
+  USING (auth.uid() = reporter_id);
+
+DROP POLICY IF EXISTS "Admins read all reports" ON public.reports;
+CREATE POLICY "Admins read all reports" ON public.reports
+  FOR SELECT TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'));
+
+DROP POLICY IF EXISTS "Admins update reports" ON public.reports;
+CREATE POLICY "Admins update reports" ON public.reports
+  FOR UPDATE TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+GRANT SELECT, INSERT ON public.reports TO authenticated;
+GRANT ALL ON public.reports TO service_role;
+
+CREATE INDEX IF NOT EXISTS idx_reports_status ON public.reports(status);
+CREATE INDEX IF NOT EXISTS idx_reports_reported ON public.reports(reported_id);
+
+-- =====================================================================
 -- 11. INDEXES  (IF NOT EXISTS)
 -- =====================================================================
 
@@ -839,6 +901,7 @@ CREATE INDEX IF NOT EXISTS idx_applications_role ON public.applications(role);
 CREATE INDEX IF NOT EXISTS idx_applications_user_id ON public.applications(user_id);
 CREATE INDEX IF NOT EXISTS idx_profiles_role ON public.profiles(role);
 CREATE INDEX IF NOT EXISTS idx_profiles_category ON public.profiles(category);
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS custom_category TEXT DEFAULT '';
 CREATE INDEX IF NOT EXISTS idx_profiles_city ON public.profiles(city);
 CREATE INDEX IF NOT EXISTS idx_collections_creator ON public.collections(creator_id);
 CREATE INDEX IF NOT EXISTS idx_products_collection ON public.products(collection_id);

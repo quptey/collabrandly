@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useT, t } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -46,24 +52,36 @@ function AuthPage() {
   else schema = signInSchema;
 
   const form = useForm({ resolver: zodResolver(schema) });
-  const { register, handleSubmit, formState: { errors, isSubmitting }, setValue, watch } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+  } = form;
 
   async function getAndRedirect(user: User) {
-    const { data: prof } = await supabase.from("profiles").select("role").eq("id", user.id).single();
+    const { data: prof } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
     const r = prof?.role;
-    if (r === 'brand') navigate({ to: "/brand" });
-    else if (r === 'admin') navigate({ to: "/admin" });
+    if (r === "brand") navigate({ to: "/brand" });
+    else if (r === "admin") navigate({ to: "/admin" });
     else navigate({ to: "/dashboard" });
   }
 
   useEffect(() => {
-    if (user) { getAndRedirect(user); }
+    if (user) {
+      getAndRedirect(user);
+    }
   }, [user, navigate]);
 
   async function submit(data: any) {
     try {
       if (mode === "signup") {
-        let signupData: any = { email: data.email };
+        const signupData: any = { email: data.email };
 
         if (isShopper) {
           signupData.password = data.password;
@@ -142,7 +160,10 @@ function AuthPage() {
         navigate({ to: "/dashboard" });
       } else {
         console.log("Signing in with:", data.email);
-        const { data: signInData, error } = await supabase.auth.signInWithPassword({ email: data.email, password: data.password });
+        const { data: signInData, error } = await supabase.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
         if (error) {
           console.error("Sign in error:", error);
           return toast.error(error.message);
@@ -167,42 +188,36 @@ function AuthPage() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-foreground p-12 text-background lg:flex">
         <div className="absolute inset-0 -z-0 bg-gradient-to-br from-foreground via-foreground to-accent/30" />
-        <Link to="/" className="relative font-display text-xl font-semibold">creator·kz</Link>
+        <Link to="/" className="relative font-display text-xl font-semibold">
+          creator·kz
+        </Link>
         <div className="relative space-y-5">
           {isCreatorApp ? (
             <>
               <p className="font-display text-4xl font-medium leading-tight text-balance">
                 {t("auth.applyTitle")}
               </p>
-              <p className="text-sm text-background/60">
-                {t("auth.applySubtitle")}
-              </p>
+              <p className="text-sm text-background/60">{t("auth.applySubtitle")}</p>
             </>
           ) : isBrandApp ? (
             <>
               <p className="font-display text-4xl font-medium leading-tight">
                 {t("auth.brandApplyTitle")}
               </p>
-              <p className="text-sm text-background/60">
-                {t("auth.brandApplySubtitle")}
-              </p>
+              <p className="text-sm text-background/60">{t("auth.brandApplySubtitle")}</p>
             </>
           ) : (
             <>
-              <p className="font-display text-4xl font-medium leading-tight">
-                "{t("auth.quote")}"
-              </p>
+              <p className="font-display text-4xl font-medium leading-tight">"{t("auth.quote")}"</p>
               <p className="text-sm text-background/60">{t("auth.quoteAuthor")}</p>
             </>
           )}
         </div>
-        <div className="relative text-sm text-background/50">
-          {t("auth.footerTagline")}
-        </div>
+        <div className="relative text-sm text-background/50">{t("auth.footerTagline")}</div>
       </div>
 
-      <div className="flex items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex items-center justify-center p-4 sm:p-12">
+        <div className="w-full max-w-md space-y-6 sm:space-y-8">
           <div>
             <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
               {isAppForm ? "← " + t("auth.backToHome") : "← " + t("auth.back")}
@@ -216,15 +231,19 @@ function AuthPage() {
           </div>
 
           {mode === "signup" && !isAppForm && (
-            <div className="grid grid-cols-3 gap-2 rounded-full border border-border bg-secondary/40 p-1">
+            <div className="flex rounded-full border border-border bg-secondary/40 p-1 overflow-x-auto">
               {(["shopper", "creator", "brand"] as const).map((r) => (
                 <button
                   key={r}
                   type="button"
                   onClick={() => navigate({ to: "/auth", search: { mode: "signup", role: r } })}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${role === r ? "bg-foreground text-background" : "text-muted-foreground"}`}
+                  className={`flex-1 whitespace-nowrap rounded-full px-2 sm:px-3 py-2 text-[11px] sm:text-sm font-medium transition-colors ${role === r ? "bg-foreground text-background" : "text-muted-foreground"}`}
                 >
-                  {r === "shopper" ? t("auth.imShopper") : r === "creator" ? t("auth.imCreator") : t("auth.imBrand")}
+                  {r === "shopper"
+                    ? t("auth.imShopper")
+                    : r === "creator"
+                      ? t("auth.imCreator")
+                      : t("auth.imBrand")}
                 </button>
               ))}
             </div>
@@ -236,104 +255,185 @@ function AuthPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(submit)} className="space-y-4">
+          <form onSubmit={handleSubmit(submit)} className="space-y-4 pb-16 sm:pb-0">
             {isCreatorApp ? (
               <>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
                     <Label htmlFor="firstName">{t("auth.firstName")}</Label>
                     <Input id="firstName" {...register("firstName")} />
-                    {errors.firstName && <p className="text-xs text-destructive">{errors.firstName.message as string}</p>}
+                    {errors.firstName && (
+                      <p className="text-xs text-destructive">
+                        {errors.firstName.message as string}
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="lastName">{t("auth.lastName")}</Label>
                     <Input id="lastName" {...register("lastName")} />
-                    {errors.lastName && <p className="text-xs text-destructive">{errors.lastName.message as string}</p>}
+                    {errors.lastName && (
+                      <p className="text-xs text-destructive">
+                        {errors.lastName.message as string}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email">{t("auth.email")}</Label>
                   <Input id="email" type="email" {...register("email")} />
-                  {errors.email && <p className="text-xs text-destructive">{errors.email.message as string}</p>}
+                  {errors.email && (
+                    <p className="text-xs text-destructive">{errors.email.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="password">{t("auth.password")}</Label>
                   <Input id="password" type="password" {...register("password")} />
-                  {errors.password && <p className="text-xs text-destructive">{errors.password.message as string}</p>}
+                  {errors.password && (
+                    <p className="text-xs text-destructive">{errors.password.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="confirmPassword">{t("auth.confirmPassword")}</Label>
                   <Input id="confirmPassword" type="password" {...register("confirmPassword")} />
-                  {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message as string}</p>}
+                  {errors.confirmPassword && (
+                    <p className="text-xs text-destructive">
+                      {errors.confirmPassword.message as string}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="phone">{t("auth.phone")}</Label>
                   <Input id="phone" type="tel" {...register("phone")} />
-                  {errors.phone && <p className="text-xs text-destructive">{errors.phone.message as string}</p>}
+                  {errors.phone && (
+                    <p className="text-xs text-destructive">{errors.phone.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label>{t("auth.socialPlatform")}</Label>
-                  <Select value={watch("socialPlatform")} onValueChange={(v) => setValue("socialPlatform", v)}>
-                    <SelectTrigger><SelectValue placeholder={t("auth.selectPlatform")} /></SelectTrigger>
+                  <Select
+                    value={watch("socialPlatform")}
+                    onValueChange={(v) => setValue("socialPlatform", v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("auth.selectPlatform")} />
+                    </SelectTrigger>
                     <SelectContent>
-                      {SOCIAL_PLATFORMS.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                      {SOCIAL_PLATFORMS.map((p) => (
+                        <SelectItem key={p} value={p}>
+                          {p}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
-                  {errors.socialPlatform && <p className="text-xs text-destructive">{errors.socialPlatform.message as string}</p>}
+                  {errors.socialPlatform && (
+                    <p className="text-xs text-destructive">
+                      {errors.socialPlatform.message as string}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="profileLink">{t("auth.profileLink")}</Label>
-                  <Input id="profileLink" placeholder={t("auth.socialPlaceholder")} {...register("profileLink")} />
-                  {errors.profileLink && <p className="text-xs text-destructive">{errors.profileLink.message as string}</p>}
+                  <Input
+                    id="profileLink"
+                    placeholder={t("auth.socialPlaceholder")}
+                    {...register("profileLink")}
+                  />
+                  {errors.profileLink && (
+                    <p className="text-xs text-destructive">
+                      {errors.profileLink.message as string}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <Checkbox id="terms" checked={watch("terms")} onCheckedChange={(v) => setValue("terms", v === true)} />
-                  <Label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer">{t("auth.terms")}</Label>
+                  <Checkbox
+                    id="terms"
+                    checked={watch("terms")}
+                    onCheckedChange={(v) => setValue("terms", v === true)}
+                  />
+                  <Label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer">
+                    {t("auth.terms")}
+                  </Label>
                 </div>
-                {errors.terms && <p className="text-xs text-destructive">{errors.terms.message as string}</p>}
+                {errors.terms && (
+                  <p className="text-xs text-destructive">{errors.terms.message as string}</p>
+                )}
               </>
             ) : isBrandApp ? (
               <>
                 <div className="space-y-1.5">
                   <Label htmlFor="companyName">{t("auth.companyName")}</Label>
                   <Input id="companyName" {...register("companyName")} />
-                  {errors.companyName && <p className="text-xs text-destructive">{errors.companyName.message as string}</p>}
+                  {errors.companyName && (
+                    <p className="text-xs text-destructive">
+                      {errors.companyName.message as string}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email">{t("auth.businessEmail")}</Label>
                   <Input id="email" type="email" {...register("email")} />
-                  {errors.email && <p className="text-xs text-destructive">{errors.email.message as string}</p>}
+                  {errors.email && (
+                    <p className="text-xs text-destructive">{errors.email.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="password">{t("auth.password")}</Label>
                   <Input id="password" type="password" {...register("password")} />
-                  {errors.password && <p className="text-xs text-destructive">{errors.password.message as string}</p>}
+                  {errors.password && (
+                    <p className="text-xs text-destructive">{errors.password.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="confirmPassword">{t("auth.confirmPassword")}</Label>
                   <Input id="confirmPassword" type="password" {...register("confirmPassword")} />
-                  {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message as string}</p>}
+                  {errors.confirmPassword && (
+                    <p className="text-xs text-destructive">
+                      {errors.confirmPassword.message as string}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="phone">{t("auth.phone")}</Label>
                   <Input id="phone" type="tel" {...register("phone")} />
-                  {errors.phone && <p className="text-xs text-destructive">{errors.phone.message as string}</p>}
+                  {errors.phone && (
+                    <p className="text-xs text-destructive">{errors.phone.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="website">{t("auth.website")}</Label>
-                  <Input id="website" placeholder={t("auth.websitePlaceholder")} {...register("website")} />
-                  {errors.website && <p className="text-xs text-destructive">{errors.website.message as string}</p>}
+                  <Input
+                    id="website"
+                    placeholder={t("auth.websitePlaceholder")}
+                    {...register("website")}
+                  />
+                  {errors.website && (
+                    <p className="text-xs text-destructive">{errors.website.message as string}</p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="industry">{t("auth.industry")}</Label>
-                  <Input id="industry" placeholder={t("auth.industryPlaceholder")} {...register("industry")} />
-                  {errors.industry && <p className="text-xs text-destructive">{errors.industry.message as string}</p>}
+                  <Input
+                    id="industry"
+                    placeholder={t("auth.industryPlaceholder")}
+                    {...register("industry")}
+                  />
+                  {errors.industry && (
+                    <p className="text-xs text-destructive">{errors.industry.message as string}</p>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <Checkbox id="terms" checked={watch("terms")} onCheckedChange={(v) => setValue("terms", v === true)} />
-                  <Label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer">{t("auth.terms")}</Label>
+                  <Checkbox
+                    id="terms"
+                    checked={watch("terms")}
+                    onCheckedChange={(v) => setValue("terms", v === true)}
+                  />
+                  <Label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer">
+                    {t("auth.terms")}
+                  </Label>
                 </div>
-                {errors.terms && <p className="text-xs text-destructive">{errors.terms.message as string}</p>}
+                {errors.terms && (
+                  <p className="text-xs text-destructive">{errors.terms.message as string}</p>
+                )}
               </>
             ) : (
               <>
@@ -342,28 +442,55 @@ function AuthPage() {
                     <div className="space-y-1.5">
                       <Label htmlFor="name">{t("auth.displayName")}</Label>
                       <Input id="name" {...register("name")} />
-                      {errors.name && <p className="text-xs text-destructive">{errors.name.message as string}</p>}
+                      {errors.name && (
+                        <p className="text-xs text-destructive">{errors.name.message as string}</p>
+                      )}
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="email">{t("auth.email")}</Label>
                       <Input id="email" type="email" {...register("email")} />
-                      {errors.email && <p className="text-xs text-destructive">{errors.email.message as string}</p>}
+                      {errors.email && (
+                        <p className="text-xs text-destructive">{errors.email.message as string}</p>
+                      )}
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="password">{t("auth.password")}</Label>
                       <Input id="password" type="password" {...register("password")} />
-                      {errors.password && <p className="text-xs text-destructive">{errors.password.message as string}</p>}
+                      {errors.password && (
+                        <p className="text-xs text-destructive">
+                          {errors.password.message as string}
+                        </p>
+                      )}
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="confirmPassword">{t("auth.confirmPassword")}</Label>
-                      <Input id="confirmPassword" type="password" {...register("confirmPassword")} />
-                      {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message as string}</p>}
+                      <Input
+                        id="confirmPassword"
+                        type="password"
+                        {...register("confirmPassword")}
+                      />
+                      {errors.confirmPassword && (
+                        <p className="text-xs text-destructive">
+                          {errors.confirmPassword.message as string}
+                        </p>
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Checkbox id="terms" checked={watch("terms")} onCheckedChange={(v) => setValue("terms", v === true)} />
-                      <Label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer">{t("auth.terms")}</Label>
+                      <Checkbox
+                        id="terms"
+                        checked={watch("terms")}
+                        onCheckedChange={(v) => setValue("terms", v === true)}
+                      />
+                      <Label
+                        htmlFor="terms"
+                        className="text-xs text-muted-foreground cursor-pointer"
+                      >
+                        {t("auth.terms")}
+                      </Label>
                     </div>
-                    {errors.terms && <p className="text-xs text-destructive">{errors.terms.message as string}</p>}
+                    {errors.terms && (
+                      <p className="text-xs text-destructive">{errors.terms.message as string}</p>
+                    )}
                   </>
                 )}
                 {mode === "signin" && (
@@ -371,19 +498,37 @@ function AuthPage() {
                     <div className="space-y-1.5">
                       <Label htmlFor="email">{t("auth.email")}</Label>
                       <Input id="email" type="email" {...register("email")} />
-                      {errors.email && <p className="text-xs text-destructive">{errors.email.message as string}</p>}
+                      {errors.email && (
+                        <p className="text-xs text-destructive">{errors.email.message as string}</p>
+                      )}
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="password">{t("auth.password")}</Label>
                       <Input id="password" type="password" {...register("password")} />
-                      {errors.password && <p className="text-xs text-destructive">{errors.password.message as string}</p>}
+                      {errors.password && (
+                        <p className="text-xs text-destructive">
+                          {errors.password.message as string}
+                        </p>
+                      )}
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Checkbox id="remember" checked={watch("rememberMe")} onCheckedChange={(v) => setValue("rememberMe", v === true)} />
-                        <Label htmlFor="remember" className="text-xs text-muted-foreground cursor-pointer">{t("auth.rememberMe")}</Label>
+                        <Checkbox
+                          id="remember"
+                          checked={watch("rememberMe")}
+                          onCheckedChange={(v) => setValue("rememberMe", v === true)}
+                        />
+                        <Label
+                          htmlFor="remember"
+                          className="text-xs text-muted-foreground cursor-pointer"
+                        >
+                          {t("auth.rememberMe")}
+                        </Label>
                       </div>
-                      <Link to="/auth/reset-password" className="text-xs text-muted-foreground underline-offset-4 hover:underline hover:text-foreground">
+                      <Link
+                        to="/auth/reset-password"
+                        className="text-xs text-muted-foreground underline-offset-4 hover:underline hover:text-foreground"
+                      >
                         {t("auth.forgotPassword")}
                       </Link>
                     </div>
@@ -391,14 +536,20 @@ function AuthPage() {
                 )}
               </>
             )}
-            <Button type="submit" variant="accent" disabled={isSubmitting} className="w-full" size="lg">
+            <Button
+              type="submit"
+              variant="accent"
+              disabled={isSubmitting}
+              className="w-full"
+              size="lg"
+            >
               {isSubmitting
                 ? t("common.loading")
                 : isAppForm
-                ? t("auth.continue")
-                : mode === "signup"
-                ? t("auth.createAccount")
-                : t("auth.signIn")}
+                  ? t("auth.continue")
+                  : mode === "signup"
+                    ? t("auth.createAccount")
+                    : t("auth.signIn")}
             </Button>
           </form>
 

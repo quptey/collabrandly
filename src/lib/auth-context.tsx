@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
-type Role = 'shopper' | 'creator' | 'brand' | 'admin';
+type Role = "shopper" | "creator" | "brand" | "admin";
 
 interface AuthContextValue {
   session: Session | null;
@@ -42,20 +42,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const user = session?.user ?? null;
 
   useEffect(() => {
-    if (!user) { setProfile(null); return; }
-    supabase.from("profiles").select("*").eq("id", user.id).single()
+    if (!user) {
+      setProfile(null);
+      return;
+    }
+    supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single()
       .then(({ data }) => setProfile(data))
       .catch(() => setProfile(null));
   }, [user?.id]);
 
   const role = (profile?.role as Role) ?? null;
-  const isShopper = role === 'shopper';
-  const isCreator = role === 'creator';
-  const isBrand = role === 'brand';
-  const isAdmin = role === 'admin';
+  const isShopper = role === "shopper";
+  const isCreator = role === "creator";
+  const isBrand = role === "brand";
+  const isAdmin = role === "admin";
   const verificationStatus = profile?.verification_status ?? null;
-  const isPending = verificationStatus === 'pending';
-  const isApproved = verificationStatus === 'approved' || verificationStatus === 'active';
+  const isPending = verificationStatus === "pending";
+  const isApproved = verificationStatus === "approved" || verificationStatus === "active";
 
   return (
     <AuthContext.Provider

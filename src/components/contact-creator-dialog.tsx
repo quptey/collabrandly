@@ -1,21 +1,37 @@
 import { useT } from "@/i18n";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { BUDGET_RANGES } from "@/lib/constants";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { useNavigate } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { brandRequestSchema } from "@/lib/validation";
 
 export function ContactCreatorDialog({
-  open, onOpenChange, creatorId, creatorName,
+  open,
+  onOpenChange,
+  creatorId,
+  creatorName,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
@@ -25,9 +41,34 @@ export function ContactCreatorDialog({
   const { user } = useAuth();
   const { t } = useT();
   const navigate = useNavigate();
+  const qc = useQueryClient();
+
+  const { data: brandProfile } = useQuery({
+    queryKey: ["brand-profile", user?.id],
+    enabled: !!user && open,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("verification_status")
+        .eq("id", user!.id)
+        .single();
+      return data;
+    },
+  });
+
+  const isBrandVerified =
+    brandProfile?.verification_status === "approved" ||
+    brandProfile?.verification_status === "active";
 
   const form = useForm({ resolver: zodResolver(brandRequestSchema) });
-  const { register, handleSubmit, formState: { errors, isSubmitting }, setValue, watch, reset } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+    reset,
+  } = form;
 
   async function submit(data: {
     brand_name: string;
@@ -41,10 +82,14 @@ export function ContactCreatorDialog({
   }) {
     if (!user) {
       onOpenChange(false);
-      navigate({ to: "/auth", search: { mode: "signin" } });
+      navigate({ to: "/auth" });
       return;
     }
-    const { data: profile } = await supabase.from("profiles").select("verification_status").eq("id", user.id).single();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("verification_status")
+      .eq("id", user.id)
+      .single();
     if (profile && profile.verification_status === "pending") {
       toast.error(t("contact.pendingVerification"));
       return;
@@ -68,66 +113,116 @@ export function ContactCreatorDialog({
       }),
       message: data.message || "",
     });
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    const { error: msgErr } = await supabase.from("messages").insert({
+      sender_id: user.id,
+      recipient_id: creatorId,
+      body: t("contact.initMessage", { campaign: data.campaign_name, message: data.message || "" }),
+    });
+    if (msgErr) {
+      toast.error(msgErr.message);
+      return;
+    }
+
     // Notify creator
-    await supabase.from("notifications").insert({
+    const { error: notifErr } = await supabase.from("notifications").insert({
       user_id: creatorId,
       title: t("contact.notifTitle"),
       body: t("contact.notifBody", { brand: data.brand_name }),
       type: "collaboration_request",
-      link: "/creator",
+      link: "/creator?page=messages&chat=" + user.id,
     });
+    if (notifErr) console.error("notif insert error", notifErr);
     toast.success(t("contact.sent"));
     onOpenChange(false);
     reset();
+    qc.invalidateQueries({ queryKey: ["brand-conversations"] });
   }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-display text-2xl">{t("contact.title", { name: creatorName })}</DialogTitle>
+          <DialogTitle className="font-display text-2xl">
+            {t("contact.title", { name: creatorName })}
+          </DialogTitle>
           <DialogDescription>{t("contact.subtitle")}</DialogDescription>
         </DialogHeader>
+        {!isBrandVerified && (
+          <div className="rounded-2xl border border-warning/30 bg-warning/5 p-4 text-xs leading-relaxed text-warning">
+            {t("safety.unverifiedBrand")}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit(submit)} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="brand">{t("contact.brand")}</Label>
               <Input id="brand" {...register("brand_name")} />
-              {errors.brand_name && <p className="text-xs text-destructive">{errors.brand_name.message as string}</p>}
+              {errors.brand_name && (
+                <p className="text-xs text-destructive">{errors.brand_name.message as string}</p>
+              )}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="contact">{t("contact.contactPerson")}</Label>
               <Input id="contact" {...register("contact_person")} />
-              {errors.contact_person && <p className="text-xs text-destructive">{errors.contact_person.message as string}</p>}
+              {errors.contact_person && (
+                <p className="text-xs text-destructive">
+                  {errors.contact_person.message as string}
+                </p>
+              )}
             </div>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="email">{t("auth.businessEmail")}</Label>
             <Input id="email" type="email" {...register("email")} />
-            {errors.email && <p className="text-xs text-destructive">{errors.email.message as string}</p>}
+            {errors.email && (
+              <p className="text-xs text-destructive">{errors.email.message as string}</p>
+            )}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="campaign">{t("contact.goal")}</Label>
             <Input id="campaign" {...register("campaign_name")} />
-            {errors.campaign_name && <p className="text-xs text-destructive">{errors.campaign_name.message as string}</p>}
+            {errors.campaign_name && (
+              <p className="text-xs text-destructive">{errors.campaign_name.message as string}</p>
+            )}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="desc">{t("contact.goal")} {t("contact.message")}</Label>
-            <Textarea id="desc" rows={3} {...register("description")} placeholder={t("contact.goalPlaceholder")} />
+            <Label htmlFor="desc">
+              {t("contact.goal")} {t("contact.message")}
+            </Label>
+            <Textarea
+              id="desc"
+              rows={3}
+              {...register("description")}
+              placeholder={t("contact.goalPlaceholder")}
+            />
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label>{t("contact.budget")}</Label>
-              <Select value={watch("budget_range")} onValueChange={(v) => setValue("budget_range", v)}>
-                <SelectTrigger><SelectValue placeholder={t("contact.pickRange")} /></SelectTrigger>
+              <Select
+                value={watch("budget_range")}
+                onValueChange={(v) => setValue("budget_range", v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t("contact.pickRange")} />
+                </SelectTrigger>
                 <SelectContent>
                   {BUDGET_RANGES.map((b) => (
-                    <SelectItem key={b} value={b}>{b}</SelectItem>
+                    <SelectItem key={b} value={b}>
+                      {b}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {errors.budget_range && <p className="text-xs text-destructive">{errors.budget_range.message as string}</p>}
+              {errors.budget_range && (
+                <p className="text-xs text-destructive">{errors.budget_range.message as string}</p>
+              )}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="deadline">{t("auth.deadline")}</Label>
@@ -136,7 +231,12 @@ export function ContactCreatorDialog({
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="message">{t("contact.message")}</Label>
-            <Textarea id="message" rows={4} {...register("message")} placeholder={t("contact.goalPlaceholder")} />
+            <Textarea
+              id="message"
+              rows={4}
+              {...register("message")}
+              placeholder={t("contact.goalPlaceholder")}
+            />
           </div>
           <Button type="submit" disabled={isSubmitting} className="w-full">
             {isSubmitting ? t("contact.sending") : t("contact.send")}

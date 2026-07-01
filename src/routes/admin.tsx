@@ -1,8 +1,25 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useT, t } from "@/i18n";
-import { Users, FolderOpen, Package, Inbox, BarChart3, Trash2, ExternalLink, ShieldCheck, XCircle, CheckCircle, Clock, Ban, Check, X, Send } from "lucide-react";
+import {
+  Users,
+  FolderOpen,
+  Package,
+  Inbox,
+  BarChart3,
+  Trash2,
+  ExternalLink,
+  ShieldCheck,
+  XCircle,
+  CheckCircle,
+  Clock,
+  Ban,
+  Check,
+  X,
+  Send,
+  Flag,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { SiteHeader } from "@/components/site-header";
@@ -12,7 +29,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { PageSkeleton } from "@/components/loading-skeleton";
 import { toast } from "sonner";
@@ -29,14 +52,19 @@ function AdminDashboard() {
   const qc = useQueryClient();
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth", search: { mode: "signin" } });
+    if (!loading && !user) navigate({ to: "/auth" });
   }, [user, loading, navigate]);
 
   const { data: isAdmin, isLoading: roleLoading } = useQuery({
     queryKey: ["is-admin", user?.id],
     enabled: !!user,
     queryFn: async () => {
-      const { data, error } = await supabase.from("user_roles").select("role").eq("user_id", user!.id).eq("role", "admin").maybeSingle();
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user!.id)
+        .eq("role", "admin")
+        .maybeSingle();
       if (error) throw error;
       return !!data;
     },
@@ -46,7 +74,10 @@ function AdminDashboard() {
     queryKey: ["admin-profiles"],
     enabled: !!isAdmin,
     queryFn: async () => {
-      const { data, error } = await supabase.from("profiles").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (error) throw error;
       return data ?? [];
     },
@@ -69,7 +100,11 @@ function AdminDashboard() {
     queryKey: ["admin-collections"],
     enabled: !!isAdmin,
     queryFn: async () => {
-      const { data } = await supabase.from("collections").select("*, profiles!collections_creator_id_fkey(display_name)").order("created_at", { ascending: false }).limit(50);
+      const { data } = await supabase
+        .from("collections")
+        .select("*, profiles!collections_creator_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(50);
       return data ?? [];
     },
   });
@@ -78,7 +113,13 @@ function AdminDashboard() {
     queryKey: ["admin-products"],
     enabled: !!isAdmin,
     queryFn: async () => {
-      const { data } = await supabase.from("products").select("*, collections!products_collection_id_fkey(title), profiles!products_creator_id_fkey(display_name)").order("created_at", { ascending: false }).limit(50);
+      const { data } = await supabase
+        .from("products")
+        .select(
+          "*, collections!products_collection_id_fkey(title), profiles!products_creator_id_fkey(display_name)",
+        )
+        .order("created_at", { ascending: false })
+        .limit(50);
       return data ?? [];
     },
   });
@@ -87,7 +128,11 @@ function AdminDashboard() {
     queryKey: ["admin-requests"],
     enabled: !!isAdmin,
     queryFn: async () => {
-      const { data } = await supabase.from("brand_requests").select("*, profiles!brand_requests_creator_id_fkey(display_name)").order("created_at", { ascending: false }).limit(50);
+      const { data } = await supabase
+        .from("brand_requests")
+        .select("*, profiles!brand_requests_creator_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(50);
       return data ?? [];
     },
   });
@@ -129,18 +174,31 @@ function AdminDashboard() {
       const key = monday.toISOString().slice(0, 10);
       map.set(key, (map.get(key) ?? 0) + 1);
     }
-    return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b)).slice(-8).map(([week, count]) => ({ week: week.slice(5), count }));
+    return Array.from(map.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-8)
+      .map(([week, count]) => ({ week: week.slice(5), count }));
   }, [profiles]);
 
-  if (loading || roleLoading) return <div className="min-h-screen bg-background"><SiteHeader /><div className="mx-auto max-w-6xl px-6 py-12"><PageSkeleton /></div></div>;
+  if (loading || roleLoading)
+    return (
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12">
+          <PageSkeleton />
+        </div>
+      </div>
+    );
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-background">
         <SiteHeader />
-        <div className="grid place-items-center px-6 py-32 text-center">
+        <div className="grid place-items-center px-4 sm:px-6 py-32 text-center">
           <div>
             <h1 className="font-display text-3xl">{t("admin.notAdmin")}</h1>
-            <Button variant="outline" className="mt-6" onClick={() => navigate({ to: "/" })}>{t("nav.home")}</Button>
+            <Button variant="outline" className="mt-6" onClick={() => navigate({ to: "/" })}>
+              {t("nav.home")}
+            </Button>
           </div>
         </div>
       </div>
@@ -175,37 +233,71 @@ function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12">
         <h1 className="font-display text-4xl font-semibold tracking-tight">{t("admin.title")}</h1>
 
         <Tabs defaultValue="overview" className="mt-10 space-y-8">
-          <TabsList className="bg-secondary/40 flex-wrap">
-            <TabsTrigger value="overview"><BarChart3 className="mr-2 h-4 w-4" />{t("admin.overview")}</TabsTrigger>
-            <TabsTrigger value="users"><Users className="mr-2 h-4 w-4" />{t("admin.users")}</TabsTrigger>
-            <TabsTrigger value="collections"><FolderOpen className="mr-2 h-4 w-4" />{t("admin.collectionsTab")}</TabsTrigger>
-            <TabsTrigger value="products"><Package className="mr-2 h-4 w-4" />{t("admin.productsTab")}</TabsTrigger>
-            <TabsTrigger value="requests"><Inbox className="mr-2 h-4 w-4" />{t("admin.requestsTab")}</TabsTrigger>
-            <TabsTrigger value="verification"><ShieldCheck className="mr-2 h-4 w-4" />{t("admin.verification")}</TabsTrigger>
+          <TabsList className="bg-secondary/40 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            <TabsTrigger value="overview">
+              <BarChart3 className="mr-2 h-4 w-4" />
+              {t("admin.overview")}
+            </TabsTrigger>
+            <TabsTrigger value="users">
+              <Users className="mr-2 h-4 w-4" />
+              {t("admin.users")}
+            </TabsTrigger>
+            <TabsTrigger value="collections">
+              <FolderOpen className="mr-2 h-4 w-4" />
+              {t("admin.collectionsTab")}
+            </TabsTrigger>
+            <TabsTrigger value="products">
+              <Package className="mr-2 h-4 w-4" />
+              {t("admin.productsTab")}
+            </TabsTrigger>
+            <TabsTrigger value="requests">
+              <Inbox className="mr-2 h-4 w-4" />
+              {t("admin.requestsTab")}
+            </TabsTrigger>
+            <TabsTrigger value="verification">
+              <ShieldCheck className="mr-2 h-4 w-4" />
+              {t("admin.verification")}
+            </TabsTrigger>
+            <TabsTrigger value="reports">
+              <Flag className="mr-2 h-4 w-4" />
+              {t("admin.reportsTab")}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-8">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               <Metric label={t("admin.totalUsers")} value={profiles.length} icon={Users} />
               <Metric label={t("admin.creators")} value={creators.length} icon={Users} />
               <Metric label={t("admin.brands")} value={brands.length} icon={Users} />
-              <Metric label={t("admin.collections")} value={counts?.collections ?? 0} icon={FolderOpen} />
+              <Metric
+                label={t("admin.collections")}
+                value={counts?.collections ?? 0}
+                icon={FolderOpen}
+              />
               <Metric label={t("admin.products")} value={counts?.products ?? 0} icon={Package} />
               <Metric label={t("admin.requests")} value={counts?.requests ?? 0} icon={Inbox} />
             </div>
 
-            <div className="rounded-3xl border border-border bg-card p-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t("admin.signupsByWeek")}</p>
+            <div className="w-full overflow-hidden rounded-3xl border border-border bg-card p-6">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {t("admin.signupsByWeek")}
+              </p>
               <div className="mt-4 h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={signupsByWeek}>
                     <XAxis dataKey="week" stroke="var(--muted-foreground)" fontSize={12} />
                     <YAxis stroke="var(--muted-foreground)" fontSize={12} allowDecimals={false} />
-                    <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12 }} />
+                    <Tooltip
+                      contentStyle={{
+                        background: "var(--card)",
+                        border: "1px solid var(--border)",
+                        borderRadius: 12,
+                      }}
+                    />
                     <Bar dataKey="count" fill="var(--accent)" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -215,12 +307,11 @@ function AdminDashboard() {
 
           <TabsContent value="users">
             <div className="mb-4 flex flex-wrap gap-3">
-              <Input
-                placeholder={t("admin.searchPlaceholder")}
-                className="max-w-xs"
-              />
+              <Input placeholder={t("admin.searchPlaceholder")} className="max-w-xs" />
               <Select>
-                <SelectTrigger className="w-36"><SelectValue placeholder={t("admin.allRoles")} /></SelectTrigger>
+                <SelectTrigger className="w-full sm:w-36">
+                  <SelectValue placeholder={t("admin.allRoles")} />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("admin.allRoles")}</SelectItem>
                   <SelectItem value="creator">{t("admin.roleCreator")}</SelectItem>
@@ -229,7 +320,9 @@ function AdminDashboard() {
                 </SelectContent>
               </Select>
               <Select>
-                <SelectTrigger className="w-40"><SelectValue placeholder={t("admin.allStatus")} /></SelectTrigger>
+                <SelectTrigger className="w-full sm:w-40">
+                  <SelectValue placeholder={t("admin.allStatus")} />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("admin.allStatus")}</SelectItem>
                   <SelectItem value="approved">{t("admin.approved")}</SelectItem>
@@ -238,7 +331,7 @@ function AdminDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
               <table className="w-full text-sm">
                 <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <tr>
@@ -256,23 +349,46 @@ function AdminDashboard() {
                       <td className="px-4 py-3 capitalize text-muted-foreground">{p.role}</td>
                       <td className="px-4 py-3 text-muted-foreground">{p.city ?? "—"}</td>
                       <td className="px-4 py-3">
-                        <span className={`rounded-full px-2 py-1 text-xs ${p.suspended ? "bg-destructive/10 text-destructive" : p.approved ? "bg-success/10 text-success border border-success/30" : "bg-secondary text-muted-foreground"}`}>
-                          {p.suspended ? t("admin.suspended") : p.approved ? t("admin.approved") : t("admin.pending")}
+                        <span
+                          className={`rounded-full px-2 py-1 text-xs ${p.suspended ? "bg-destructive/10 text-destructive" : p.approved ? "bg-success/10 text-success border border-success/30" : "bg-secondary text-muted-foreground"}`}
+                        >
+                          {p.suspended
+                            ? t("admin.suspended")
+                            : p.approved
+                              ? t("admin.approved")
+                              : t("admin.pending")}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-1">
                           {p.role === "creator" ? (
                             <Link to="/creator/$id" params={{ id: p.id }}>
-                              <Button variant="ghost" size="icon" title={t("admin.viewProfile")}><ExternalLink className="h-4 w-4" /></Button>
+                              <Button variant="ghost" size="icon" title={t("admin.viewProfile")}>
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
                             </Link>
                           ) : (
-                            <Button variant="ghost" size="icon" disabled title={t("admin.viewProfile")}><ExternalLink className="h-4 w-4" /></Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              disabled
+                              title={t("admin.viewProfile")}
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
                           )}
-                          <Button variant={p.approved ? "outline" : "success"} size="sm" onClick={() => toggleApproved(p.id, p.approved)}>
+                          <Button
+                            variant={p.approved ? "outline" : "success"}
+                            size="sm"
+                            onClick={() => toggleApproved(p.id, p.approved)}
+                          >
                             {p.approved ? t("admin.unapprove") : t("admin.approve")}
                           </Button>
-                          <Button variant={p.suspended ? "outline" : "destructive"} size="sm" onClick={() => toggleSuspended(p.id, p.suspended)}>
+                          <Button
+                            variant={p.suspended ? "outline" : "destructive"}
+                            size="sm"
+                            onClick={() => toggleSuspended(p.id, p.suspended)}
+                          >
                             {p.suspended ? t("admin.unsuspend") : t("admin.suspend")}
                           </Button>
                           <Button variant="destructive" size="sm" onClick={() => deleteUser(p.id)}>
@@ -287,7 +403,7 @@ function AdminDashboard() {
             </div>
           </TabsContent>
           <TabsContent value="collections">
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
               <table className="w-full text-sm">
                 <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <tr>
@@ -299,27 +415,47 @@ function AdminDashboard() {
                 </thead>
                 <tbody>
                   {allCollections.length === 0 ? (
-                    <tr><td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">{t("admin.noCollections")}</td></tr>
-                  ) : allCollections.map((c: any) => (
-                    <tr key={c.id} className="border-t border-border">
-                      <td className="px-4 py-3 font-medium">{c.title}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{c.profiles?.display_name ?? "—"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{new Date(c.created_at).toLocaleDateString()}</td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          <Link to="/creator/$id" params={{ id: c.creator_id }}><Button variant="ghost" size="icon"><ExternalLink className="h-4 w-4" /></Button></Link>
-                          <Button variant="destructive" size="icon" onClick={() => deleteCollection(c.id)}><Trash2 className="h-4 w-4" /></Button>
-                        </div>
+                    <tr>
+                      <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+                        {t("admin.noCollections")}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    allCollections.map((c: any) => (
+                      <tr key={c.id} className="border-t border-border">
+                        <td className="px-4 py-3 font-medium">{c.title}</td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {c.profiles?.display_name ?? "—"}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {new Date(c.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <div className="flex items-center justify-end gap-1">
+                            <Link to="/creator/$id" params={{ id: c.creator_id }}>
+                              <Button variant="ghost" size="icon">
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              onClick={() => deleteCollection(c.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
           </TabsContent>
 
           <TabsContent value="products">
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
               <table className="w-full text-sm">
                 <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <tr>
@@ -331,24 +467,40 @@ function AdminDashboard() {
                 </thead>
                 <tbody>
                   {allProducts.length === 0 ? (
-                    <tr><td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">{t("admin.noProducts")}</td></tr>
-                  ) : allProducts.map((p: any) => (
-                    <tr key={p.id} className="border-t border-border">
-                      <td className="px-4 py-3 font-medium">{p.name}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{p.collections?.title ?? "—"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{p.profiles?.display_name ?? "—"}</td>
-                      <td className="px-4 py-3 text-right">
-                        <Button variant="destructive" size="icon" onClick={() => deleteProduct(p.id)}><Trash2 className="h-4 w-4" /></Button>
+                    <tr>
+                      <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+                        {t("admin.noProducts")}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    allProducts.map((p: any) => (
+                      <tr key={p.id} className="border-t border-border">
+                        <td className="px-4 py-3 font-medium">{p.name}</td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {p.collections?.title ?? "—"}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {p.profiles?.display_name ?? "—"}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            onClick={() => deleteProduct(p.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
           </TabsContent>
 
           <TabsContent value="requests">
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
               <table className="w-full text-sm">
                 <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <tr>
@@ -361,27 +513,57 @@ function AdminDashboard() {
                 </thead>
                 <tbody>
                   {allRequests.length === 0 ? (
-                    <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">{t("admin.noRequests")}</td></tr>
-                  ) : allRequests.map((r: any) => (
-                    <tr key={r.id} className="border-t border-border">
-                      <td className="px-4 py-3 font-medium">{r.brand_name}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{r.profiles?.display_name ?? "—"}</td>
-                      <td className="px-4 py-3"><span className={`rounded-full px-2 py-1 text-xs capitalize ${r.status === "accepted" ? "bg-success/10 text-success border border-success/30" : r.status === "rejected" ? "bg-destructive/10 text-destructive" : "bg-secondary text-muted-foreground"}`}>{r.status}</span></td>
-                      <td className="px-4 py-3 text-muted-foreground">{new Date(r.created_at).toLocaleDateString()}</td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          {r.creator_id ? (
-                            <Link to="/creator/$id" params={{ id: r.creator_id }}>
-                              <Button variant="ghost" size="icon" title={t("admin.viewCreatorProfile")}><ExternalLink className="h-4 w-4" /></Button>
-                            </Link>
-                          ) : (
-                            <Button variant="ghost" size="icon" disabled><ExternalLink className="h-4 w-4" /></Button>
-                          )}
-                          <Button variant="destructive" size="icon" onClick={() => deleteRequest(r.id)}><Trash2 className="h-4 w-4" /></Button>
-                        </div>
+                    <tr>
+                      <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                        {t("admin.noRequests")}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    allRequests.map((r: any) => (
+                      <tr key={r.id} className="border-t border-border">
+                        <td className="px-4 py-3 font-medium">{r.brand_name}</td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {r.profiles?.display_name ?? "—"}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`rounded-full px-2 py-1 text-xs capitalize ${r.status === "accepted" ? "bg-success/10 text-success border border-success/30" : r.status === "rejected" ? "bg-destructive/10 text-destructive" : "bg-secondary text-muted-foreground"}`}
+                          >
+                            {r.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {new Date(r.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <div className="flex items-center justify-end gap-1">
+                            {r.creator_id ? (
+                              <Link to="/creator/$id" params={{ id: r.creator_id }}>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  title={t("admin.viewCreatorProfile")}
+                                >
+                                  <ExternalLink className="h-4 w-4" />
+                                </Button>
+                              </Link>
+                            ) : (
+                              <Button variant="ghost" size="icon" disabled>
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
+                            )}
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              onClick={() => deleteRequest(r.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -389,6 +571,10 @@ function AdminDashboard() {
 
           <TabsContent value="verification">
             <VerificationPanel qc={qc} />
+          </TabsContent>
+
+          <TabsContent value="reports">
+            <ReportsPanel qc={qc} />
           </TabsContent>
         </Tabs>
       </div>
@@ -406,14 +592,13 @@ function VerificationPanel({ qc }: { qc: any }) {
   useEffect(() => {
     const channel = supabase
       .channel("admin-applications")
-      .on("postgres_changes",
-        { event: "INSERT", schema: "public", table: "applications" },
-        () => {
-          qc.invalidateQueries({ queryKey: ["admin-applications"] });
-        }
-      )
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "applications" }, () => {
+        qc.invalidateQueries({ queryKey: ["admin-applications"] });
+      })
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [qc]);
 
   const { data: applications = [], isLoading: appsLoading } = useQuery({
@@ -433,7 +618,9 @@ function VerificationPanel({ qc }: { qc: any }) {
     queryFn: async () => {
       const { data } = await supabase
         .from("profiles")
-        .select("id, display_name, email, phone, role, created_at, verification_status, rejection_reason, brand_name, contact_person, website, industry, social_link, avatar_url")
+        .select(
+          "id, display_name, email, phone, role, created_at, verification_status, rejection_reason, brand_name, contact_person, website, industry, social_link, avatar_url",
+        )
         .in("role", ["creator", "brand"])
         .eq("verification_status", "pending")
         .order("created_at", { ascending: false });
@@ -445,7 +632,8 @@ function VerificationPanel({ qc }: { qc: any }) {
 
   const openReview = useCallback(async (item: any) => {
     if (!item._isOrphan) {
-      const { data: prof } = await supabase.from("profiles")
+      const { data: prof } = await supabase
+        .from("profiles")
         .select("contact_person, industry, brand_name, avatar_url, cover_url, display_name, bio")
         .eq("id", item._userId)
         .single();
@@ -464,12 +652,14 @@ function VerificationPanel({ qc }: { qc: any }) {
 
   const isLoading = appsLoading || profilesLoading;
 
-  const pendingApps = applications.filter((a) => a.status === "pending").map((a) => ({
-    ...a,
-    _isOrphan: false,
-    _userId: a.user_id,
-    _detail: a.role === "brand" ? a.company_name : a.social_link,
-  }));
+  const pendingApps = applications
+    .filter((a) => a.status === "pending")
+    .map((a) => ({
+      ...a,
+      _isOrphan: false,
+      _userId: a.user_id,
+      _detail: a.role === "brand" ? a.company_name : a.social_link,
+    }));
   const appProfileIds = new Set(pendingApps.map((a) => a._userId));
   const orphanPending = pendingProfiles
     .filter((p) => !appProfileIds.has(p.id))
@@ -506,7 +696,12 @@ function VerificationPanel({ qc }: { qc: any }) {
     if (app) {
       const { error: appErr } = await supabase
         .from("applications")
-        .update({ status, reviewed_at: now, rejection_reason: reason, approved_by: status === "approved" ? user?.id : null })
+        .update({
+          status,
+          reviewed_at: now,
+          rejection_reason: reason,
+          approved_by: status === "approved" ? user?.id : null,
+        })
         .eq("id", id);
       if (appErr) return toast.error(appErr.message);
       const profileUpdate: any = { verification_status: status };
@@ -521,26 +716,37 @@ function VerificationPanel({ qc }: { qc: any }) {
       if (profErr) return toast.error(profErr.message);
       // Also create an applications record for orphan profiles
       await supabase.from("applications").insert({
-        user_id: id, role: orphan.role, full_name: orphan.full_name, email: orphan.email,
-        phone: orphan.phone, company_name: orphan.company_name, website: orphan.website,
-        social_link: orphan.social_link, status, reviewed_at: now, rejection_reason: reason,
+        user_id: id,
+        role: orphan.role,
+        full_name: orphan.full_name,
+        email: orphan.email,
+        phone: orphan.phone,
+        company_name: orphan.company_name,
+        website: orphan.website,
+        social_link: orphan.social_link,
+        status,
+        reviewed_at: now,
+        rejection_reason: reason,
       });
     }
 
     // Send notification to the user
     await supabase.from("notifications").insert({
       user_id: app ? app.user_id : orphan?._userId,
-      title: status === "approved"
-        ? t("admin.notifApprovedTitle")
-        : t("admin.notifRejectedTitle"),
-      body: status === "approved"
-        ? t("admin.notifApprovedBody")
-        : (reason ? t("admin.notifRejectedBodyReason", { reason }) : t("admin.notifRejectedBody")),
+      title: status === "approved" ? t("admin.notifApprovedTitle") : t("admin.notifRejectedTitle"),
+      body:
+        status === "approved"
+          ? t("admin.notifApprovedBody")
+          : reason
+            ? t("admin.notifRejectedBodyReason", { reason })
+            : t("admin.notifRejectedBody"),
       type: "application_update",
       link: "/dashboard",
     });
 
-    toast.success(status === "approved" ? t("admin.applicationApproved") : t("admin.applicationRejected"));
+    toast.success(
+      status === "approved" ? t("admin.applicationApproved") : t("admin.applicationRejected"),
+    );
     setRejectId(null);
     setRejectReason("");
     setReviewing(null);
@@ -557,61 +763,107 @@ function VerificationPanel({ qc }: { qc: any }) {
         <div className="flex items-center gap-2 mb-4">
           <Clock className="h-5 w-5 text-amber-500" />
           <h2 className="font-display text-2xl font-semibold">{t("admin.pendingApplications")}</h2>
-          <span className="ml-auto rounded-full bg-warning/10 px-3 py-1 text-xs font-medium text-warning border border-warning/30">{pending.length}</span>
+          <span className="ml-auto rounded-full bg-warning/10 px-3 py-1 text-xs font-medium text-warning border border-warning/30">
+            {pending.length}
+          </span>
         </div>
         {pending.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">{t("admin.noPending")}</div>
+          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">
+            {t("admin.noPending")}
+          </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card">
             <table className="w-full text-sm">
               <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
-                  <tr>
-                    <th className="px-4 py-3">{t("admin.name")}</th>
-                    <th className="px-4 py-3">{t("admin.email")}</th>
-                    <th className="px-4 py-3">{t("admin.phone")}</th>
-                    <th className="px-4 py-3">{t("admin.role")}</th>
-                    <th className="px-4 py-3">{t("admin.details")}</th>
-                    <th className="px-4 py-3">{t("admin.date")}</th>
-                    <th className="px-4 py-3 text-right">{t("admin.action")}</th>
-                  </tr>
+                <tr>
+                  <th className="px-4 py-3">{t("admin.name")}</th>
+                  <th className="px-4 py-3">{t("admin.email")}</th>
+                  <th className="px-4 py-3">{t("admin.phone")}</th>
+                  <th className="px-4 py-3">{t("admin.role")}</th>
+                  <th className="px-4 py-3">{t("admin.details")}</th>
+                  <th className="px-4 py-3">{t("admin.date")}</th>
+                  <th className="px-4 py-3 text-right">{t("admin.action")}</th>
+                </tr>
               </thead>
               <tbody>
-                   {pending.map((a) => {
-                    const userId = a._userId;
-                    return (
-                    <tr key={a.id} className="border-t border-border cursor-pointer hover:bg-secondary/20" onClick={() => openReview(a)}>
+                {pending.map((a) => {
+                  const userId = a._userId;
+                  return (
+                    <tr
+                      key={a.id}
+                      className="border-t border-border cursor-pointer hover:bg-secondary/20"
+                      onClick={() => openReview(a)}
+                    >
                       <td className="px-4 py-3 font-medium">{a.full_name}</td>
                       <td className="px-4 py-3 text-muted-foreground">{a.email}</td>
                       <td className="px-4 py-3 text-muted-foreground">{a.phone || "—"}</td>
                       <td className="px-4 py-3 capitalize text-muted-foreground">{a.role}</td>
-                      <td className="max-w-[180px] truncate px-4 py-3 text-muted-foreground" title={a._detail}>{a._detail || "—"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{new Date(a.created_at).toLocaleDateString()}</td>
+                      <td
+                        className="max-w-[180px] truncate px-4 py-3 text-muted-foreground"
+                        title={a._detail}
+                      >
+                        {a._detail || "—"}
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">
+                        {new Date(a.created_at).toLocaleDateString()}
+                      </td>
                       <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-1" onClick={(e) => e.stopPropagation()}>
-                        <Button size="sm" variant="outline" onClick={() => openReview(a)}>
-                          {t("admin.review")}
-                        </Button>
-                        <Button size="sm" variant="success" onClick={() => setApplicationStatus(a.id, "approved")}>
-                          <Check className="mr-1 h-4 w-4" />{t("admin.approve")}
-                        </Button>
-                        <Button size="sm" variant="destructive" onClick={() => { setRejectId(a.id); setRejectReason(""); }}>
-                          <XCircle className="mr-1 h-4 w-4" />{t("admin.reject")}
-                        </Button>
-                      </div>
-                      {rejectId === a.id && (
-                        <div className="mt-3 space-y-2 rounded-xl border border-border bg-secondary/20 p-3" onClick={(e) => e.stopPropagation()}>
-                          <Label>{t("admin.rejectionReason")}</Label>
-                          <Input value={rejectReason} onChange={(e) => setRejectReason(e.target.value)} placeholder={t("admin.rejectionPlaceholder")} />
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline" onClick={() => setRejectId(null)}>{t("admin.cancel")}</Button>
-                            <Button size="sm" variant="destructive" onClick={() => setApplicationStatus(a.id, "rejected", rejectReason)}>{t("admin.confirmReject")}</Button>
-                          </div>
+                        <div
+                          className="flex items-center justify-end gap-1"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Button size="sm" variant="outline" onClick={() => openReview(a)}>
+                            {t("admin.review")}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="success"
+                            onClick={() => setApplicationStatus(a.id, "approved")}
+                          >
+                            <Check className="mr-1 h-4 w-4" />
+                            {t("admin.approve")}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => {
+                              setRejectId(a.id);
+                              setRejectReason("");
+                            }}
+                          >
+                            <XCircle className="mr-1 h-4 w-4" />
+                            {t("admin.reject")}
+                          </Button>
                         </div>
-                      )}
-                    </td>
-                  </tr>
+                        {rejectId === a.id && (
+                          <div
+                            className="mt-3 space-y-2 rounded-xl border border-border bg-secondary/20 p-3"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Label>{t("admin.rejectionReason")}</Label>
+                            <Input
+                              value={rejectReason}
+                              onChange={(e) => setRejectReason(e.target.value)}
+                              placeholder={t("admin.rejectionPlaceholder")}
+                            />
+                            <div className="flex gap-2">
+                              <Button size="sm" variant="outline" onClick={() => setRejectId(null)}>
+                                {t("admin.cancel")}
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => setApplicationStatus(a.id, "rejected", rejectReason)}
+                              >
+                                {t("admin.confirmReject")}
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
                   );
-                  })}
+                })}
               </tbody>
             </table>
           </div>
@@ -623,12 +875,16 @@ function VerificationPanel({ qc }: { qc: any }) {
         <div className="flex items-center gap-2 mb-4">
           <CheckCircle className="h-5 w-5 text-green-500" />
           <h2 className="font-display text-2xl font-semibold">{t("admin.approvedApplications")}</h2>
-          <span className="ml-auto rounded-full bg-success/10 px-3 py-1 text-xs font-medium text-success border border-success/30">{approved.length}</span>
+          <span className="ml-auto rounded-full bg-success/10 px-3 py-1 text-xs font-medium text-success border border-success/30">
+            {approved.length}
+          </span>
         </div>
         {approved.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">{t("admin.noApproved")}</div>
+          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">
+            {t("admin.noApproved")}
+          </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card">
             <table className="w-full text-sm">
               <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                 <tr>
@@ -645,8 +901,12 @@ function VerificationPanel({ qc }: { qc: any }) {
                     <td className="px-4 py-3 font-medium">{a.full_name}</td>
                     <td className="px-4 py-3 text-muted-foreground">{a.email}</td>
                     <td className="px-4 py-3 capitalize text-muted-foreground">{a.role}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{new Date(a.created_at).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{a.reviewed_at ? new Date(a.reviewed_at).toLocaleDateString() : "—"}</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {new Date(a.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {a.reviewed_at ? new Date(a.reviewed_at).toLocaleDateString() : "—"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -660,12 +920,16 @@ function VerificationPanel({ qc }: { qc: any }) {
         <div className="flex items-center gap-2 mb-4">
           <Ban className="h-5 w-5 text-destructive" />
           <h2 className="font-display text-2xl font-semibold">{t("admin.rejectedApplications")}</h2>
-          <span className="ml-auto rounded-full bg-destructive/10 px-3 py-1 text-xs font-medium text-destructive">{rejected.length}</span>
+          <span className="ml-auto rounded-full bg-destructive/10 px-3 py-1 text-xs font-medium text-destructive">
+            {rejected.length}
+          </span>
         </div>
         {rejected.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">{t("admin.noRejected")}</div>
+          <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">
+            {t("admin.noRejected")}
+          </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card">
             <table className="w-full text-sm">
               <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                 <tr>
@@ -682,8 +946,12 @@ function VerificationPanel({ qc }: { qc: any }) {
                     <td className="px-4 py-3 font-medium">{a.full_name}</td>
                     <td className="px-4 py-3 text-muted-foreground">{a.email}</td>
                     <td className="px-4 py-3 capitalize text-muted-foreground">{a.role}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{new Date(a.created_at).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{a.reviewed_at ? new Date(a.reviewed_at).toLocaleDateString() : "—"}</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {new Date(a.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {a.reviewed_at ? new Date(a.reviewed_at).toLocaleDateString() : "—"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -693,8 +961,13 @@ function VerificationPanel({ qc }: { qc: any }) {
       </section>
 
       {/* Review Dialog */}
-      <Dialog open={!!reviewing} onOpenChange={(o) => { if (!o) setReviewing(null); }}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <Dialog
+        open={!!reviewing}
+        onOpenChange={(o) => {
+          if (!o) setReviewing(null);
+        }}
+      >
+        <DialogContent className="mx-4 sm:mx-auto max-w-3xl sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">{t("admin.reviewTitle")}</DialogTitle>
           </DialogHeader>
@@ -703,16 +976,27 @@ function VerificationPanel({ qc }: { qc: any }) {
               {/* Status Badge + Close */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className={`rounded-full px-3 py-1 text-xs font-medium ${
-                    reviewing.status === "approved" ? "bg-success/10 text-success border border-success/30" :
-                    reviewing.status === "rejected" ? "bg-destructive/10 text-destructive" :
-                    "bg-warning/10 text-warning border border-warning/30"
-                  }`}>
-                    {reviewing.status === "approved" ? t("admin.approved") : reviewing.status === "rejected" ? t("admin.rejected") : t("admin.pending")}
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                      reviewing.status === "approved"
+                        ? "bg-success/10 text-success border border-success/30"
+                        : reviewing.status === "rejected"
+                          ? "bg-destructive/10 text-destructive"
+                          : "bg-warning/10 text-warning border border-warning/30"
+                    }`}
+                  >
+                    {reviewing.status === "approved"
+                      ? t("admin.approved")
+                      : reviewing.status === "rejected"
+                        ? t("admin.rejected")
+                        : t("admin.pending")}
                   </span>
                   <span className="text-xs capitalize text-muted-foreground">{reviewing.role}</span>
                 </div>
-                <button onClick={() => setReviewing(null)} className="rounded-full p-1.5 hover:bg-secondary/40">
+                <button
+                  onClick={() => setReviewing(null)}
+                  className="rounded-full p-1.5 hover:bg-secondary/40"
+                >
                   <X className="h-4 w-4" />
                 </button>
               </div>
@@ -720,13 +1004,21 @@ function VerificationPanel({ qc }: { qc: any }) {
               {/* Cover Image + Avatar */}
               {reviewing.cover_url && (
                 <div className="h-40 w-full overflow-hidden rounded-2xl bg-warm">
-                  <img src={reviewing.cover_url} alt={t("admin.coverAlt")} className="h-full w-full object-cover" />
+                  <img
+                    src={reviewing.cover_url}
+                    alt={t("admin.coverAlt")}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               )}
               <div className="flex items-center gap-5">
                 <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-border bg-warm">
                   {reviewing.avatar_url ? (
-                    <img src={reviewing.avatar_url} alt={t("admin.logoAlt")} className="h-full w-full object-cover" />
+                    <img
+                      src={reviewing.avatar_url}
+                      alt={t("admin.logoAlt")}
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
                     <div className="grid h-full w-full place-items-center text-2xl font-semibold text-muted-foreground/30">
                       {(reviewing.full_name?.[0] ?? "B").toUpperCase()}
@@ -734,15 +1026,21 @@ function VerificationPanel({ qc }: { qc: any }) {
                   )}
                 </div>
                 <div>
-                  <h3 className="font-display text-xl font-semibold">{reviewing.company_name || reviewing.full_name}</h3>
-                  <p className="text-sm text-muted-foreground capitalize">{reviewing.role} {t("admin.applicationLabel")}</p>
+                  <h3 className="font-display text-xl font-semibold">
+                    {reviewing.company_name || reviewing.full_name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground capitalize">
+                    {reviewing.role} {t("admin.applicationLabel")}
+                  </p>
                 </div>
               </div>
 
               {/* Company Description / Bio */}
               {reviewing.bio && (
                 <div className="rounded-2xl border border-border bg-secondary/10 p-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t("admin.companyDescription")}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {t("admin.companyDescription")}
+                  </p>
                   <p className="mt-1.5 text-sm">{reviewing.bio}</p>
                 </div>
               )}
@@ -750,12 +1048,15 @@ function VerificationPanel({ qc }: { qc: any }) {
               {/* Applicant Information */}
               <div className="rounded-2xl border border-border bg-secondary/10 p-5 space-y-4">
                 <h3 className="font-display text-lg font-semibold">{t("admin.applicantInfo")}</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Field label={t("admin.fullName")} value={reviewing.full_name} />
                   <Field label={t("admin.email")} value={reviewing.email} />
                   <Field label={t("admin.phone")} value={reviewing.phone || "—"} />
                   <Field label={t("admin.role")} value={reviewing.role} />
-                  <Field label={t("admin.registrationDate")} value={new Date(reviewing.created_at).toLocaleDateString()} />
+                  <Field
+                    label={t("admin.registrationDate")}
+                    value={new Date(reviewing.created_at).toLocaleDateString()}
+                  />
                   <Field label={t("admin.status")} value={reviewing.status} />
                 </div>
               </div>
@@ -764,9 +1065,15 @@ function VerificationPanel({ qc }: { qc: any }) {
               {reviewing.role === "brand" && (
                 <div className="rounded-2xl border border-border bg-secondary/10 p-5 space-y-4">
                   <h3 className="font-display text-lg font-semibold">{t("admin.brandDetails")}</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Field label={t("admin.companyName")} value={reviewing.company_name || reviewing.full_name} />
-                    <Field label={t("admin.contactPerson")} value={reviewing.contact_person || "—"} />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Field
+                      label={t("admin.companyName")}
+                      value={reviewing.company_name || reviewing.full_name}
+                    />
+                    <Field
+                      label={t("admin.contactPerson")}
+                      value={reviewing.contact_person || "—"}
+                    />
                     <Field label={t("admin.website")} value={reviewing.website || "—"} />
                     <Field label={t("admin.industry")} value={reviewing.industry || "—"} />
                   </div>
@@ -776,7 +1083,9 @@ function VerificationPanel({ qc }: { qc: any }) {
               {/* Creator Details */}
               {reviewing.role === "creator" && (
                 <div className="rounded-2xl border border-border bg-secondary/10 p-5 space-y-4">
-                  <h3 className="font-display text-lg font-semibold">{t("admin.creatorDetails")}</h3>
+                  <h3 className="font-display text-lg font-semibold">
+                    {t("admin.creatorDetails")}
+                  </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <Field label={t("admin.socialLink")} value={reviewing.social_link || "—"} />
                   </div>
@@ -786,15 +1095,23 @@ function VerificationPanel({ qc }: { qc: any }) {
               {/* Rejection Reason */}
               {reviewing.rejection_reason && (
                 <div className="rounded-2xl border border-destructive/20 bg-destructive/5 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-destructive">{t("admin.rejectionReasonLabel")}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-destructive">
+                    {t("admin.rejectionReasonLabel")}
+                  </p>
                   <p className="mt-1 text-sm">{reviewing.rejection_reason}</p>
-                  <p className="mt-2 text-xs text-muted-foreground">{t("admin.reviewedOn", { date: reviewing.reviewed_at ? new Date(reviewing.reviewed_at).toLocaleDateString() : "—" })}</p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {t("admin.reviewedOn", {
+                      date: reviewing.reviewed_at
+                        ? new Date(reviewing.reviewed_at).toLocaleDateString()
+                        : "—",
+                    })}
+                  </p>
                 </div>
               )}
 
               {/* Approve/Reject Actions */}
               {reviewing.status === "pending" && (
-                <div className="flex items-center gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                   <Button
                     size="lg"
                     variant="success"
@@ -807,7 +1124,7 @@ function VerificationPanel({ qc }: { qc: any }) {
                     size="lg"
                     variant="destructive"
                     className="flex-1 rounded-2xl"
-                    onClick={() => { setRejectId(reviewing.id); setRejectReason(""); }}
+                    onClick={() => setApplicationStatus(reviewing.id, "rejected")}
                   >
                     <XCircle className="mr-2 h-4 w-4" /> {t("admin.reject")}
                   </Button>
@@ -815,16 +1132,7 @@ function VerificationPanel({ qc }: { qc: any }) {
                     size="lg"
                     variant="outline"
                     className="flex-1 rounded-2xl"
-                    onClick={async () => {
-                      await supabase.from("notifications").insert({
-                        user_id: reviewing._userId,
-                        title: t("admin.requestInfoTitle"),
-                        body: t("admin.requestInfoBody"),
-                        type: "application_update",
-                        link: "/profile",
-                      });
-                      toast.success(t("admin.requestSent"));
-                    }}
+                    onClick={() => setApplicationStatus(reviewing.id, "request_info")}
                   >
                     <Send className="mr-2 h-4 w-4" /> {t("admin.requestInfo")}
                   </Button>
@@ -841,8 +1149,21 @@ function VerificationPanel({ qc }: { qc: any }) {
                     rows={3}
                   />
                   <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => { setRejectId(null); setRejectReason(""); }}>{t("admin.cancel")}</Button>
-                    <Button variant="destructive" onClick={() => setApplicationStatus(reviewing.id, "rejected", rejectReason)}>{t("admin.confirmRejectTitle")}</Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setRejectId(null);
+                        setRejectReason("");
+                      }}
+                    >
+                      {t("admin.cancel")}
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      onClick={() => setApplicationStatus(reviewing.id, "rejected", rejectReason)}
+                    >
+                      {t("admin.confirmRejectTitle")}
+                    </Button>
                   </div>
                 </div>
               )}
@@ -857,15 +1178,145 @@ function VerificationPanel({ qc }: { qc: any }) {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </p>
       <p className="mt-0.5 text-sm font-medium">{value}</p>
     </div>
   );
 }
 
-function Metric({ label, value, icon: Icon }: { label: string; value: number; icon: typeof Users }) {
+function ReportsPanel({ qc }: { qc: any }) {
+  const { t } = useT();
+
+  const { data: reports = [], isLoading } = useQuery({
+    queryKey: ["admin-reports"],
+    queryFn: async () => {
+      const { data: raw } = await supabase
+        .from("reports")
+        .select("*")
+        .order("created_at", { ascending: false });
+      const rows = raw ?? [];
+      const ids = new Set<string>();
+      rows.forEach((r: any) => {
+        ids.add(r.reporter_id);
+        ids.add(r.reported_id);
+      });
+      if (ids.size > 0) {
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("id, display_name")
+          .in("id", Array.from(ids));
+        const map = new Map((profiles ?? []).map((p: any) => [p.id, p.display_name]));
+        rows.forEach((r: any) => {
+          r._reporterName = map.get(r.reporter_id) ?? "—";
+          r._reportedName = map.get(r.reported_id) ?? "—";
+        });
+      }
+      return rows;
+    },
+  });
+
+  async function markResolved(id: string) {
+    const { error } = await supabase.from("reports").update({ status: "resolved" }).eq("id", id);
+    if (error) return toast.error(error.message);
+    qc.invalidateQueries({ queryKey: ["admin-reports"] });
+  }
+
+  if (isLoading) return <PageSkeleton />;
+
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm">
+        <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
+          <tr>
+            <th className="px-4 py-3">{t("admin.reportReporter")}</th>
+            <th className="px-4 py-3">{t("admin.reportReported")}</th>
+            <th className="px-4 py-3">{t("admin.reportReason")}</th>
+            <th className="px-4 py-3">{t("admin.reportDate")}</th>
+            <th className="px-4 py-3">{t("admin.reportStatus")}</th>
+            <th className="px-4 py-3 text-right">{t("admin.action")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reports.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                {t("admin.reportsEmpty")}
+              </td>
+            </tr>
+          ) : (
+            reports.map((r: any) => (
+              <tr key={r.id} className="border-t border-border">
+                <td className="px-4 py-3 font-medium">{r._reporterName}</td>
+                <td className="px-4 py-3 text-muted-foreground">{r._reportedName}</td>
+                <td className="px-4 py-3 text-muted-foreground">{t(`report.${r.reason}`)}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(r.created_at).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-3">
+                  <span
+                    className={`rounded-full px-2 py-1 text-xs ${
+                      r.status === "resolved"
+                        ? "bg-success/10 text-success border border-success/30"
+                        : r.status === "reviewed"
+                          ? "bg-warning/10 text-warning border border-warning/30"
+                          : "bg-secondary text-muted-foreground"
+                    }`}
+                  >
+                    {r.status === "resolved"
+                      ? t("admin.reportStatusResolved")
+                      : r.status === "reviewed"
+                        ? t("admin.reportStatusReviewed")
+                        : t("admin.reportStatusPending")}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <div className="flex items-center justify-end gap-1">
+                    {r.user_type === "creator" ? (
+                      <Link to="/creator/$id" params={{ id: r.reported_id }}>
+                        <Button variant="ghost" size="icon" title={t("admin.reportViewProfile")}>
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        disabled
+                        title={t("admin.reportViewProfile")}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    )}
+                    {r.status !== "resolved" && (
+                      <Button variant="success" size="sm" onClick={() => markResolved(r.id)}>
+                        <Check className="mr-1 h-4 w-4" />
+                        {t("admin.reportMarkResolved")}
+                      </Button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function Metric({
+  label,
+  value,
+  icon: Icon,
+}: {
+  label: string;
+  value: number;
+  icon: typeof Users;
+}) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
       <div className="flex items-center justify-between text-muted-foreground">
         <span className="text-xs uppercase tracking-wider">{label}</span>
         <Icon className="h-4 w-4" />

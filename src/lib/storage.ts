@@ -2,10 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const IMAGE_BUCKET = "images";
 
-export async function uploadImage(
-  file: File,
-  path: string,
-): Promise<string | null> {
+export async function uploadImage(file: File, path: string): Promise<string | null> {
   try {
     if (!file) throw new Error("No file provided");
 
@@ -18,7 +15,9 @@ export async function uploadImage(
 
     if (uploadError) {
       if (uploadError.message.includes("bucket") || uploadError.message.includes("not found")) {
-        throw new Error(`Bucket "${IMAGE_BUCKET}" не найден. Запусти миграцию 20260627000000_brand_dashboard_features.sql в Supabase SQL Editor.`);
+        throw new Error(
+          `Bucket "${IMAGE_BUCKET}" не найден. Запусти миграцию 20260627000000_brand_dashboard_features.sql в Supabase SQL Editor.`,
+        );
       }
       if (uploadError.message.includes("duplicate")) {
         throw new Error("Файл уже существует.");
@@ -32,9 +31,7 @@ export async function uploadImage(
       throw uploadError;
     }
 
-    const { data: urlData } = supabase.storage
-      .from(IMAGE_BUCKET)
-      .getPublicUrl(fileName);
+    const { data: urlData } = supabase.storage.from(IMAGE_BUCKET).getPublicUrl(fileName);
 
     if (!urlData?.publicUrl) {
       throw new Error("Не удалось получить публичный URL.");

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth/update-password")({
-  head: () => ({ meta: [{ title: "Update password — creator·kz" }] }),
+  head: () => ({ meta: [{ title: "Update password — Collabrandly" }] }),
   component: UpdatePassword,
 });
 
@@ -38,7 +38,7 @@ function UpdatePassword() {
     setLoading(false);
     if (error) return toast.error(error.message);
     toast.success("Password updated successfully.");
-    navigate({ to: "/auth", search: { mode: "signin" } });
+    navigate({ to: "/auth" });
   }
 
   if (!ready) {
@@ -59,11 +59,25 @@ function UpdatePassword() {
         <form onSubmit={handleUpdate} className="space-y-4">
           <div className="space-y-1.5">
             <Label htmlFor="password">New password</Label>
-            <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              id="password"
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="confirm">Confirm password</Label>
-            <Input id="confirm" type="password" required minLength={6} value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+            <Input
+              id="confirm"
+              type="password"
+              required
+              minLength={6}
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+            />
           </div>
           <Button type="submit" disabled={loading} className="w-full" size="lg">
             {loading ? "Updating…" : "Update password"}

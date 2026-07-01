@@ -21,8 +21,12 @@ export function validateSocialUrl(url: string, platform?: string): string | null
     const pf = SOCIAL_PLATFORMS.find((p) => p.value === platform);
     if (pf && !pf.pattern.test(url)) return `Must be a valid ${pf.label} URL`;
   }
-  try { new URL(url); return null; }
-  catch { return "Invalid URL"; }
+  try {
+    new URL(url);
+    return null;
+  } catch {
+    return "Invalid URL";
+  }
 }
 
 export const socialLinksFields = [
@@ -41,36 +45,51 @@ export const signInSchema = z.object({
   rememberMe: z.boolean().optional(),
 });
 
-export const signUpSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "At least 6 characters"),
-  confirmPassword: z.string().min(6, "At least 6 characters"),
-  name: z.string().min(1, "Required"),
-  terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
-}).refine((d) => d.password === d.confirmPassword, { message: "Passwords don't match", path: ["confirmPassword"] });
+export const signUpSchema = z
+  .object({
+    email: z.string().email("Invalid email"),
+    password: z.string().min(6, "At least 6 characters"),
+    confirmPassword: z.string().min(6, "At least 6 characters"),
+    name: z.string().min(1, "Required"),
+    terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-export const creatorAppSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "At least 6 characters"),
-  confirmPassword: z.string().min(6, "At least 6 characters"),
-  phone: z.string().min(1, "Phone is required"),
-  socialPlatform: z.string().min(1, "Select a platform"),
-  profileLink: z.string().url("Invalid URL").or(z.literal("")),
-  terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
-}).refine((d) => d.password === d.confirmPassword, { message: "Passwords don't match", path: ["confirmPassword"] });
+export const creatorAppSchema = z
+  .object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.string().email("Invalid email"),
+    password: z.string().min(6, "At least 6 characters"),
+    confirmPassword: z.string().min(6, "At least 6 characters"),
+    phone: z.string().min(1, "Phone is required"),
+    socialPlatform: z.string().min(1, "Select a platform"),
+    profileLink: z.string().url("Invalid URL").or(z.literal("")),
+    terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-export const brandAppSchema = z.object({
-  companyName: z.string().min(1, "Company name is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "At least 6 characters"),
-  confirmPassword: z.string().min(6, "At least 6 characters"),
-  phone: z.string().min(1, "Phone is required"),
-  website: z.string().url("Invalid URL").or(z.literal("")),
-  industry: z.string().min(1, "Industry is required"),
-  terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
-}).refine((d) => d.password === d.confirmPassword, { message: "Passwords don't match", path: ["confirmPassword"] });
+export const brandAppSchema = z
+  .object({
+    companyName: z.string().min(1, "Company name is required"),
+    email: z.string().email("Invalid email"),
+    password: z.string().min(6, "At least 6 characters"),
+    confirmPassword: z.string().min(6, "At least 6 characters"),
+    phone: z.string().min(1, "Phone is required"),
+    website: z.string().url("Invalid URL").or(z.literal("")),
+    industry: z.string().min(1, "Industry is required"),
+    terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 export const onboardingCreatorSchema = z.object({
   display_name: z.string().min(1, "Required"),
@@ -80,6 +99,7 @@ export const onboardingCreatorSchema = z.object({
   category: z.string().optional(),
   city: z.string().optional(),
   follower_range: z.string().optional(),
+  follower_count: z.number().optional(),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
   industry: z.string().optional(),
 });
@@ -116,13 +136,25 @@ export const brandRequestSchema = z.object({
   budget_range: z.string().min(1, "Required"),
   description: z.string().optional(),
   deadline: z.string().optional(),
-  message: z.string().optional(),
+  message: z.string().min(1, "Required"),
 });
 
 export const campaignSchema = z.object({
   title: z.string().min(1, "Required"),
   brief: z.string().optional(),
   budget_range: z.string().optional(),
+  platform: z.string().optional(),
+  category: z.string().optional(),
+  deliverables: z.string().optional(),
+  target_followers: z.string().optional(),
+  deadline: z.string().optional(),
+  compensation_type: z.string().optional(),
+  engagement_rate: z.string().optional(),
+});
+
+export const campaignApplicationSchema = z.object({
+  message: z.string().min(1, "Required"),
+  portfolio: z.string().optional(),
 });
 
 export const profileUpdateSchema = z.object({
@@ -133,6 +165,7 @@ export const profileUpdateSchema = z.object({
   category: z.string().optional(),
   city: z.string().optional(),
   follower_range: z.string().optional(),
+  follower_count: z.number().optional(),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
   industry: z.string().optional(),
 });

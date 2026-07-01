@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -23,9 +23,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">{t("root.pageNotFound")}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t("root.pageNotFoundDesc")}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{t("root.pageNotFoundDesc")}</p>
         <div className="mt-6">
           <Link
             to="/"
@@ -52,9 +50,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           {t("root.pageError")}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t("root.pageErrorDesc")}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{t("root.pageErrorDesc")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -82,16 +78,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Creator Marketplace KZ — Discover Kazakhstan's creators" },
-      { name: "description", content: "An editorial marketplace where Kazakhstan creators publish curated collections and brands discover collaborators." },
-      { name: "author", content: "Creator Marketplace KZ" },
-      { property: "og:title", content: "Creator Marketplace KZ" },
-      { property: "og:description", content: "Discover creators. Browse curated collections. Start collaborations." },
+      { title: "Collabrandly — Discover Kazakhstan's creators" },
+      {
+        name: "description",
+        content:
+          "An editorial marketplace where Kazakhstan creators publish curated collections and brands discover collaborators.",
+      },
+      { name: "author", content: "Collabrandly" },
+      { property: "og:title", content: "Collabrandly" },
+      {
+        property: "og:description",
+        content: "Discover creators. Browse curated collections. Start collaborations.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
     links: [
-      { rel: "icon", type: "image/png", href: "/logo.png" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -112,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-      <html lang={i18n.language || "ru"}>
+    <html lang={i18n.language || "ru"}>
       <head>
         <HeadContent />
       </head>
@@ -131,8 +134,8 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <SubscriptionProvider>
-            <LanguageHydrator />
-            <Outlet />
+          <LanguageHydrator />
+          <Outlet />
         </SubscriptionProvider>
         <Toaster position="top-center" />
       </AuthProvider>

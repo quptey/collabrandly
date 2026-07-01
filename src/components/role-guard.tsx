@@ -2,7 +2,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-type Role = 'shopper' | 'creator' | 'brand' | 'admin';
+type Role = "shopper" | "creator" | "brand" | "admin";
 
 export function RoleGuard({
   allowedRoles,
@@ -18,10 +18,13 @@ export function RoleGuard({
 
   useEffect(() => {
     if (loading) return;
-    if (!user) { navigate({ to: "/auth", search: { mode: "signin" } }); return; }
+    if (!user) {
+      navigate({ to: "/auth" });
+      return;
+    }
     if (role && !allowedRoles.includes(role)) {
-      if (role === 'brand') navigate({ to: "/brand" });
-      else if (role === 'admin') navigate({ to: "/admin" });
+      if (role === "brand") navigate({ to: "/brand" });
+      else if (role === "admin") navigate({ to: "/admin" });
       else navigate({ to: "/dashboard" });
     }
   }, [role, loading, user, allowedRoles, navigate]);

@@ -33,7 +33,7 @@ function EditCollection() {
   const [upgradeOpen, setUpgradeOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/auth", search: { mode: "signin" } });
+    if (!loading && !user) navigate({ to: "/auth" });
   }, [user, loading, navigate]);
 
   const { data: collection } = useQuery({
@@ -67,10 +67,23 @@ function EditCollection() {
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
 
   const addForm = useForm({ resolver: zodResolver(productSchema) });
-  const { register: addReg, handleSubmit: addHandle, formState: { errors: addErr, isSubmitting: addSub }, setValue: addSet, watch: addWatch, reset: addReset } = addForm;
+  const {
+    register: addReg,
+    handleSubmit: addHandle,
+    formState: { errors: addErr, isSubmitting: addSub },
+    setValue: addSet,
+    watch: addWatch,
+    reset: addReset,
+  } = addForm;
 
   const editForm = useForm({ resolver: zodResolver(productSchema) });
-  const { register: editReg, handleSubmit: editHandle, formState: { errors: editErr, isSubmitting: editSub }, setValue: editSet, watch: editWatch } = editForm;
+  const {
+    register: editReg,
+    handleSubmit: editHandle,
+    formState: { errors: editErr, isSubmitting: editSub },
+    setValue: editSet,
+    watch: editWatch,
+  } = editForm;
 
   useEffect(() => {
     if (collection) {
@@ -91,7 +104,14 @@ function EditCollection() {
     qc.invalidateQueries({ queryKey: ["my-collections"] });
   }
 
-  async function addProduct(data: { name: string; image_url?: string; external_link?: string; description?: string; price?: number; category?: string }) {
+  async function addProduct(data: {
+    name: string;
+    image_url?: string;
+    external_link?: string;
+    description?: string;
+    price?: number;
+    category?: string;
+  }) {
     if (isFree) {
       const limit = await checkLimit("products");
       if (!limit.allowed) {
@@ -118,18 +138,26 @@ function EditCollection() {
     qc.invalidateQueries({ queryKey: ["collection-products", id] });
   }
 
-  function startEditProduct(p: typeof products[0]) {
+  function startEditProduct(p: (typeof products)[0]) {
     setEditingProduct(p.id);
     editSet("name", p.name);
     editSet("image_url", p.image_url ?? "");
     editSet("external_link", p.external_link ?? "");
   }
 
-  async function saveEditProduct(data: { name: string; image_url?: string; external_link?: string }) {
+  async function saveEditProduct(data: {
+    name: string;
+    image_url?: string;
+    external_link?: string;
+  }) {
     if (!editingProduct) return;
     const { error } = await supabase
       .from("products")
-      .update({ name: data.name, image_url: data.image_url || null, external_link: data.external_link || null })
+      .update({
+        name: data.name,
+        image_url: data.image_url || null,
+        external_link: data.external_link || null,
+      })
       .eq("id", editingProduct);
     if (error) return toast.error(error.message);
     setEditingProduct(null);
@@ -140,7 +168,9 @@ function EditCollection() {
     return (
       <div className="min-h-screen bg-background">
         <SiteHeader />
-        <div className="mx-auto max-w-5xl px-6 py-20"><PageSkeleton /></div>
+        <div className="mx-auto max-w-5xl px-6 py-20">
+          <PageSkeleton />
+        </div>
       </div>
     );
   }
@@ -149,7 +179,10 @@ function EditCollection() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <div className="mx-auto max-w-5xl px-6 py-12">
-        <Link to="/dashboard" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+        <Link
+          to="/dashboard"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        >
           <ArrowLeft className="h-4 w-4" /> Back to dashboard
         </Link>
 
@@ -158,7 +191,9 @@ function EditCollection() {
           <div className="space-y-6">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Editing</p>
-              <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">{collection.title}</h1>
+              <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">
+                {collection.title}
+              </h1>
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-6">
@@ -167,12 +202,20 @@ function EditCollection() {
                 <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
                   <div className="space-y-0.5">
                     <Input placeholder="Product name" {...addReg("name")} />
-                    {addErr.name && <p className="text-xs text-destructive">{addErr.name.message as string}</p>}
+                    {addErr.name && (
+                      <p className="text-xs text-destructive">{addErr.name.message as string}</p>
+                    )}
                   </div>
                   <Input placeholder="Link (Kaspi, etc.)" {...addReg("external_link")} />
-                  <Button type="submit" disabled={addSub}><Plus className="h-4 w-4" /></Button>
+                  <Button type="submit" disabled={addSub}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
                 </div>
-                <ImageUpload value={addWatch("image_url")} onChange={(v) => addSet("image_url", v)} folder="products" />
+                <ImageUpload
+                  value={addWatch("image_url")}
+                  onChange={(v) => addSet("image_url", v)}
+                  folder="products"
+                />
               </form>
             </div>
 
@@ -183,27 +226,49 @@ function EditCollection() {
             ) : (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                 {products.map((p) => (
-                  <div key={p.id} className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+                  <div
+                    key={p.id}
+                    className="group relative overflow-hidden rounded-2xl border border-border bg-card"
+                  >
                     <div className="aspect-square overflow-hidden bg-warm">
                       {p.image_url ? (
-                        <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" />
+                        <img
+                          src={p.image_url}
+                          alt={p.name}
+                          className="h-full w-full object-cover"
+                        />
                       ) : (
-                        <div className="grid h-full place-items-center text-xs text-muted-foreground">No image</div>
+                        <div className="grid h-full place-items-center text-xs text-muted-foreground">
+                          No image
+                        </div>
                       )}
                     </div>
                     <div className="space-y-2 p-3">
                       <p className="text-sm font-medium leading-snug">{p.name}</p>
                       <div className="flex items-center justify-between">
                         {p.external_link ? (
-                          <a href={p.external_link} target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-accent">
+                          <a
+                            href={p.external_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-muted-foreground hover:text-accent"
+                          >
                             <ExternalLink className="h-3.5 w-3.5" />
                           </a>
-                        ) : <span />}
+                        ) : (
+                          <span />
+                        )}
                         <div className="flex gap-1">
-                          <button onClick={() => startEditProduct(p)} className="text-muted-foreground hover:text-foreground">
+                          <button
+                            onClick={() => startEditProduct(p)}
+                            className="text-muted-foreground hover:text-foreground"
+                          >
                             <Pencil className="h-3.5 w-3.5" />
                           </button>
-                          <button onClick={() => deleteProduct(p.id)} className="text-muted-foreground hover:text-destructive">
+                          <button
+                            onClick={() => deleteProduct(p.id)}
+                            className="text-muted-foreground hover:text-destructive"
+                          >
                             <Trash2 className="h-3.5 w-3.5" />
                           </button>
                         </div>
@@ -216,22 +281,32 @@ function EditCollection() {
 
             <Dialog open={!!editingProduct} onOpenChange={(o) => !o && setEditingProduct(null)}>
               <DialogContent>
-                <DialogHeader><DialogTitle className="font-display text-xl">Edit product</DialogTitle></DialogHeader>
+                <DialogHeader>
+                  <DialogTitle className="font-display text-xl">Edit product</DialogTitle>
+                </DialogHeader>
                 <form onSubmit={editHandle(saveEditProduct)} className="space-y-4">
                   <div className="space-y-1.5">
                     <Label>Name</Label>
                     <Input {...editReg("name")} />
-                    {editErr.name && <p className="text-xs text-destructive">{editErr.name.message as string}</p>}
+                    {editErr.name && (
+                      <p className="text-xs text-destructive">{editErr.name.message as string}</p>
+                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label>Image</Label>
-                    <ImageUpload value={editWatch("image_url")} onChange={(v) => editSet("image_url", v)} folder="products" />
+                    <ImageUpload
+                      value={editWatch("image_url")}
+                      onChange={(v) => editSet("image_url", v)}
+                      folder="products"
+                    />
                   </div>
                   <div className="space-y-1.5">
                     <Label>Link</Label>
                     <Input {...editReg("external_link")} placeholder="https://kaspi.kz/…" />
                   </div>
-                  <Button type="submit" className="w-full" disabled={editSub}>Save changes</Button>
+                  <Button type="submit" className="w-full" disabled={editSub}>
+                    Save changes
+                  </Button>
                 </form>
               </DialogContent>
             </Dialog>
@@ -251,9 +326,17 @@ function EditCollection() {
             <div className="space-y-1.5">
               <Label>Cover image</Label>
               <ImageUpload value={cover} onChange={setCover} folder="covers" />
-              {cover && <img src={cover} alt="" className="mt-2 aspect-[16/10] w-full rounded-xl object-cover" />}
+              {cover && (
+                <img
+                  src={cover}
+                  alt=""
+                  className="mt-2 aspect-[16/10] w-full rounded-xl object-cover"
+                />
+              )}
             </div>
-            <Button onClick={saveCollection} className="w-full">Save details</Button>
+            <Button onClick={saveCollection} className="w-full">
+              Save details
+            </Button>
           </aside>
         </div>
       </div>

@@ -44,7 +44,9 @@ interface SubscriptionContextValue {
   isPro: boolean;
   isBrandPlan: boolean;
   isFree: boolean;
-  checkLimit: (type: "collections" | "products") => Promise<{ allowed: boolean; current: number; max: number }>;
+  checkLimit: (
+    type: "collections" | "products",
+  ) => Promise<{ allowed: boolean; current: number; max: number }>;
   refresh: () => Promise<void>;
 }
 
@@ -86,12 +88,15 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const isBrandPlan = plan?.key === "brand";
   const isFree = plan?.key === "free_creator";
 
-  async function checkLimit(type: "collections" | "products"): Promise<{ allowed: boolean; current: number; max: number }> {
+  async function checkLimit(
+    type: "collections" | "products",
+  ): Promise<{ allowed: boolean; current: number; max: number }> {
     if (!user) return { allowed: false, current: 0, max: 0 };
 
-    const max = type === "collections"
-      ? (plan?.limitations?.max_collections ?? -1)
-      : (plan?.limitations?.max_products ?? -1);
+    const max =
+      type === "collections"
+        ? (plan?.limitations?.max_collections ?? -1)
+        : (plan?.limitations?.max_products ?? -1);
 
     if (max === -1) return { allowed: true, current: 0, max: -1 };
 

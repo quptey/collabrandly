@@ -13,7 +13,13 @@ interface ImageUploadProps {
   className?: string;
 }
 
-export function ImageUpload({ value, onChange, folder, accept = "image/*", className = "" }: ImageUploadProps) {
+export function ImageUpload({
+  value,
+  onChange,
+  folder,
+  accept = "image/*,video/*",
+  className = "",
+}: ImageUploadProps) {
   const { t } = useT();
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -44,7 +50,11 @@ export function ImageUpload({ value, onChange, folder, accept = "image/*", class
     <div className={`space-y-2 ${className}`}>
       {value && (
         <div className="relative inline-block">
-          <img src={value} alt="" className="h-24 w-24 rounded-xl object-cover" />
+          {accept.includes("video") ? (
+            <video src={value} className="h-24 w-24 rounded-xl object-cover" />
+          ) : (
+            <img src={value} alt="" className="h-24 w-24 rounded-xl object-cover" />
+          )}
           <button
             type="button"
             onClick={() => onChange("")}
@@ -54,7 +64,7 @@ export function ImageUpload({ value, onChange, folder, accept = "image/*", class
           </button>
         </div>
       )}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-3">
         <input
           ref={inputRef}
           type="file"
@@ -64,21 +74,15 @@ export function ImageUpload({ value, onChange, folder, accept = "image/*", class
         />
         <Button
           type="button"
-          variant="outline"
-          size="sm"
+          variant="default"
+          size="lg"
           disabled={uploading}
           onClick={() => inputRef.current?.click()}
+          className="w-full min-h-[48px] text-base font-medium touch-manipulation"
         >
-          <Upload className="mr-2 h-4 w-4" />
-          {uploading ? t("imageUpload.uploading") : t("imageUpload.uploadButton")}
+          <Upload className="mr-2 h-5 w-5" />
+          {uploading ? t("imageUpload.uploading") : t("imageUpload.addPhoto")}
         </Button>
-        <input
-          type="text"
-          placeholder={t("imageUpload.pasteUrl")}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="flex-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm"
-        />
       </div>
     </div>
   );
