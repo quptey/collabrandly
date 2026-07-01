@@ -13,6 +13,7 @@ export default defineConfig({
     server: { entry: "server" },
     nitro: { preset: "vercel" },
   },
+  nitro: { preset: "vercel" },
   vite: {
     server: {
       port: 8087,
