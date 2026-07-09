@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "../lib/auth-context";
 import { SubscriptionProvider } from "../lib/subscription-context";
 import { Toaster } from "@/components/ui/sonner";
+import { trackEvent } from "@/lib/analytics";
 import "../i18n";
 import i18n, { LanguageHydrator, t } from "../i18n";
 
@@ -129,6 +130,16 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SessionTracker() {
+  const tracked = useRef(false);
+  useEffect(() => {
+    if (tracked.current) return;
+    tracked.current = true;
+    trackEvent("visited_site");
+  }, []);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -137,6 +148,7 @@ function RootComponent() {
       <AuthProvider>
         <SubscriptionProvider>
           <LanguageHydrator />
+          <SessionTracker />
           <Outlet />
         </SubscriptionProvider>
         <Toaster position="top-center" />

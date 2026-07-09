@@ -5,8 +5,10 @@ import { Search, Heart, ArrowUpDown } from "lucide-react";
 import { t, useT } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { trackEvent } from "@/lib/analytics";
 import { SiteHeader } from "@/components/site-header";
 import { CreatorCard } from "@/components/creator-card";
+import { AudienceMatchForm } from "@/components/audience-match-form";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -57,6 +59,28 @@ function Marketplace() {
   const [city, setCity] = useState<City | "all">("all");
   const [followers, setFollowers] = useState<FollowerRange | "all">("all");
   const [sort, setSort] = useState<SortKey>("newest");
+  const [persona, setPersona] = useState<{ gender: string; age: string; city: string } | null>(null);
+
+  function trackSearch(val: string) {
+    setQ(val);
+    if (val.length >= 2) trackEvent("search_used", { query: val });
+  }
+  function trackCategory(val: Category | "all") {
+    setCategory(val);
+    if (val !== "all") trackEvent("filter_used", { filter: "category", value: val });
+  }
+  function trackCity(val: City | "all") {
+    setCity(val);
+    if (val !== "all") trackEvent("filter_used", { filter: "city", value: val });
+  }
+  function trackFollowers(val: FollowerRange | "all") {
+    setFollowers(val);
+    if (val !== "all") trackEvent("filter_used", { filter: "followers", value: val });
+  }
+  function trackSort(val: SortKey) {
+    setSort(val);
+    trackEvent("sort_used", { value: val });
+  }
 
   const { data: creators = [], isLoading } = useQuery({
     queryKey: ["creators", "marketplace"],
@@ -64,7 +88,7 @@ function Marketplace() {
       const { data, error } = await supabase
         .from("profiles")
         .select(
-          "id, display_name, bio, avatar_url, category, custom_category, city, follower_range, role, verification_status, onboarded, website, username",
+          "id, display_name, bio, avatar_url, category, custom_category, city, follower_range, role, verification_status, onboarded, website, username, completed_deals, complaints_count, audience_quality, audience_gender, audience_age, audience_cities",
         )
         .eq("role", "creator")
         .eq("onboarded", true)
@@ -121,22 +145,32 @@ function Marketplace() {
       return true;
     });
 
-    switch (sort) {
-      case "alpha":
-        result.sort((a, b) => a.display_name.localeCompare(b.display_name));
-        break;
-      case "followers":
-        result.sort((a, b) => {
+    result.forEach((c: any) => {
+      let priority = 0;
+      if (persona) {
+        if (persona.gender && c.audience_gender === persona.gender) priority += 1;
+        if (persona.age && c.audience_age === persona.age) priority += 1;
+        if (persona.city && c.audience_cities?.includes?.(persona.city)) priority += 1;
+      }
+      c._priority = priority;
+    });
+
+    result.sort((a: any, b: any) => {
+      if (b._priority !== a._priority) return b._priority - a._priority;
+      switch (sort) {
+        case "alpha":
+          return a.display_name.localeCompare(b.display_name);
+        case "followers": {
           const order = ["200K+", "50K-200K", "10K-50K", "1K-10K"];
           return order.indexOf(a.follower_range ?? "") - order.indexOf(b.follower_range ?? "");
-        });
-        break;
-      case "newest":
-      default:
-        break;
-    }
+        }
+        case "newest":
+        default:
+          return 0;
+      }
+    });
     return result;
-  }, [creators, category, city, followers, q, sort]);
+  }, [creators, category, city, followers, q, sort, persona]);
 
   const hasFilters =
     category !== "all" ||
@@ -165,17 +199,19 @@ function Marketplace() {
           </p>
         </div>
 
+        <AudienceMatchForm onPersonaChange={setPersona} />
+
         <div className="mb-6 sm:mb-10 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2 lg:grid-cols-[1fr_180px_160px_160px_160px_auto] lg:gap-3">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder={t("marketplace.searchPlaceholder")}
               value={q}
-              onChange={(e) => setQ(e.target.value)}
+              onChange={(e) => trackSearch(e.target.value)}
               className="pl-9"
             />
           </div>
-          <Select value={category} onValueChange={(v) => setCategory(v as Category | "all")}>
+          <Select value={category} onValueChange={(v) => trackCategory(v as Category | "all")}>
             <SelectTrigger>
               <SelectValue placeholder={t("marketplace.category")} />
             </SelectTrigger>
@@ -188,7 +224,7 @@ function Marketplace() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={city} onValueChange={(v) => setCity(v as City | "all")}>
+          <Select value={city} onValueChange={(v) => trackCity(v as City | "all")}>
             <SelectTrigger>
               <SelectValue placeholder={t("marketplace.city")} />
             </SelectTrigger>
@@ -201,7 +237,7 @@ function Marketplace() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={followers} onValueChange={(v) => setFollowers(v as FollowerRange | "all")}>
+          <Select value={followers} onValueChange={(v) => trackFollowers(v as FollowerRange | "all")}>
             <SelectTrigger>
               <SelectValue placeholder={t("marketplace.followers")} />
             </SelectTrigger>
@@ -214,7 +250,7 @@ function Marketplace() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+          <Select value={sort} onValueChange={(v) => trackSort(v as SortKey)}>
             <SelectTrigger>
               <SelectValue placeholder={t("marketplace.sortPlaceholder")}>
                 <div className="flex items-center gap-2">
@@ -263,7 +299,7 @@ function Marketplace() {
             {filtered.map((c) => {
               const isSaved = savedIds.includes(c.id);
               return (
-                <div key={c.id} className="group relative">
+                <div key={c.id} className="group relative" onClick={() => trackEvent("creator_card_viewed", { creatorId: c.id })}>
                   <CreatorCard
                     id={c.id}
                     name={c.display_name}
@@ -273,6 +309,9 @@ function Marketplace() {
                     customCategory={c.custom_category}
                     city={c.city}
                     followerRange={c.follower_range}
+                    completedDeals={c.completed_deals}
+                    complaintsCount={c.complaints_count}
+                    audienceQuality={c.audience_quality}
                   />
                   <button
                     onClick={(e) => {

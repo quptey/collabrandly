@@ -19,6 +19,12 @@ import {
   X,
   Send,
   Flag,
+  BadgeCheck,
+  TrendingUp,
+  FileText,
+  AlertTriangle,
+  Database,
+  PieChart,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -38,6 +44,10 @@ import {
 } from "@/components/ui/select";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { PageSkeleton } from "@/components/loading-skeleton";
+import { AdminAnalyticsPanel } from "@/components/admin-analytics";
+import { AdminDisputesPanel } from "@/components/admin-disputes";
+import { AdminSeedDataPanel } from "@/components/admin-seed-data";
+import { AdminComplaintModerationPanel } from "@/components/admin-complaint-moderation";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin")({
@@ -265,6 +275,38 @@ function AdminDashboard() {
             <TabsTrigger value="reports">
               <Flag className="mr-2 h-4 w-4" />
               {t("admin.reportsTab")}
+            </TabsTrigger>
+            <TabsTrigger value="complaintModeration">
+              <ShieldCheck className="mr-2 h-4 w-4" />
+              {t("admin.complaintModeration")}
+            </TabsTrigger>
+            <TabsTrigger value="reputation">
+              <BadgeCheck className="mr-2 h-4 w-4" />
+              {t("admin.adminReputation")}
+            </TabsTrigger>
+            <TabsTrigger value="audience">
+              <Users className="mr-2 h-4 w-4" />
+              {t("admin.adminAudienceQuality")}
+            </TabsTrigger>
+            <TabsTrigger value="deals">
+              <FileText className="mr-2 h-4 w-4" />
+              {t("admin.adminDeals")}
+            </TabsTrigger>
+            <TabsTrigger value="paidReports">
+              <TrendingUp className="mr-2 h-4 w-4" />
+              {t("admin.adminPaidReports")}
+            </TabsTrigger>
+            <TabsTrigger value="analytics">
+              <PieChart className="mr-2 h-4 w-4" />
+              {t("admin.analytics")}
+            </TabsTrigger>
+            <TabsTrigger value="disputes">
+              <AlertTriangle className="mr-2 h-4 w-4" />
+              {t("admin.disputes")}
+            </TabsTrigger>
+            <TabsTrigger value="seedData">
+              <Database className="mr-2 h-4 w-4" />
+              {t("admin.seedData")}
             </TabsTrigger>
           </TabsList>
 
@@ -575,6 +617,34 @@ function AdminDashboard() {
 
           <TabsContent value="reports">
             <ReportsPanel qc={qc} />
+          </TabsContent>
+          <TabsContent value="complaintModeration">
+            <AdminComplaintModerationPanel qc={qc} />
+          </TabsContent>
+
+          <TabsContent value="reputation">
+            <ReputationPanel qc={qc} />
+          </TabsContent>
+
+          <TabsContent value="audience">
+            <AudiencePanel qc={qc} />
+          </TabsContent>
+
+          <TabsContent value="deals">
+            <DealsPanel qc={qc} />
+          </TabsContent>
+
+          <TabsContent value="paidReports">
+            <PaidReportsPanel qc={qc} />
+          </TabsContent>
+          <TabsContent value="analytics">
+            <AdminAnalyticsPanel qc={qc} />
+          </TabsContent>
+          <TabsContent value="disputes">
+            <AdminDisputesPanel qc={qc} />
+          </TabsContent>
+          <TabsContent value="seedData">
+            <AdminSeedDataPanel qc={qc} />
           </TabsContent>
         </Tabs>
       </div>
@@ -1296,6 +1366,336 @@ function ReportsPanel({ qc }: { qc: any }) {
                       </Button>
                     )}
                   </div>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ReputationPanel({ qc }: { qc: any }) {
+  const { t } = useT();
+  const [editing, setEditing] = useState<Record<string, { completed_deals: number; complaints_count: number }>>({});
+
+  const { data: creators = [], isLoading } = useQuery({
+    queryKey: ["admin-reputation"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("id, display_name, completed_deals, complaints_count")
+        .eq("role", "creator")
+        .order("display_name", { ascending: true });
+      return data ?? [];
+    },
+  });
+
+  async function saveReputation(id: string) {
+    const vals = editing[id];
+    if (!vals) return;
+    const { error } = await supabase.from("profiles").update(vals).eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success(t("admin.saved"));
+    setEditing((prev) => { const n = { ...prev }; delete n[id]; return n; });
+    qc.invalidateQueries({ queryKey: ["admin-reputation"] });
+  }
+
+  if (isLoading) return <PageSkeleton />;
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm">
+        <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
+          <tr>
+            <th className="px-4 py-3">{t("admin.name")}</th>
+            <th className="px-4 py-3">{t("admin.completedDeals")}</th>
+            <th className="px-4 py-3">{t("admin.complaints")}</th>
+            <th className="px-4 py-3 text-right">{t("admin.action")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {creators.length === 0 ? (
+            <tr>
+              <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+                {t("admin.noCreators")}
+              </td>
+            </tr>
+          ) : (
+            creators.map((c: any) => {
+              const edit = editing[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 };
+              return (
+                <tr key={c.id} className="border-t border-border">
+                  <td className="px-4 py-3 font-medium">{c.display_name}</td>
+                  <td className="px-4 py-3">
+                    <Input
+                      type="number"
+                      className="w-20 h-8 text-sm"
+                      value={edit.completed_deals}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 }, completed_deals: Number(e.target.value) } }))}
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <Input
+                      type="number"
+                      className="w-20 h-8 text-sm"
+                      value={edit.complaints_count}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 }, complaints_count: Number(e.target.value) } }))}
+                    />
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Button size="sm" onClick={() => saveReputation(c.id)}>
+                      {t("admin.save")}
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function AudiencePanel({ qc }: { qc: any }) {
+  const { t } = useT();
+  const [editing, setEditing] = useState<Record<string, { audience_quality: string; audience_gender: string; audience_age: string; audience_cities: string }>>({});
+
+  const { data: creators = [], isLoading } = useQuery({
+    queryKey: ["admin-audience"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("id, display_name, audience_quality, audience_gender, audience_age, audience_cities")
+        .eq("role", "creator")
+        .order("display_name", { ascending: true });
+      return data ?? [];
+    },
+  });
+
+  async function saveAudience(id: string) {
+    const vals = editing[id];
+    if (!vals) return;
+    const { error } = await supabase.from("profiles").update(vals).eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success(t("admin.saved"));
+    setEditing((prev) => { const n = { ...prev }; delete n[id]; return n; });
+    qc.invalidateQueries({ queryKey: ["admin-audience"] });
+  }
+
+  if (isLoading) return <PageSkeleton />;
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm">
+        <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
+          <tr>
+            <th className="px-4 py-3">{t("admin.name")}</th>
+            <th className="px-4 py-3">{t("admin.quality")}</th>
+            <th className="px-4 py-3">{t("admin.gender")}</th>
+            <th className="px-4 py-3">{t("admin.age")}</th>
+            <th className="px-4 py-3">{t("admin.cities")}</th>
+            <th className="px-4 py-3 text-right">{t("admin.action")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {creators.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                {t("admin.noCreators")}
+              </td>
+            </tr>
+          ) : (
+            creators.map((c: any) => {
+              const edit = editing[c.id] ?? { audience_quality: c.audience_quality ?? "", audience_gender: c.audience_gender ?? "", audience_age: c.audience_age ?? "", audience_cities: c.audience_cities ?? "" };
+              return (
+                <tr key={c.id} className="border-t border-border">
+                  <td className="px-4 py-3 font-medium">{c.display_name}</td>
+                  <td className="px-4 py-3">
+                    <Select
+                      value={edit.audience_quality}
+                      onValueChange={(v) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { audience_quality: c.audience_quality ?? "", audience_gender: c.audience_gender ?? "", audience_age: c.audience_age ?? "", audience_cities: c.audience_cities ?? "" }, audience_quality: v } }))}
+                    >
+                      <SelectTrigger className="w-28 h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">—</SelectItem>
+                        <SelectItem value="green">Green</SelectItem>
+                        <SelectItem value="yellow">Yellow</SelectItem>
+                        <SelectItem value="red">Red</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Select
+                      value={edit.audience_gender}
+                      onValueChange={(v) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { audience_quality: c.audience_quality ?? "", audience_gender: c.audience_gender ?? "", audience_age: c.audience_age ?? "", audience_cities: c.audience_cities ?? "" }, audience_gender: v } }))}
+                    >
+                      <SelectTrigger className="w-28 h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">—</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="any">Any</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Select
+                      value={edit.audience_age}
+                      onValueChange={(v) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { audience_quality: c.audience_quality ?? "", audience_gender: c.audience_gender ?? "", audience_age: c.audience_age ?? "", audience_cities: c.audience_cities ?? "" }, audience_age: v } }))}
+                    >
+                      <SelectTrigger className="w-28 h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">—</SelectItem>
+                        <SelectItem value="18-24">18-24</SelectItem>
+                        <SelectItem value="25-34">25-34</SelectItem>
+                        <SelectItem value="35-44">35-44</SelectItem>
+                        <SelectItem value="45+">45+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Input
+                      className="w-36 h-8 text-sm"
+                      value={edit.audience_cities}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { audience_quality: c.audience_quality ?? "", audience_gender: c.audience_gender ?? "", audience_age: c.audience_age ?? "", audience_cities: c.audience_cities ?? "" }, audience_cities: e.target.value } }))}
+                    />
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Button size="sm" onClick={() => saveAudience(c.id)}>
+                      {t("admin.save")}
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function DealsPanel({ qc }: { qc: any }) {
+  const { t } = useT();
+
+  const { data: deals = [], isLoading } = useQuery({
+    queryKey: ["admin-deals"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("deals")
+        .select("*, profiles!deals_creator_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      return data ?? [];
+    },
+  });
+
+  if (isLoading) return <PageSkeleton />;
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm">
+        <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
+          <tr>
+            <th className="px-4 py-3">{t("admin.brand")}</th>
+            <th className="px-4 py-3">{t("admin.creator")}</th>
+            <th className="px-4 py-3">{t("admin.amount")}</th>
+            <th className="px-4 py-3">{t("admin.status")}</th>
+            <th className="px-4 py-3">{t("admin.date")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {deals.length === 0 ? (
+            <tr>
+              <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
+                {t("admin.noDeals")}
+              </td>
+            </tr>
+          ) : (
+            deals.map((d: any) => (
+              <tr key={d.id} className="border-t border-border">
+                <td className="px-4 py-3 font-medium">{d.brand_name ?? d.brand_id}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {d.profiles?.display_name ?? "—"}
+                </td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {d.amount ? `${d.amount}` : "—"}
+                </td>
+                <td className="px-4 py-3">
+                  <span className="rounded-full bg-secondary px-2 py-1 text-xs capitalize">
+                    {d.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(d.created_at).toLocaleDateString()}
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function PaidReportsPanel({ qc }: { qc: any }) {
+  const { t } = useT();
+
+  const { data: reportRequests = [], isLoading } = useQuery({
+    queryKey: ["admin-paid-reports"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("report_requests")
+        .select("*, profiles!report_requests_creator_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      return data ?? [];
+    },
+  });
+
+  if (isLoading) return <PageSkeleton />;
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm">
+        <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
+          <tr>
+            <th className="px-4 py-3">{t("admin.brand")}</th>
+            <th className="px-4 py-3">{t("admin.creator")}</th>
+            <th className="px-4 py-3">{t("admin.status")}</th>
+            <th className="px-4 py-3">{t("admin.date")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reportRequests.length === 0 ? (
+            <tr>
+              <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+                {t("admin.noPaidReports")}
+              </td>
+            </tr>
+          ) : (
+            reportRequests.map((r: any) => (
+              <tr key={r.id} className="border-t border-border">
+                <td className="px-4 py-3 font-medium">{r.brand_name ?? r.brand_id}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {r.profiles?.display_name ?? "—"}
+                </td>
+                <td className="px-4 py-3">
+                  <span className="rounded-full bg-secondary px-2 py-1 text-xs capitalize">
+                    {r.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(r.created_at).toLocaleDateString()}
                 </td>
               </tr>
             ))

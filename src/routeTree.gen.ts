@@ -23,10 +23,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as ReportIdRouteImport } from './routes/report.$id'
 import { Route as CreatorIdRouteImport } from './routes/creator.$id'
 import { Route as AuthUpdatePasswordRouteImport } from './routes/auth.update-password'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as ReportIdSuccessRouteImport } from './routes/report.$id.success'
 import { Route as DashboardCollectionIdRouteImport } from './routes/dashboard.collection.$id'
 
 const TermsRoute = TermsRouteImport.update({
@@ -99,6 +101,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportIdRoute = ReportIdRouteImport.update({
+  id: '/report/$id',
+  path: '/report/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreatorIdRoute = CreatorIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -118,6 +125,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
   getParentRoute: () => AuthRoute,
+} as any)
+const ReportIdSuccessRoute = ReportIdSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => ReportIdRoute,
 } as any)
 const DashboardCollectionIdRoute = DashboardCollectionIdRouteImport.update({
   id: '/dashboard/collection/$id',
@@ -143,8 +155,10 @@ export interface FileRoutesByFullPath {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
+  '/report/$id/success': typeof ReportIdSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -164,8 +178,10 @@ export interface FileRoutesByTo {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
+  '/report/$id/success': typeof ReportIdSuccessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -186,8 +202,10 @@ export interface FileRoutesById {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
+  '/report/$id/success': typeof ReportIdSuccessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -209,8 +227,10 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/report/$id'
     | '/dashboard/'
     | '/dashboard/collection/$id'
+    | '/report/$id/success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -230,8 +250,10 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/report/$id'
     | '/dashboard'
     | '/dashboard/collection/$id'
+    | '/report/$id/success'
   id:
     | '__root__'
     | '/'
@@ -251,8 +273,10 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/report/$id'
     | '/dashboard/'
     | '/dashboard/collection/$id'
+    | '/report/$id/success'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -269,6 +293,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  ReportIdRoute: typeof ReportIdRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardCollectionIdRoute: typeof DashboardCollectionIdRoute
 }
@@ -373,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/report/$id': {
+      id: '/report/$id'
+      path: '/report/$id'
+      fullPath: '/report/$id'
+      preLoaderRoute: typeof ReportIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creator/$id': {
       id: '/creator/$id'
       path: '/$id'
@@ -400,6 +432,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/report/$id/success': {
+      id: '/report/$id/success'
+      path: '/success'
+      fullPath: '/report/$id/success'
+      preLoaderRoute: typeof ReportIdSuccessRouteImport
+      parentRoute: typeof ReportIdRoute
     }
     '/dashboard/collection/$id': {
       id: '/dashboard/collection/$id'
@@ -436,6 +475,18 @@ const CreatorRouteChildren: CreatorRouteChildren = {
 const CreatorRouteWithChildren =
   CreatorRoute._addFileChildren(CreatorRouteChildren)
 
+interface ReportIdRouteChildren {
+  ReportIdSuccessRoute: typeof ReportIdSuccessRoute
+}
+
+const ReportIdRouteChildren: ReportIdRouteChildren = {
+  ReportIdSuccessRoute: ReportIdSuccessRoute,
+}
+
+const ReportIdRouteWithChildren = ReportIdRoute._addFileChildren(
+  ReportIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -450,6 +501,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  ReportIdRoute: ReportIdRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardCollectionIdRoute: DashboardCollectionIdRoute,
 }

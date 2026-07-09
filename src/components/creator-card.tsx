@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useT } from "@/i18n";
 import { getCategoryLabel } from "@/lib/constants";
+import { CreatorReputation } from "@/components/creator-reputation";
+import { AudienceIndicator } from "@/components/audience-indicator";
 
 interface CreatorCardProps {
   id: string;
@@ -11,6 +13,9 @@ interface CreatorCardProps {
   customCategory?: string | null;
   city?: string | null;
   followerRange?: string | null;
+  completedDeals?: number;
+  complaintsCount?: number;
+  audienceQuality?: "green" | "yellow" | "red" | null;
 }
 
 export function CreatorCard({
@@ -22,6 +27,9 @@ export function CreatorCard({
   customCategory,
   city,
   followerRange,
+  completedDeals,
+  complaintsCount,
+  audienceQuality,
 }: CreatorCardProps) {
   const { t } = useT();
   const initials = name
@@ -64,6 +72,11 @@ export function CreatorCard({
           )}
         </div>
         {bio && <p className="line-clamp-2 text-sm text-muted-foreground">{bio}</p>}
+        {(completedDeals ?? 0) > 0 || (complaintsCount ?? 0) > 0 ? (
+          <CreatorReputation creatorId={id} completedDeals={completedDeals ?? 0} complaintsCount={complaintsCount ?? 0} />
+        ) : audienceQuality ? (
+          <AudienceIndicator quality={audienceQuality} />
+        ) : null}
         <div className="flex items-center gap-2 pt-1 text-xs uppercase tracking-wider text-muted-foreground">
           {category && (
             <span className="font-medium text-accent">

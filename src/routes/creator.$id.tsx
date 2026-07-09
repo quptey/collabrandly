@@ -17,7 +17,12 @@ import {
 } from "lucide-react";
 import { useT } from "@/i18n";
 import { useAuth } from "@/lib/auth-context";
+import { trackEvent } from "@/lib/analytics";
 import { SiteHeader } from "@/components/site-header";
+import { CreatorReputation } from "@/components/creator-reputation";
+import { AudienceIndicator } from "@/components/audience-indicator";
+import { DealCard } from "@/components/deal-card";
+import { PaidReportButton } from "@/components/paid-report-button";
 import { Button } from "@/components/ui/button";
 import { ContactCreatorDialog } from "@/components/contact-creator-dialog";
 import { ReportDialog } from "@/components/report-dialog";
@@ -226,6 +231,7 @@ function CreatorProfilePublic() {
       .rpc("increment_creator_stat", { p_creator_id: id, p_stat: "profile_views" })
       .then()
       .catch(() => {});
+    trackEvent("creator_profile_viewed", { creatorId: id });
   }, [id, !!creator]);
 
   function openContactDialog() {
@@ -233,6 +239,7 @@ function CreatorProfilePublic() {
       navigate({ to: "/auth" });
       return;
     }
+    trackEvent("contact_dialog_opened", { creatorId: id });
     setContactOpen(true);
   }
 
@@ -262,6 +269,7 @@ function CreatorProfilePublic() {
       }
       toast.success(t("creatorProfile.savedToShortlist"));
     }
+    trackEvent(isSaved ? "creator_unsaved" : "creator_saved", { creatorId: id });
     qc.invalidateQueries({ queryKey: ["creator-saved", user?.id, id] });
   }
 
@@ -287,6 +295,7 @@ function CreatorProfilePublic() {
       link: "/creator?page=messages&chat=" + user.id,
     });
     toast.success(t("creatorProfile.messageSent"));
+    trackEvent("contact_sent", { creatorId: id });
   }
 
   function shareProfile() {
@@ -509,6 +518,31 @@ function CreatorProfilePublic() {
           </div>
         </div>
 
+        {(creator.completed_deals > 0 || creator.complaints_count > 0) && (
+          <div className="mt-5 rounded-3xl bg-white p-6 shadow-sm border border-border/40">
+            <CreatorReputation
+              creatorId={creator.id}
+              completedDeals={creator.completed_deals ?? 0}
+              complaintsCount={creator.complaints_count ?? 0}
+            />
+          </div>
+        )}
+
+        {creator.audience_quality && (
+          <div className="mt-5 rounded-3xl bg-white p-6 shadow-sm border border-border/40">
+            <div className="flex items-center gap-3">
+              <AudienceIndicator quality={creator.audience_quality} />
+            </div>
+            {(creator.audience_gender || creator.audience_age) && (
+              <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                {creator.audience_gender && <span>Пол: {creator.audience_gender}</span>}
+                {creator.audience_age && <span>Возраст: {creator.audience_age}</span>}
+                {creator.audience_cities && <span>Города: {creator.audience_cities}</span>}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Brand Actions */}
         {isBrand && (
           <div className="mt-5 rounded-3xl bg-white p-5 shadow-sm border border-border/40">
@@ -526,6 +560,8 @@ function CreatorProfilePublic() {
               <Button variant="outline" className="rounded-2xl h-11" onClick={copyLink}>
                 <Share2 className="mr-2 h-4 w-4" /> {t("creatorProfile.share")}
               </Button>
+              <DealCard creatorId={creator.id} creatorName={creator.display_name} />
+              <PaidReportButton creatorId={creator.id} creatorName={creator.display_name} />
             </div>
           </div>
         )}

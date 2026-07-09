@@ -808,6 +808,147 @@ export type Database = {
         };
         Relationships: [];
       };
+      creator_reviews: {
+        Row: {
+          id: string;
+          deal_id: string | null;
+          reviewer_id: string;
+          creator_id: string;
+          status: string;
+          complaint: string;
+          moderation_status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          deal_id?: string | null;
+          reviewer_id: string;
+          creator_id: string;
+          status: string;
+          complaint?: string;
+          moderation_status?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          deal_id?: string | null;
+          reviewer_id?: string;
+          creator_id?: string;
+          status?: string;
+          complaint?: string;
+          moderation_status?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      buyer_personas: {
+        Row: {
+          id: string;
+          brand_id: string;
+          target_gender: string;
+          target_age: string;
+          target_city: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          brand_id: string;
+          target_gender?: string;
+          target_age?: string;
+          target_city?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          brand_id?: string;
+          target_gender?: string;
+          target_age?: string;
+          target_city?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      deals: {
+        Row: {
+          id: string;
+          brand_id: string;
+          creator_id: string;
+          amount: string;
+          description: string;
+          deadline: string | null;
+          brand_confirmed: boolean;
+          creator_confirmed: boolean;
+          status: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          brand_id: string;
+          creator_id: string;
+          amount?: string;
+          description?: string;
+          deadline?: string | null;
+          brand_confirmed?: boolean;
+          creator_confirmed?: boolean;
+          status?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          brand_id?: string;
+          creator_id?: string;
+          amount?: string;
+          description?: string;
+          deadline?: string | null;
+          brand_confirmed?: boolean;
+          creator_confirmed?: boolean;
+          status?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      report_requests: {
+        Row: {
+          id: string;
+          brand_id: string;
+          creator_id: string;
+          status: string;
+          payment_method: string;
+          payment_verified: boolean;
+          payer_phone: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          brand_id: string;
+          creator_id: string;
+          status?: string;
+          payment_method?: string;
+          payment_verified?: boolean;
+          payer_phone?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          brand_id?: string;
+          creator_id?: string;
+          status?: string;
+          payment_method?: string;
+          payment_verified?: boolean;
+          payer_phone?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       subscriptions: {
         Row: {
           id: string;
@@ -858,6 +999,33 @@ export type Database = {
             referencedColumns: ["id"];
           },
         ];
+      };
+      analytics_events: {
+        Row: {
+          id: string;
+          event_name: string;
+          user_id: string | null;
+          session_id: string;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          event_name: string;
+          user_id?: string | null;
+          session_id?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          event_name?: string;
+          user_id?: string | null;
+          session_id?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
       };
     };
     Views: {
