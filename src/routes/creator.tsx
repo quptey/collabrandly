@@ -47,6 +47,9 @@ import {
   Send,
   CheckCheck,
   Activity,
+  Paperclip,
+  Lock,
+  FileText,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -2392,6 +2395,60 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
   const [selectedConversation, setSelectedConversation] = useState<any | null>(null);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingFile, setUploadingFile] = useState(false);
+
+  const { data: chatDeal } = useQuery({
+    queryKey: ["chat-deal-status", userId, selectedConversation?.otherId],
+    queryFn: async () => {
+      if (!userId || !selectedConversation) return null;
+      const otherId = selectedConversation.otherId;
+      const { data } = await supabase
+        .from("deals")
+        .select("id, status")
+        .or(`and(brand_id.eq.${userId},creator_id.eq.${otherId},status.neq.rejected),and(brand_id.eq.${otherId},creator_id.eq.${userId},status.neq.rejected)`)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      return data;
+    },
+    enabled: !!userId && !!selectedConversation,
+    refetchInterval: 5000,
+  });
+
+  const isChatLocked = chatDeal && (chatDeal.status === "completed" || chatDeal.status === "dispute" || chatDeal.status === "final_payment");
+
+  async function sendAttachment(file: File) {
+    if (!userId || !selectedConversation) return;
+    setUploadingFile(true);
+    try {
+      const fileExt = file.name.split(".").pop() ?? "jpg";
+      const fileName = `chat/${selectedConversation.otherId}/${crypto.randomUUID()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("chat_attachments")
+        .upload(fileName, file, { upsert: false });
+      if (uploadError) throw uploadError;
+      const { data: urlData } = supabase.storage.from("chat_attachments").getPublicUrl(fileName);
+      if (!urlData?.publicUrl) throw new Error("No public URL");
+      const attachmentType = file.type.startsWith("video/") ? "video" : file.type === "application/pdf" ? "pdf" : "image";
+      const { error: msgErr } = await supabase.from("messages").insert({
+        sender_id: userId,
+        recipient_id: selectedConversation.otherId,
+        body: file.name,
+        attachment_url: urlData.publicUrl,
+        attachment_type: attachmentType,
+      });
+      if (msgErr) throw msgErr;
+      toast.success(t("common.done"));
+      qc.invalidateQueries({ queryKey: ["creator-conversations", userId] });
+      qc.invalidateQueries({ queryKey: ["creator-chat", userId, selectedConversation.otherId] });
+    } catch (err: any) {
+      toast.error(err.message || t("imageUpload.failed"));
+    } finally {
+      setUploadingFile(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
 
   const { data: conversations = [] } = useQuery({
     queryKey: ["creator-conversations", userId],
@@ -2651,6 +2708,23 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
                         }`}
                       >
                         <p className="text-sm whitespace-pre-wrap">{msg.body}</p>
+                        {msg.attachment_url && (
+                          <div className="mt-2">
+                            {msg.attachment_type === "image" ? (
+                              <img src={msg.attachment_url} alt={msg.body} className="max-w-full rounded-xl" />
+                            ) : msg.attachment_type === "video" ? (
+                              <video src={msg.attachment_url} controls className="max-w-full rounded-xl max-h-60" />
+                            ) : msg.attachment_type === "link" ? (
+                              <a href={msg.attachment_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs underline">
+                                <FileText className="h-3 w-3" /> {msg.body}
+                              </a>
+                            ) : (
+                              <a href={msg.attachment_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs underline">
+                                <FileText className="h-3 w-3" /> {msg.body}
+                              </a>
+                            )}
+                          </div>
+                        )}
                         <div
                           className={`mt-1 flex items-center justify-end gap-1 ${
                             isMine ? "text-accent-foreground/60" : "text-muted-foreground"
@@ -2674,28 +2748,53 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
 
             {/* Input */}
             <div className="border-t border-border/60 p-4 px-6">
-              <div className="flex gap-3">
-                <Input
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder={t("creator.messagesTypeMessage")}
-                  className="flex-1 rounded-2xl border-border/60"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      sendMessage();
-                    }
-                  }}
-                />
-                <Button
-                  onClick={sendMessage}
-                  disabled={!newMessage.trim()}
-                  variant="accent"
-                  className="rounded-2xl"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
+              {isChatLocked ? (
+                <div className="flex items-center justify-center gap-2 py-4 text-[11px] text-muted-foreground">
+                  <Lock className="h-3.5 w-3.5" /> {t("trust.chatLocked")}
+                </div>
+              ) : (
+                <div className="flex gap-3">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*,video/*,application/pdf"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) sendAttachment(file);
+                    }}
+                  />
+                  <Input
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder={t("creator.messagesTypeMessage")}
+                    className="flex-1 rounded-2xl border-border/60"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                      }
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    disabled={uploadingFile}
+                    className="h-10 w-10 shrink-0 rounded-2xl text-muted-foreground hover:text-foreground"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Paperclip className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    onClick={sendMessage}
+                    disabled={!newMessage.trim()}
+                    variant="accent"
+                    className="rounded-2xl"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </div>
           </>
         ) : (

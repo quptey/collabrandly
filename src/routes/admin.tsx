@@ -48,6 +48,7 @@ import { AdminAnalyticsPanel } from "@/components/admin-analytics";
 import { AdminDisputesPanel } from "@/components/admin-disputes";
 import { AdminSeedDataPanel } from "@/components/admin-seed-data";
 import { AdminComplaintModerationPanel } from "@/components/admin-complaint-moderation";
+import { MvpValidationPanel } from "@/components/admin-mvp-validation";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin")({
@@ -303,6 +304,10 @@ function AdminDashboard() {
             <TabsTrigger value="disputes">
               <AlertTriangle className="mr-2 h-4 w-4" />
               {t("admin.disputes")}
+            </TabsTrigger>
+            <TabsTrigger value="mvpValidation">
+              <CheckCircle className="mr-2 h-4 w-4" />
+              📊 MVP
             </TabsTrigger>
             <TabsTrigger value="seedData">
               <Database className="mr-2 h-4 w-4" />
@@ -642,6 +647,9 @@ function AdminDashboard() {
           </TabsContent>
           <TabsContent value="disputes">
             <AdminDisputesPanel qc={qc} />
+          </TabsContent>
+          <TabsContent value="mvpValidation">
+            <MvpValidationPanel qc={qc} />
           </TabsContent>
           <TabsContent value="seedData">
             <AdminSeedDataPanel qc={qc} />

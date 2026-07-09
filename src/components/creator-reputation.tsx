@@ -14,9 +14,10 @@ interface CreatorReputationProps {
   completedDeals: number;
   complaintsCount: number;
   compact?: boolean;
+  averageRating?: number;
 }
 
-export function CreatorReputation({ creatorId, completedDeals, complaintsCount, compact }: CreatorReputationProps) {
+export function CreatorReputation({ creatorId, completedDeals, complaintsCount, compact, averageRating }: CreatorReputationProps) {
   const { t } = useT();
   const { user, isBrand } = useAuth();
   const qc = useQueryClient();
@@ -57,6 +58,11 @@ export function CreatorReputation({ creatorId, completedDeals, complaintsCount, 
         <span className="text-green-600 font-medium">
           ✓ {completedDeals}
         </span>
+        {averageRating !== undefined && averageRating > 0 && (
+          <span className="text-amber-500 font-medium">
+            ★ {averageRating.toFixed(1)}
+          </span>
+        )}
         {complaintsCount > 0 && (
           <span className="text-amber-600 font-medium">
             ⚠ {complaintsCount}
@@ -71,6 +77,11 @@ export function CreatorReputation({ creatorId, completedDeals, complaintsCount, 
       <span className="text-green-600 font-medium">
         {t(completedDeals === 1 ? "trust.completedDeal" : "trust.completedDeals", { count: completedDeals })}
       </span>
+      {averageRating !== undefined && averageRating > 0 && (
+        <span className="text-amber-500 font-medium">
+          ★ {averageRating.toFixed(1)}
+        </span>
+      )}
       {complaintsCount > 0 && (
         <span className="text-amber-600 font-medium">
           {t("trust.complaints", { count: complaintsCount })}

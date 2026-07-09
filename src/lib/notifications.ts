@@ -29,7 +29,11 @@ export type NotificationType =
   | "deal_rejected"
   | "payment_verification"
   | "complaint_approved"
-  | "complaint_rejected";
+  | "complaint_rejected"
+  | "first_payment_confirmed"
+  | "work_submitted"
+  | "final_payment_confirmed"
+  | "deal_review_required";
 
 interface CreateNotificationParams {
   userId: string;
@@ -89,7 +93,11 @@ export function getNotificationRoute(n: any): string {
     case "deal_disputed":
     case "dispute_resolved":
     case "deal_created":
-      return "/creator/$id";
+    case "first_payment_confirmed":
+    case "work_submitted":
+    case "final_payment_confirmed":
+    case "deal_review_required":
+      return "/brand?page=messages";
     default:
       return "/dashboard";
   }

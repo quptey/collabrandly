@@ -43,6 +43,9 @@ import {
   Smartphone,
   Globe,
   Handshake,
+  Paperclip,
+  Lock,
+  FileText,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -645,6 +648,59 @@ function BrandDashboard() {
   const [proposalDeadline, setProposalDeadline] = useState("");
   const [proposalMessage, setProposalMessage] = useState("");
   const [proposalCreating, setProposalCreating] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingFile, setUploadingFile] = useState(false);
+
+  const { data: chatDeal } = useQuery({
+    queryKey: ["chat-deal-status", user?.id, selectedChat],
+    queryFn: async () => {
+      if (!user || !selectedChat) return null;
+      const { data } = await supabase
+        .from("deals")
+        .select("id, status")
+        .or(`and(brand_id.eq.${user.id},creator_id.eq.${selectedChat},status.neq.rejected),and(brand_id.eq.${selectedChat},creator_id.eq.${user.id},status.neq.rejected)`)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      return data;
+    },
+    enabled: !!user && !!selectedChat,
+    refetchInterval: 5000,
+  });
+
+  const isChatLocked = chatDeal && (chatDeal.status === "completed" || chatDeal.status === "dispute" || chatDeal.status === "final_payment");
+
+  async function sendAttachment(file: File) {
+    if (!user || !selectedChat) return;
+    setUploadingFile(true);
+    try {
+      const fileExt = file.name.split(".").pop() ?? "jpg";
+      const fileName = `chat/${selectedChat}/${crypto.randomUUID()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("chat_attachments")
+        .upload(fileName, file, { upsert: false });
+      if (uploadError) throw uploadError;
+      const { data: urlData } = supabase.storage.from("chat_attachments").getPublicUrl(fileName);
+      if (!urlData?.publicUrl) throw new Error("No public URL");
+      const attachmentType = file.type.startsWith("video/") ? "video" : file.type === "application/pdf" ? "pdf" : "image";
+      const { error: msgErr } = await supabase.from("messages").insert({
+        sender_id: user.id,
+        recipient_id: selectedChat,
+        body: file.name,
+        attachment_url: urlData.publicUrl,
+        attachment_type: attachmentType,
+      });
+      if (msgErr) throw msgErr;
+      toast.success(t("common.done"));
+      qc.invalidateQueries({ queryKey: ["brand-conversations"] });
+    } catch (err: any) {
+      toast.error(err.message || t("imageUpload.failed"));
+    } finally {
+      setUploadingFile(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
   const chatMessages = useMemo(() => {
     if (!selectedChat) return [];
     const conv = (conversations as any[]).find((c: any) => c.otherId === selectedChat);
@@ -2050,6 +2106,23 @@ function BrandDashboard() {
                                 }`}
                               >
                                 <p>{m.body}</p>
+                                {m.attachment_url && (
+                                  <div className="mt-2">
+                                    {m.attachment_type === "image" ? (
+                                      <img src={m.attachment_url} alt={m.body} className="max-w-full rounded-xl" />
+                                    ) : m.attachment_type === "video" ? (
+                                      <video src={m.attachment_url} controls className="max-w-full rounded-xl max-h-60" />
+                                    ) : m.attachment_type === "link" ? (
+                                      <a href={m.attachment_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs underline">
+                                        <FileText className="h-3 w-3" /> {m.body}
+                                      </a>
+                                    ) : (
+                                      <a href={m.attachment_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs underline">
+                                        <FileText className="h-3 w-3" /> {m.body}
+                                      </a>
+                                    )}
+                                  </div>
+                                )}
                                 <div
                                   className={`mt-1 flex items-center gap-1 text-[10px] ${isMine ? "text-white/60" : "text-muted-foreground"}`}
                                 >
@@ -2069,35 +2142,63 @@ function BrandDashboard() {
                       <div ref={messagesEndRef} />
                     </div>
                     <div className="border-t border-border/40 p-4 space-y-2">
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-2xl h-10 text-sm font-medium"
-                        onClick={() => setProposalOpen(true)}
-                      >
-                        <Send className="mr-2 h-4 w-4" /> {t("trust.proposalSend")}
-                      </Button>
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          sendMessage();
-                        }}
-                        className="flex gap-3"
-                      >
-                        <Input
-                          value={messageText}
-                          onChange={(e) => setMessageText(e.target.value)}
-                          placeholder={t("common.typeMessage")}
-                          className="flex-1 rounded-2xl border-border/60 bg-[#FAF8F5]"
-                        />
-                        <Button
-                          type="submit"
-                          size="icon"
-                          variant="accent"
-                          className="h-10 w-10 shrink-0 rounded-2xl"
-                        >
-                          <Send className="h-4 w-4" />
-                        </Button>
-                      </form>
+                      {isChatLocked ? (
+                        <div className="flex items-center justify-center gap-2 py-4 text-[11px] text-muted-foreground">
+                          <Lock className="h-3.5 w-3.5" /> {t("trust.chatLocked")}
+                        </div>
+                      ) : (
+                        <>
+                          <Button
+                            variant="outline"
+                            className="w-full rounded-2xl h-10 text-sm font-medium"
+                            onClick={() => setProposalOpen(true)}
+                          >
+                            <Send className="mr-2 h-4 w-4" /> {t("trust.proposalSend")}
+                          </Button>
+                          <form
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              sendMessage();
+                            }}
+                            className="flex gap-3"
+                          >
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              accept="image/*,video/*,application/pdf"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) sendAttachment(file);
+                              }}
+                            />
+                            <Input
+                              value={messageText}
+                              onChange={(e) => setMessageText(e.target.value)}
+                              placeholder={t("common.typeMessage")}
+                              className="flex-1 rounded-2xl border-border/60 bg-[#FAF8F5]"
+                            />
+                            <Button
+                              type="button"
+                              size="icon"
+                              variant="ghost"
+                              disabled={uploadingFile}
+                              className="h-10 w-10 shrink-0 rounded-2xl text-muted-foreground hover:text-foreground"
+                              onClick={() => fileInputRef.current?.click()}
+                            >
+                              <Paperclip className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              type="submit"
+                              size="icon"
+                              variant="accent"
+                              className="h-10 w-10 shrink-0 rounded-2xl"
+                            >
+                              <Send className="h-4 w-4" />
+                            </Button>
+                          </form>
+                        </>
+                      )}
                     </div>
 
                     {/* Proposal modal */}

@@ -518,6 +518,7 @@ function CreatorProfilePublic() {
               creatorId={creator.id}
               completedDeals={creator.completed_deals ?? 0}
               complaintsCount={creator.complaints_count ?? 0}
+              averageRating={creator.average_rating}
               compact
             />
             {/* Audience quality */}
