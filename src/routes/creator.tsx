@@ -53,6 +53,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useSubscription } from "@/lib/subscription-context";
 import { UpgradeModal } from "@/components/upgrade-modal";
 import { PageSkeleton } from "@/components/loading-skeleton";
+import { ProposalChatCard } from "@/components/proposal-chat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -2626,6 +2627,17 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
               ) : (
                 chatMessages.map((msg: any) => {
                   const isMine = msg.sender_id === userId;
+                  if (msg.deal_id && selectedConversation) {
+                    return (
+                      <div key={msg.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+                        <ProposalChatCard
+                          dealId={msg.deal_id}
+                          brandId={selectedConversation.otherId}
+                          creatorId={userId}
+                        />
+                      </div>
+                    );
+                  }
                   return (
                     <div
                       key={msg.id}

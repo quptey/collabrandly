@@ -7,8 +7,8 @@ import {
   MoreHorizontal,
   MapPin,
   Heart,
-  MessageCircle,
   Send,
+  Handshake,
   Check,
   ChevronRight,
   ExternalLink,
@@ -21,7 +21,6 @@ import { trackEvent } from "@/lib/analytics";
 import { SiteHeader } from "@/components/site-header";
 import { CreatorReputation } from "@/components/creator-reputation";
 import { AudienceIndicator } from "@/components/audience-indicator";
-import { DealCard } from "@/components/deal-card";
 import { PaidReportButton } from "@/components/paid-report-button";
 import { Button } from "@/components/ui/button";
 import { ContactCreatorDialog } from "@/components/contact-creator-dialog";
@@ -273,29 +272,13 @@ function CreatorProfilePublic() {
     qc.invalidateQueries({ queryKey: ["creator-saved", user?.id, id] });
   }
 
-  async function sendMessage() {
+  async function startCollaboration() {
     if (!user) {
       navigate({ to: "/auth" });
       return;
     }
-    const { error } = await supabase.from("messages").insert({
-      sender_id: user.id,
-      recipient_id: id,
-      body: t("creatorProfile.defaultMessage"),
-    });
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    await supabase.from("notifications").insert({
-      user_id: id,
-      title: t("brand.notifMessageTitle"),
-      body: t("creatorProfile.defaultMessage").substring(0, 100),
-      type: "message",
-      link: "/creator?page=messages&chat=" + user.id,
-    });
-    toast.success(t("creatorProfile.messageSent"));
-    trackEvent("contact_sent", { creatorId: id });
+    navigate({ to: `/brand?page=messages&chat=${id}` });
+    toast.success(t("trust.openChatHint"));
   }
 
   function shareProfile() {
@@ -555,21 +538,52 @@ function CreatorProfilePublic() {
         {/* Brand Actions */}
         {isBrand && (
           <div className="mt-4 space-y-3">
-            <DealCard creatorId={creator.id} creatorName={creator.display_name} />
-            <div className="grid grid-cols-3 gap-2">
+            <Button
+              className="w-full rounded-2xl h-12 text-base font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
+              onClick={startCollaboration}
+            >
+              <Handshake className="mr-2 h-5 w-5" />
+              {t("trust.proposeCollaboration")}
+            </Button>
+            <div className="grid grid-cols-2 gap-2">
               <Button variant="outline" className="rounded-2xl h-11" onClick={toggleSave}>
                 <Heart className={`mr-2 h-4 w-4 ${isSaved ? "fill-red-500 text-red-500" : ""}`} />
                 {isSaved ? t("creatorProfile.saved") : t("creatorProfile.saveCreator")}
-              </Button>
-              <Button variant="outline" className="rounded-2xl h-11" onClick={sendMessage}>
-                <MessageCircle className="mr-2 h-4 w-4" /> {t("creatorProfile.message")}
               </Button>
               <Button variant="outline" className="rounded-2xl h-11" onClick={copyLink}>
                 <Share2 className="mr-2 h-4 w-4" /> {t("creatorProfile.share")}
               </Button>
             </div>
-            <PaidReportButton creatorId={creator.id} creatorName={creator.display_name} />
           </div>
+        )}
+
+        {/* Additional Verification */}
+        {isBrand && (
+          <section className="mt-8">
+            <div className="rounded-2xl border border-border/60 bg-white p-5 shadow-sm">
+              <h3 className="font-display text-base font-semibold mb-1">
+                {t("trust.extraCheckTitle")}
+              </h3>
+              <p className="text-xs text-muted-foreground mb-4">
+                {t("trust.extraCheckDesc")}
+              </p>
+              <ul className="space-y-1.5 mb-4">
+                <li className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="h-3.5 w-3.5 text-accent shrink-0" /> {t("trust.reportDetailHistory")}
+                </li>
+                <li className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="h-3.5 w-3.5 text-accent shrink-0" /> {t("trust.reportDetailComplaints")}
+                </li>
+                <li className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="h-3.5 w-3.5 text-accent shrink-0" /> {t("trust.reportDetailAudience")}
+                </li>
+                <li className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="h-3.5 w-3.5 text-accent shrink-0" /> {t("trust.reportDetailRecommendations")}
+                </li>
+              </ul>
+              <PaidReportButton creatorId={creator.id} creatorName={creator.display_name} />
+            </div>
+          </section>
         )}
 
         {/* Featured Products */}

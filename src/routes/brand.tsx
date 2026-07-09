@@ -86,7 +86,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingBrandSchema, campaignSchema } from "@/lib/validation";
-import { getNotificationRoute } from "@/lib/notifications";
+import { createNotification, getNotificationRoute } from "@/lib/notifications";
 import {
   CATEGORIES,
   getCategoryLabel,
@@ -99,6 +99,7 @@ import {
   type City,
   type FollowerRange,
 } from "@/lib/constants";
+import { ProposalChatCard } from "@/components/proposal-chat-card";
 
 const brandSearchSchema = z.object({
   page: fallback(
@@ -638,6 +639,12 @@ function BrandDashboard() {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [messageText, setMessageText] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [proposalOpen, setProposalOpen] = useState(false);
+  const [proposalTitle, setProposalTitle] = useState("");
+  const [proposalAmount, setProposalAmount] = useState("");
+  const [proposalDeadline, setProposalDeadline] = useState("");
+  const [proposalMessage, setProposalMessage] = useState("");
+  const [proposalCreating, setProposalCreating] = useState(false);
   const chatMessages = useMemo(() => {
     if (!selectedChat) return [];
     const conv = (conversations as any[]).find((c: any) => c.otherId === selectedChat);
@@ -678,6 +685,50 @@ function BrandDashboard() {
     });
     if (notifErr) console.error("notif insert error", notifErr);
     setMessageText("");
+    qc.invalidateQueries({ queryKey: ["brand-conversations"] });
+  }
+
+  async function handleSendProposal() {
+    if (!user || !selectedChat || !proposalTitle || !proposalAmount) return;
+    setProposalCreating(true);
+    const { data: deal, error } = await supabase
+      .from("deals")
+      .insert({
+        brand_id: user.id,
+        creator_id: selectedChat,
+        title: proposalTitle,
+        amount: proposalAmount,
+        description: proposalMessage,
+        deadline: proposalDeadline ? new Date(proposalDeadline).toISOString() : null,
+        brand_confirmed: true,
+      })
+      .select("id")
+      .single();
+    if (error || !deal) {
+      toast.error(error?.message ?? "Error");
+      setProposalCreating(false);
+      return;
+    }
+    await supabase.from("messages").insert({
+      sender_id: user.id,
+      recipient_id: selectedChat,
+      body: proposalMessage || t("trust.proposalSent"),
+      deal_id: deal.id,
+    });
+    setProposalCreating(false);
+    setProposalOpen(false);
+    setProposalTitle("");
+    setProposalAmount("");
+    setProposalDeadline("");
+    setProposalMessage("");
+    toast.success(t("trust.proposalSent"));
+    createNotification({
+      userId: selectedChat,
+      type: "deal_created",
+      title: t("trust.notifProposalTitle"),
+      body: t("trust.notifProposalBody", { title: proposalTitle, amount: proposalAmount }),
+      link: `/creator?page=messages&chat=${user.id}`,
+    });
     qc.invalidateQueries({ queryKey: ["brand-conversations"] });
   }
 
@@ -1975,6 +2026,17 @@ function BrandDashboard() {
                       ) : (
                         chatMessages.map((m: any) => {
                           const isMine = m.sender_id === user!.id;
+                          if (m.deal_id) {
+                            return (
+                              <div key={m.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+                                <ProposalChatCard
+                                  dealId={m.deal_id}
+                                  brandId={user!.id}
+                                  creatorId={selectedChat!}
+                                />
+                              </div>
+                            );
+                          }
                           return (
                             <div
                               key={m.id}
@@ -2006,7 +2068,14 @@ function BrandDashboard() {
                       )}
                       <div ref={messagesEndRef} />
                     </div>
-                    <div className="border-t border-border/40 p-4">
+                    <div className="border-t border-border/40 p-4 space-y-2">
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-2xl h-10 text-sm font-medium"
+                        onClick={() => setProposalOpen(true)}
+                      >
+                        <Send className="mr-2 h-4 w-4" /> {t("trust.proposalSend")}
+                      </Button>
                       <form
                         onSubmit={(e) => {
                           e.preventDefault();
@@ -2030,6 +2099,67 @@ function BrandDashboard() {
                         </Button>
                       </form>
                     </div>
+
+                    {/* Proposal modal */}
+                    <Dialog open={proposalOpen} onOpenChange={setProposalOpen}>
+                      <DialogContent className="sm:max-w-md rounded-3xl">
+                        <DialogHeader>
+                          <DialogTitle className="font-display text-xl">
+                            {t("trust.proposalTitle", { name: selectedChatProfile?.display_name ?? "" })}
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                              {t("trust.proposalNameLabel")}
+                            </label>
+                            <Input
+                              value={proposalTitle}
+                              onChange={(e) => setProposalTitle(e.target.value)}
+                              placeholder={t("trust.proposalNamePlaceholder")}
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                              {t("trust.proposalBudgetLabel")}
+                            </label>
+                            <Input
+                              value={proposalAmount}
+                              onChange={(e) => setProposalAmount(e.target.value)}
+                              placeholder={t("trust.proposalBudgetPlaceholder")}
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                              {t("trust.proposalDeadlineLabel")}
+                            </label>
+                            <Input
+                              type="date"
+                              value={proposalDeadline}
+                              onChange={(e) => setProposalDeadline(e.target.value)}
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                              {t("trust.proposalMessageLabel")}
+                            </label>
+                            <Textarea
+                              value={proposalMessage}
+                              onChange={(e) => setProposalMessage(e.target.value)}
+                              placeholder={t("trust.proposalMessagePlaceholder")}
+                              rows={3}
+                            />
+                          </div>
+                          <Button
+                            className="w-full rounded-2xl h-12 text-base font-semibold"
+                            disabled={!proposalTitle || !proposalAmount || proposalCreating}
+                            onClick={handleSendProposal}
+                          >
+                            {proposalCreating ? t("common.loading") : t("trust.proposalSend")}
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </>
                 )}
               </div>
