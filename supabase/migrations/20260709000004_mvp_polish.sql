@@ -12,12 +12,14 @@ CREATE TABLE IF NOT EXISTS public.feedback (
 
 ALTER TABLE public.feedback ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Anyone can insert feedback" ON public.feedback;
 CREATE POLICY "Anyone can insert feedback"
   ON public.feedback
   FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admins read feedback" ON public.feedback;
 CREATE POLICY "Admins read feedback"
   ON public.feedback
   FOR SELECT
