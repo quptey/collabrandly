@@ -13,9 +13,10 @@ interface CreatorReputationProps {
   creatorId: string;
   completedDeals: number;
   complaintsCount: number;
+  compact?: boolean;
 }
 
-export function CreatorReputation({ creatorId, completedDeals, complaintsCount }: CreatorReputationProps) {
+export function CreatorReputation({ creatorId, completedDeals, complaintsCount, compact }: CreatorReputationProps) {
   const { t } = useT();
   const { user, isBrand } = useAuth();
   const qc = useQueryClient();
@@ -48,6 +49,21 @@ export function CreatorReputation({ creatorId, completedDeals, complaintsCount }
     setComplaint("");
     qc.invalidateQueries({ queryKey: ["creators", "marketplace"] });
     qc.invalidateQueries({ queryKey: ["creator-public", creatorId] });
+  }
+
+  if (compact) {
+    return (
+      <span className="flex items-center gap-2 text-xs">
+        <span className="text-green-600 font-medium">
+          ✓ {completedDeals}
+        </span>
+        {complaintsCount > 0 && (
+          <span className="text-amber-600 font-medium">
+            ⚠ {complaintsCount}
+          </span>
+        )}
+      </span>
+    );
   }
 
   return (

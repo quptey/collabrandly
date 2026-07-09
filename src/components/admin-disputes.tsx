@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { PageSkeleton } from "@/components/loading-skeleton";
 import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 
 interface AdminDisputesPanelProps {
   qc: any;
@@ -14,6 +15,7 @@ interface AdminDisputesPanelProps {
 
 export function AdminDisputesPanel({ qc }: AdminDisputesPanelProps) {
   const { t } = useT();
+  const navigate = useNavigate();
   const [comments, setComments] = useState<Record<string, string>>({});
 
   const { data: disputes = [], isLoading } = useQuery({
@@ -21,7 +23,7 @@ export function AdminDisputesPanel({ qc }: AdminDisputesPanelProps) {
     queryFn: async () => {
       const { data } = await supabase
         .from("deals")
-        .select("*, profiles!deals_creator_id_fkey(display_name)")
+        .select("*, creator:profiles!deals_creator_id_fkey(display_name), brand:profiles!deals_brand_id_fkey(display_name)")
         .eq("status", "dispute")
         .order("updated_at", { ascending: false })
         .limit(50);
@@ -41,32 +43,26 @@ export function AdminDisputesPanel({ qc }: AdminDisputesPanelProps) {
     qc.invalidateQueries({ queryKey: ["admin-disputes"] });
   }
 
-  async function markResolved(dealId: string) {
-    const { data: deal } = await supabase
-      .from("deals")
-      .select("*")
-      .eq("id", dealId)
-      .single();
-    if (!deal) return;
+  async function markResolved(dealId: string, brandId: string, creatorId: string) {
     const { error } = await supabase
       .from("deals")
-      .update({ status: "pending" })
+      .update({ status: "completed" })
       .eq("id", dealId);
     if (error) return toast.error(error.message);
     toast.success(t("admin.disputeResolved"));
     createNotification({
-      userId: deal.brand_id,
+      userId: brandId,
       type: "dispute_resolved",
       title: t("trust.notifDisputeResolvedTitle"),
       body: t("trust.notifDisputeResolvedBody"),
-      link: `/creator/${deal.creator_id}`,
+      link: `/deal/${dealId}`,
     });
     createNotification({
-      userId: deal.creator_id,
+      userId: creatorId,
       type: "dispute_resolved",
       title: t("trust.notifDisputeResolvedTitle"),
       body: t("trust.notifDisputeResolvedBody"),
-      link: `/brand`,
+      link: `/deal/${dealId}`,
     });
     qc.invalidateQueries({ queryKey: ["admin-disputes"] });
   }
@@ -93,17 +89,17 @@ export function AdminDisputesPanel({ qc }: AdminDisputesPanelProps) {
           {disputes.map((d: any) => (
             <div key={d.id} className="rounded-2xl border border-destructive/20 bg-card p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <div>
-                  <span className="font-medium">{t("admin.dealWith")}: {d.profiles?.display_name ?? "—"}</span>
-                  <span className="ml-3 text-sm text-muted-foreground">{d.amount ? `${d.amount}` : ""}</span>
+                <div className="min-w-0 flex-1">
+                  <span className="font-medium">{d.title || t("trust.deal")}</span>
+                  <span className="ml-2 text-sm text-muted-foreground">
+                    {d.creator?.display_name} ↔ {d.brand?.display_name}
+                  </span>
+                  {d.amount && <span className="ml-2 text-sm text-muted-foreground">({d.amount})</span>}
                 </div>
-                <span className="rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive">
+                <span className="rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive shrink-0">
                   {t("trust.dealStatusDispute")}
                 </span>
               </div>
-              {d.description && (
-                <p className="text-sm text-muted-foreground">{d.description}</p>
-              )}
               {d.dispute_reason && (
                 <div className="rounded-xl bg-destructive/5 p-3">
                   <p className="text-xs font-medium text-destructive">{t("admin.disputeReason")}</p>
@@ -122,8 +118,11 @@ export function AdminDisputesPanel({ qc }: AdminDisputesPanelProps) {
                   <Button size="sm" variant="outline" onClick={() => saveComment(d.id)}>
                     {t("admin.saveComment")}
                   </Button>
-                  <Button size="sm" variant="success" onClick={() => markResolved(d.id)}>
+                  <Button size="sm" variant="success" onClick={() => markResolved(d.id, d.brand_id, d.creator_id)}>
                     {t("admin.markResolved")}
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => navigate({ to: `/deal/${d.id}` })}>
+                    {t("admin.viewDeal")}
                   </Button>
                 </div>
               </div>

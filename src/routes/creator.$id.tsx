@@ -490,69 +490,76 @@ function CreatorProfilePublic() {
           </div>
         </div>
 
-        {/* Statistics Card */}
-        <div className="mt-5 rounded-3xl bg-white p-8 shadow-md border border-border/40">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex gap-3 sm:gap-4 text-center">
+        {/* Trust Bar — visible to everyone */}
+        <div className="mt-5 rounded-3xl bg-white p-6 shadow-sm border border-border/40">
+          {/* Stats row */}
+          <div className="grid grid-cols-3 gap-3 text-center mb-4">
             <div>
-              <p className="font-display text-3xl font-semibold tracking-tight">
+              <p className="font-display text-2xl font-semibold tracking-tight">
                 {formatFollowers(followerCount)}
               </p>
-              <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground/70">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 mt-0.5">
                 {t("creatorProfile.followers")}
               </p>
             </div>
+            {creator.engagement_rate && (
+              <div>
+                <p className="font-display text-2xl font-semibold tracking-tight">
+                  {creator.engagement_rate}%
+                </p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 mt-0.5">
+                  ER
+                </p>
+              </div>
+            )}
             <div>
-              <p className="font-display text-3xl font-semibold tracking-tight">{productCount}</p>
-              <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                {t("creatorProfile.products")}
+              <p className="font-display text-2xl font-semibold tracking-tight">
+                {(creator.completed_deals ?? 0) + (creator.complaints_count ?? 0)}
               </p>
-            </div>
-            <div>
-              <p className="font-display text-3xl font-semibold tracking-tight">
-                {collectionCount}
-              </p>
-              <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground/70">
-                {t("creatorProfile.collections")}
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 mt-0.5">
+                {t("trust.deals")}
               </p>
             </div>
           </div>
-        </div>
 
-        {(creator.completed_deals > 0 || creator.complaints_count > 0) && (
-          <div className="mt-5 rounded-3xl bg-white p-6 shadow-sm border border-border/40">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground border-t border-border/20 pt-3">
+            {/* City */}
+            {creator.city && (
+              <span className="flex items-center gap-1">
+                <MapPin className="h-3 w-3" />
+                {creator.city}
+              </span>
+            )}
+            {/* Reputation */}
             <CreatorReputation
               creatorId={creator.id}
               completedDeals={creator.completed_deals ?? 0}
               complaintsCount={creator.complaints_count ?? 0}
+              compact
             />
-          </div>
-        )}
-
-        {creator.audience_quality && (
-          <div className="mt-5 rounded-3xl bg-white p-6 shadow-sm border border-border/40">
-            <div className="flex items-center gap-3">
+            {/* Audience quality */}
+            {creator.audience_quality && (
               <AudienceIndicator quality={creator.audience_quality} />
-            </div>
-            {(creator.audience_gender || creator.audience_age) && (
-              <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                {creator.audience_gender && <span>Пол: {creator.audience_gender}</span>}
-                {creator.audience_age && <span>Возраст: {creator.audience_age}</span>}
-                {creator.audience_cities && <span>Города: {creator.audience_cities}</span>}
-              </div>
+            )}
+            {/* Audience demographics */}
+            {(creator.audience_gender || creator.audience_age || creator.audience_cities) && (
+              <span className="text-muted-foreground/60">
+                {[creator.audience_gender, creator.audience_age, creator.audience_cities]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </span>
             )}
           </div>
-        )}
+        </div>
 
         {/* Brand Actions */}
         {isBrand && (
-          <div className="mt-5 rounded-3xl bg-white p-5 shadow-sm border border-border/40">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="mt-4 space-y-3">
+            <DealCard creatorId={creator.id} creatorName={creator.display_name} />
+            <div className="grid grid-cols-3 gap-2">
               <Button variant="outline" className="rounded-2xl h-11" onClick={toggleSave}>
                 <Heart className={`mr-2 h-4 w-4 ${isSaved ? "fill-red-500 text-red-500" : ""}`} />
                 {isSaved ? t("creatorProfile.saved") : t("creatorProfile.saveCreator")}
-              </Button>
-              <Button variant="outline" className="rounded-2xl h-11" onClick={openContactDialog}>
-                <Send className="mr-2 h-4 w-4" /> {t("creatorProfile.collaborate")}
               </Button>
               <Button variant="outline" className="rounded-2xl h-11" onClick={sendMessage}>
                 <MessageCircle className="mr-2 h-4 w-4" /> {t("creatorProfile.message")}
@@ -560,9 +567,8 @@ function CreatorProfilePublic() {
               <Button variant="outline" className="rounded-2xl h-11" onClick={copyLink}>
                 <Share2 className="mr-2 h-4 w-4" /> {t("creatorProfile.share")}
               </Button>
-              <DealCard creatorId={creator.id} creatorName={creator.display_name} />
-              <PaidReportButton creatorId={creator.id} creatorName={creator.display_name} />
             </div>
+            <PaidReportButton creatorId={creator.id} creatorName={creator.display_name} />
           </div>
         )}
 

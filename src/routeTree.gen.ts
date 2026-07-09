@@ -24,6 +24,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as ReportIdRouteImport } from './routes/report.$id'
+import { Route as DealIdRouteImport } from './routes/deal.$id'
 import { Route as CreatorIdRouteImport } from './routes/creator.$id'
 import { Route as AuthUpdatePasswordRouteImport } from './routes/auth.update-password'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
@@ -106,6 +107,11 @@ const ReportIdRoute = ReportIdRouteImport.update({
   path: '/report/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DealIdRoute = DealIdRouteImport.update({
+  id: '/deal/$id',
+  path: '/deal/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreatorIdRoute = CreatorIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
   '/creator/$id': typeof CreatorIdRoute
+  '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/collection/$id': typeof DashboardCollectionIdRoute
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/deal/$id'
     | '/report/$id'
     | '/dashboard/'
     | '/dashboard/collection/$id'
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/deal/$id'
     | '/report/$id'
     | '/dashboard'
     | '/dashboard/collection/$id'
@@ -273,6 +284,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/update-password'
     | '/creator/$id'
+    | '/deal/$id'
     | '/report/$id'
     | '/dashboard/'
     | '/dashboard/collection/$id'
@@ -293,6 +305,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  DealIdRoute: typeof DealIdRoute
   ReportIdRoute: typeof ReportIdRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardCollectionIdRoute: typeof DashboardCollectionIdRoute
@@ -405,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/deal/$id': {
+      id: '/deal/$id'
+      path: '/deal/$id'
+      fullPath: '/deal/$id'
+      preLoaderRoute: typeof DealIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creator/$id': {
       id: '/creator/$id'
       path: '/$id'
@@ -501,6 +521,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  DealIdRoute: DealIdRoute,
   ReportIdRoute: ReportIdRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardCollectionIdRoute: DashboardCollectionIdRoute,

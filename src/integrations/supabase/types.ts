@@ -483,6 +483,7 @@ export type Database = {
           read_at: string | null;
           recipient_id: string;
           sender_id: string;
+          deal_id: string | null;
         };
         Insert: {
           body: string;
@@ -491,6 +492,7 @@ export type Database = {
           read_at?: string | null;
           recipient_id: string;
           sender_id: string;
+          deal_id?: string | null;
         };
         Update: {
           body?: string;
@@ -499,6 +501,7 @@ export type Database = {
           read_at?: string | null;
           recipient_id?: string;
           sender_id?: string;
+          deal_id?: string | null;
         };
         Relationships: [];
       };
@@ -876,12 +879,16 @@ export type Database = {
           id: string;
           brand_id: string;
           creator_id: string;
+          title: string;
           amount: string;
           description: string;
           deadline: string | null;
           brand_confirmed: boolean;
           creator_confirmed: boolean;
           status: string;
+          dispute_reason: string;
+          internal_comment: string;
+          creator_dispute_available: boolean;
           created_at: string;
           updated_at: string;
         };
@@ -889,12 +896,16 @@ export type Database = {
           id?: string;
           brand_id: string;
           creator_id: string;
+          title?: string;
           amount?: string;
           description?: string;
           deadline?: string | null;
           brand_confirmed?: boolean;
           creator_confirmed?: boolean;
           status?: string;
+          dispute_reason?: string;
+          internal_comment?: string;
+          creator_dispute_available?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -902,12 +913,16 @@ export type Database = {
           id?: string;
           brand_id?: string;
           creator_id?: string;
+          title?: string;
           amount?: string;
           description?: string;
           deadline?: string | null;
           brand_confirmed?: boolean;
           creator_confirmed?: boolean;
           status?: string;
+          dispute_reason?: string;
+          internal_comment?: string;
+          creator_dispute_available?: boolean;
           created_at?: string;
           updated_at?: string;
         };

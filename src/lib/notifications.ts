@@ -26,6 +26,7 @@ export type NotificationType =
   | "deal_disputed"
   | "dispute_resolved"
   | "deal_created"
+  | "deal_rejected"
   | "payment_verification"
   | "complaint_approved"
   | "complaint_rejected";

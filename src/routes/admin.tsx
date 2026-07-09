@@ -1586,13 +1586,14 @@ function AudiencePanel({ qc }: { qc: any }) {
 
 function DealsPanel({ qc }: { qc: any }) {
   const { t } = useT();
+  const navigate = useNavigate();
 
   const { data: deals = [], isLoading } = useQuery({
     queryKey: ["admin-deals"],
     queryFn: async () => {
       const { data } = await supabase
         .from("deals")
-        .select("*, profiles!deals_creator_id_fkey(display_name)")
+        .select("*, creator:profiles!deals_creator_id_fkey(display_name), brand:profiles!deals_brand_id_fkey(display_name)")
         .order("created_at", { ascending: false })
         .limit(50);
       return data ?? [];
@@ -1601,42 +1602,58 @@ function DealsPanel({ qc }: { qc: any }) {
 
   if (isLoading) return <PageSkeleton />;
 
+  const statusBadge: Record<string, string> = {
+    pending: "bg-yellow-100 text-yellow-800",
+    confirmed: "bg-blue-100 text-blue-800",
+    completed: "bg-green-100 text-green-800",
+    dispute: "bg-red-100 text-red-800",
+    rejected: "bg-gray-100 text-gray-800",
+  };
+
   return (
     <div className="overflow-x-auto rounded-2xl border border-border bg-card">
       <table className="w-full text-sm">
         <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
           <tr>
+            <th className="px-4 py-3">{t("admin.title")}</th>
             <th className="px-4 py-3">{t("admin.brand")}</th>
             <th className="px-4 py-3">{t("admin.creator")}</th>
             <th className="px-4 py-3">{t("admin.amount")}</th>
             <th className="px-4 py-3">{t("admin.status")}</th>
             <th className="px-4 py-3">{t("admin.date")}</th>
+            <th className="px-4 py-3"></th>
           </tr>
         </thead>
         <tbody>
           {deals.length === 0 ? (
             <tr>
-              <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
+              <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
                 {t("admin.noDeals")}
               </td>
             </tr>
           ) : (
             deals.map((d: any) => (
               <tr key={d.id} className="border-t border-border">
-                <td className="px-4 py-3 font-medium">{d.brand_name ?? d.brand_id}</td>
+                <td className="px-4 py-3 font-medium">{d.title || "—"}</td>
+                <td className="px-4 py-3 font-medium">{d.brand?.display_name ?? d.brand_id?.slice(0, 8)}</td>
                 <td className="px-4 py-3 text-muted-foreground">
-                  {d.profiles?.display_name ?? "—"}
+                  {d.creator?.display_name ?? "—"}
                 </td>
                 <td className="px-4 py-3 text-muted-foreground">
-                  {d.amount ? `${d.amount}` : "—"}
+                  {d.amount || "—"}
                 </td>
                 <td className="px-4 py-3">
-                  <span className="rounded-full bg-secondary px-2 py-1 text-xs capitalize">
-                    {d.status}
+                  <span className={`rounded-full px-2 py-1 text-xs font-medium ${statusBadge[d.status] || "bg-secondary"}`}>
+                    {t(`trust.dealStatus${d.status.charAt(0).toUpperCase() + d.status.slice(1)}`)}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {new Date(d.created_at).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-3">
+                  <Button size="sm" variant="ghost" onClick={() => navigate({ to: `/deal/${d.id}` })}>
+                    {t("admin.viewDeal")}
+                  </Button>
                 </td>
               </tr>
             ))
