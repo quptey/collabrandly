@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "../lib/auth-context";
 import { SubscriptionProvider } from "../lib/subscription-context";
 import { Toaster } from "@/components/ui/sonner";
+import { FeedbackButton } from "@/components/feedback-button";
 import { trackEvent } from "@/lib/analytics";
 import "../i18n";
 import i18n, { LanguageHydrator, t } from "../i18n";
@@ -93,7 +94,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Discover creators. Browse curated collections. Start collaborations.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
@@ -140,6 +144,25 @@ function SessionTracker() {
   return null;
 }
 
+function OnlineBanner() {
+  const [offline, setOffline] = useState(false);
+  useEffect(() => {
+    function handle() { setOffline(!navigator.onLine); }
+    window.addEventListener("online", handle);
+    window.addEventListener("offline", handle);
+    return () => {
+      window.removeEventListener("online", handle);
+      window.removeEventListener("offline", handle);
+    };
+  }, []);
+  if (!offline) return null;
+  return (
+    <div className="fixed top-0 left-0 right-0 z-[100] bg-destructive py-2 text-center text-sm font-medium text-destructive-foreground">
+      {t("common.offline")}
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -148,8 +171,10 @@ function RootComponent() {
       <AuthProvider>
         <SubscriptionProvider>
           <LanguageHydrator />
+          <OnlineBanner />
           <SessionTracker />
           <Outlet />
+          <FeedbackButton />
         </SubscriptionProvider>
         <Toaster position="top-center" />
       </AuthProvider>

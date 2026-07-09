@@ -188,7 +188,8 @@
     "timeMinutesAgo": "{{count}} мин. бұрын",
     "timeHoursAgo": "{{count}} сағ. бұрын",
     "timeYesterday": "Кеше",
-    "timeDaysAgo": "{{count}} күн бұрын"
+    "timeDaysAgo": "{{count}} күн бұрын",
+    "offline": "⚠ Интернетке қосылу жоқ"
   },
   "nav": {
     "home": "Басты бет",
@@ -1418,5 +1419,29 @@
     "adminReportStarted": "Начал оплату",
     "adminReportCompleted": "Оплатил",
     "adminReportCancelled": "Отменено"
+  },
+  "feedback": {
+    "title": "Пікір қалдыру",
+    "ratingLabel": "Платформа ұнай ма?",
+    "rating1": "Өте жаман",
+    "rating2": "Жаман",
+    "rating3": "Қанағаттанарлық",
+    "rating4": "Жақсы",
+    "rating5": "Өте жақсы",
+    "textLabel": "Нені жақсартуға болады?",
+    "textPlaceholder": "Сіздің тілектеріңіз бен ескертулеріңіз...",
+    "contactLabel": "Email (егер жауап алғыңыз келсе)",
+    "contactPlaceholder": "email@example.com",
+    "submit": "Жіберу",
+    "thanks": "Рахмет! Пікіріңіз қабылданды."
+  },
+  "landing": {
+    "trustEyebrow": "Ашық жұмыс істейміз",
+    "trustTitle": "Неліктен Collabrandly таңдайды",
+    "trustVerified": "✅ Расталған креатор профильдері нақты статистикамен",
+    "trustSafe": "🔒 Платформа арқылы қауіпсіз мәмілелер",
+    "trustAudience": "📊 Аудиторияны жасанды талдау",
+    "trustReputation": "⭐ Рейтинг және ынтымақтастық тарихы",
+    "trustFast": "⚡ Жылдам бастау — 2 минутта мәміле жасаңыз"
   }
 }

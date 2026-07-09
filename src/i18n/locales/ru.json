@@ -188,7 +188,8 @@
     "timeMinutesAgo": "{{count}} мин. назад",
     "timeHoursAgo": "{{count}} ч. назад",
     "timeYesterday": "Вчера",
-    "timeDaysAgo": "{{count}} дн. назад"
+    "timeDaysAgo": "{{count}} дн. назад",
+    "offline": "⚠ Нет подключения к интернету"
   },
   "nav": {
     "home": "Главная",
@@ -1418,5 +1419,29 @@
     "adminReportStarted": "Начал оплату",
     "adminReportCompleted": "Оплатил",
     "adminReportCancelled": "Отменено"
+  },
+  "feedback": {
+    "title": "Оставить отзыв",
+    "ratingLabel": "Как вам платформа?",
+    "rating1": "Очень плохо",
+    "rating2": "Плохо",
+    "rating3": "Нормально",
+    "rating4": "Хорошо",
+    "rating5": "Отлично",
+    "textLabel": "Что можно улучшить?",
+    "textPlaceholder": "Ваши пожелания и замечания...",
+    "contactLabel": "Ваш email (если хотите получить ответ)",
+    "contactPlaceholder": "email@example.com",
+    "submit": "Отправить",
+    "thanks": "Спасибо! Ваш отзыв принят."
+  },
+  "landing": {
+    "trustEyebrow": "Работаем прозрачно",
+    "trustTitle": "Почему выбирают Collabrandly",
+    "trustVerified": "✅ Проверенные профили креаторов с реальной статистикой",
+    "trustSafe": "🔒 Безопасные сделки через платформу",
+    "trustAudience": "📊 Анализ аудитории на накрутки",
+    "trustReputation": "⭐ Рейтинг и история сотрудничеств",
+    "trustFast": "⚡ Быстрый старт — создайте сделку за 2 минуты"
   }
 }

@@ -93,6 +93,7 @@ function Landing() {
       <HeroSection />
       <FeaturedCreators creators={featuredCreators} />
       <HowItWorks />
+      <TrustSection />
       <CreatorBenefits />
       <BrandBenefits />
       <PlatformStats />
@@ -240,6 +241,39 @@ function Landing() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function TrustSection() {
+    const items = [
+      { icon: Check, text: t("landing.trustVerified") },
+      { icon: Check, text: t("landing.trustSafe") },
+      { icon: Check, text: t("landing.trustAudience") },
+      { icon: Check, text: t("landing.trustReputation") },
+      { icon: Check, text: t("landing.trustFast") },
+    ];
+    return (
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+        <Eyebrow>{t("landing.trustEyebrow")}</Eyebrow>
+        <h2 className="mt-2 max-w-2xl font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+          {t("landing.trustTitle")}
+        </h2>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
+            <div key={item.text} className="flex items-start gap-3 rounded-3xl border border-border bg-card p-5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                <item.icon className="h-4 w-4 text-accent" />
+              </div>
+              <p className="text-sm font-medium">{item.text}</p>
+            </div>
+          ))}
+          <div className="flex items-center justify-center rounded-3xl border border-border bg-accent/5 p-5 sm:col-span-2 lg:col-span-1">
+            <Link to="/marketplace" className="flex items-center gap-2 text-sm font-semibold text-accent hover:underline">
+              {t("marketplace.viewAll")} <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>

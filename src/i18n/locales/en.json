@@ -188,7 +188,8 @@
     "timeMinutesAgo": "{{count}} min ago",
     "timeHoursAgo": "{{count}} hr ago",
     "timeYesterday": "Yesterday",
-    "timeDaysAgo": "{{count}} days ago"
+    "timeDaysAgo": "{{count}} days ago",
+    "offline": "⚠ No internet connection"
   },
   "nav": {
     "home": "Home",
@@ -1418,5 +1419,29 @@
     "adminReportStarted": "Started payment",
     "adminReportCompleted": "Paid",
     "adminReportCancelled": "Cancelled"
+  },
+  "feedback": {
+    "title": "Leave feedback",
+    "ratingLabel": "How do you like the platform?",
+    "rating1": "Very bad",
+    "rating2": "Bad",
+    "rating3": "Okay",
+    "rating4": "Good",
+    "rating5": "Excellent",
+    "textLabel": "What can be improved?",
+    "textPlaceholder": "Your wishes and comments...",
+    "contactLabel": "Your email (if you want a reply)",
+    "contactPlaceholder": "email@example.com",
+    "submit": "Send",
+    "thanks": "Thank you! Your feedback has been received."
+  },
+  "landing": {
+    "trustEyebrow": "We work transparently",
+    "trustTitle": "Why choose Collabrandly",
+    "trustVerified": "✅ Verified creator profiles with real stats",
+    "trustSafe": "🔒 Safe deals through the platform",
+    "trustAudience": "📊 Audience analysis for fraudulent engagement",
+    "trustReputation": "⭐ Ratings and collaboration history",
+    "trustFast": "⚡ Quick start — create a deal in 2 minutes"
   }
 }
