@@ -1,4 +1,4 @@
-﻿{
+{
   "brand": {
     "title": "Brand dashboard",
     "saved": "Saved creators",
@@ -311,6 +311,13 @@
     "viewPricing": "View detailed pricing comparison →",
     "brandName": "Collabrandly",
     "copyright": "© {{year}} Collabrandly",
+    "trustEyebrow": "We work transparently",
+    "trustTitle": "Why choose Collabrandly",
+    "trustVerified": "✅ Verified creator profiles with real stats",
+    "trustSafe": "🔒 Safe deals through the platform",
+    "trustAudience": "📊 Audience analysis for fraudulent engagement",
+    "trustReputation": "⭐ Ratings and collaboration history",
+    "trustFast": "⚡ Quick start — create a deal in 2 minutes",
     "mock": {
       "name": "Aigerim T.",
       "username": "@aigerim_beauty",
@@ -1434,14 +1441,5 @@
     "contactPlaceholder": "email@example.com",
     "submit": "Send",
     "thanks": "Thank you! Your feedback has been received."
-  },
-  "landing": {
-    "trustEyebrow": "We work transparently",
-    "trustTitle": "Why choose Collabrandly",
-    "trustVerified": "✅ Verified creator profiles with real stats",
-    "trustSafe": "🔒 Safe deals through the platform",
-    "trustAudience": "📊 Audience analysis for fraudulent engagement",
-    "trustReputation": "⭐ Ratings and collaboration history",
-    "trustFast": "⚡ Quick start — create a deal in 2 minutes"
   }
 }

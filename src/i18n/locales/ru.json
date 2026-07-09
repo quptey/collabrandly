@@ -311,6 +311,13 @@
     "viewPricing": "Посмотреть полное сравнение тарифов →",
     "brandName": "Collabrandly",
     "copyright": "© {{year}} Collabrandly",
+    "trustEyebrow": "Работаем прозрачно",
+    "trustTitle": "Почему выбирают Collabrandly",
+    "trustVerified": "✅ Проверенные профили креаторов с реальной статистикой",
+    "trustSafe": "🔒 Безопасные сделки через платформу",
+    "trustAudience": "📊 Анализ аудитории на накрутки",
+    "trustReputation": "⭐ Рейтинг и история сотрудничеств",
+    "trustFast": "⚡ Быстрый старт — создайте сделку за 2 минуты",
     "mock": {
       "name": "Айгерим Т.",
       "username": "@aigerim_beauty",
@@ -1434,14 +1441,5 @@
     "contactPlaceholder": "email@example.com",
     "submit": "Отправить",
     "thanks": "Спасибо! Ваш отзыв принят."
-  },
-  "landing": {
-    "trustEyebrow": "Работаем прозрачно",
-    "trustTitle": "Почему выбирают Collabrandly",
-    "trustVerified": "✅ Проверенные профили креаторов с реальной статистикой",
-    "trustSafe": "🔒 Безопасные сделки через платформу",
-    "trustAudience": "📊 Анализ аудитории на накрутки",
-    "trustReputation": "⭐ Рейтинг и история сотрудничеств",
-    "trustFast": "⚡ Быстрый старт — создайте сделку за 2 минуты"
   }
 }

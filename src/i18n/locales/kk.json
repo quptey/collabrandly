@@ -311,6 +311,13 @@
     "viewPricing": "Толық баға салыстыруын көру →",
     "brandName": "Collabrandly",
     "copyright": "© {{year}} Collabrandly",
+    "trustEyebrow": "Ашық жұмыс істейміз",
+    "trustTitle": "Неліктен Collabrandly таңдайды",
+    "trustVerified": "✅ Расталған креатор профильдері нақты статистикамен",
+    "trustSafe": "🔒 Платформа арқылы қауіпсіз мәмілелер",
+    "trustAudience": "📊 Аудиторияны жасанды талдау",
+    "trustReputation": "⭐ Рейтинг және ынтымақтастық тарихы",
+    "trustFast": "⚡ Жылдам бастау — 2 минутта мәміле жасаңыз",
     "mock": {
       "name": "Айгерім Т.",
       "username": "@aigerim_beauty",
@@ -1434,14 +1441,5 @@
     "contactPlaceholder": "email@example.com",
     "submit": "Жіберу",
     "thanks": "Рахмет! Пікіріңіз қабылданды."
-  },
-  "landing": {
-    "trustEyebrow": "Ашық жұмыс істейміз",
-    "trustTitle": "Неліктен Collabrandly таңдайды",
-    "trustVerified": "✅ Расталған креатор профильдері нақты статистикамен",
-    "trustSafe": "🔒 Платформа арқылы қауіпсіз мәмілелер",
-    "trustAudience": "📊 Аудиторияны жасанды талдау",
-    "trustReputation": "⭐ Рейтинг және ынтымақтастық тарихы",
-    "trustFast": "⚡ Жылдам бастау — 2 минутта мәміле жасаңыз"
   }
 }
