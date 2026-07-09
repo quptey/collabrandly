@@ -75,15 +75,18 @@ INSERT INTO storage.buckets (id, name, public)
 VALUES ('chat_attachments', 'chat_attachments', true)
 ON CONFLICT (id) DO NOTHING;
 
-CREATE POLICY IF NOT EXISTS "Anyone can view chat attachments"
+DROP POLICY IF EXISTS "Anyone can view chat attachments" ON storage.objects;
+CREATE POLICY "Anyone can view chat attachments"
   ON storage.objects FOR SELECT USING (bucket_id = 'chat_attachments');
 
-CREATE POLICY IF NOT EXISTS "Authenticated users can upload chat attachments"
+DROP POLICY IF EXISTS "Authenticated users can upload chat attachments" ON storage.objects;
+CREATE POLICY "Authenticated users can upload chat attachments"
   ON storage.objects FOR INSERT WITH CHECK (
     bucket_id = 'chat_attachments' AND auth.role() = 'authenticated'
   );
 
-CREATE POLICY IF NOT EXISTS "Users can delete own chat attachments"
+DROP POLICY IF EXISTS "Users can delete own chat attachments" ON storage.objects;
+CREATE POLICY "Users can delete own chat attachments"
   ON storage.objects FOR DELETE USING (
     bucket_id = 'chat_attachments' AND auth.uid() = owner
   );
