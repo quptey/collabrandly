@@ -16,8 +16,8 @@ type CreatorAppData = {
 type BrandAppData = {
   companyName: string;
   email: string;
-  phone: string;
-  website: string;
+  phone?: string;
+  website?: string;
 };
 
 export const submitCreatorApplication = createServerFn({ method: "POST" })

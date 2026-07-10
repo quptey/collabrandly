@@ -78,6 +78,8 @@ function AuthPage() {
     }
   }, [user, navigate]);
 
+  const [brandRegistered, setBrandRegistered] = useState(false);
+
   async function submit(data: any) {
     try {
       if (mode === "signup") {
@@ -107,9 +109,6 @@ function AuthPage() {
             emailRedirectTo: window.location.origin,
             data: {
               display_name: data.companyName,
-              phone: data.phone,
-              website: data.website,
-              industry: data.industry,
               role: "brand",
             },
           };
@@ -147,14 +146,16 @@ function AuthPage() {
                 appData: {
                   companyName: data.companyName,
                   email: data.email,
-                  phone: data.phone,
-                  website: data.website,
+                  phone: "",
+                  website: "",
                 },
               },
             });
           } catch (e) {
             console.error("Brand application submission failed:", e);
           }
+          setBrandRegistered(true);
+          return;
         }
 
         navigate({ to: "/dashboard" });
@@ -255,6 +256,28 @@ function AuthPage() {
             </div>
           )}
 
+          {brandRegistered ? (
+            <div className="space-y-6 py-8 text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
+                <svg className="h-8 w-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <h2 className="font-display text-2xl font-semibold">{t("auth.brandSuccessTitle")}</h2>
+              <p className="text-sm text-muted-foreground">{t("auth.brandSuccessDesc")}</p>
+              <div className="rounded-2xl border border-accent/10 bg-accent/5 p-4 text-left text-sm space-y-2">
+                <p className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-accent shrink-0" /> {t("auth.brandSuccessBrowse")}</p>
+                <p className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-accent shrink-0" /> {t("auth.brandSuccessSave")}</p>
+                <p className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-accent shrink-0" /> {t("auth.brandSuccessProfile")}</p>
+              </div>
+              <div className="flex flex-col gap-3 pt-2">
+                <Button className="w-full rounded-2xl h-12 text-base font-semibold" onClick={() => navigate({ to: "/marketplace" })}>
+                  {t("auth.brandSuccessBrowseBtn")}
+                </Button>
+                <Button variant="outline" className="w-full rounded-2xl h-12 text-base" onClick={() => navigate({ to: "/brand", search: { page: "settings" } })}>
+                  {t("auth.brandSuccessProfileBtn")}
+                </Button>
+              </div>
+            </div>
+          ) : (
           <form onSubmit={handleSubmit(submit)} className="space-y-4 pb-16 sm:pb-0">
             {isCreatorApp ? (
               <>
@@ -392,35 +415,6 @@ function AuthPage() {
                     </p>
                   )}
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="phone">{t("auth.phone")}</Label>
-                  <Input id="phone" type="tel" {...register("phone")} />
-                  {errors.phone && (
-                    <p className="text-xs text-destructive">{errors.phone.message as string}</p>
-                  )}
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="website">{t("auth.website")}</Label>
-                  <Input
-                    id="website"
-                    placeholder={t("auth.websitePlaceholder")}
-                    {...register("website")}
-                  />
-                  {errors.website && (
-                    <p className="text-xs text-destructive">{errors.website.message as string}</p>
-                  )}
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="industry">{t("auth.industry")}</Label>
-                  <Input
-                    id="industry"
-                    placeholder={t("auth.industryPlaceholder")}
-                    {...register("industry")}
-                  />
-                  {errors.industry && (
-                    <p className="text-xs text-destructive">{errors.industry.message as string}</p>
-                  )}
-                </div>
                 <div className="flex items-center gap-2">
                   <Checkbox
                     id="terms"
@@ -552,6 +546,7 @@ function AuthPage() {
                     : t("auth.signIn")}
             </Button>
           </form>
+          )}
 
           {!isAppForm && (
             <p className="text-center text-sm text-muted-foreground">

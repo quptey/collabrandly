@@ -325,6 +325,7 @@ function BrandDashboard() {
       website: brandProfile?.website ?? "",
       industry: brandProfile?.industry ?? "",
       contact_person: brandProfile?.contact_person ?? "",
+      phone: brandProfile?.phone ?? "",
     },
   });
   const {
@@ -345,6 +346,7 @@ function BrandDashboard() {
         website: data.website || null,
         industry: data.industry || null,
         social_link: data.social_link || null,
+        phone: data.phone || null,
       })
       .eq("id", user!.id);
     if (error) return toast.error(error.message);
@@ -1193,6 +1195,60 @@ function BrandDashboard() {
           {page === "home" && (
             <div className="space-y-6">
               <h2 className="font-display text-2xl font-semibold">{t("brand.homeTitle")}</h2>
+
+              {(() => {
+                const profileFields: { key: string; label: string; value: any }[] = [
+                  { key: "phone", label: t("brand.profileCompletionFieldPhone"), value: brandProfile?.phone },
+                  { key: "website", label: t("brand.profileCompletionFieldWebsite"), value: brandProfile?.website },
+                  { key: "industry", label: t("brand.profileCompletionFieldIndustry"), value: brandProfile?.industry },
+                  { key: "avatar_url", label: t("brand.profileCompletionFieldLogo"), value: brandProfile?.avatar_url },
+                  { key: "bio", label: t("brand.profileCompletionFieldBio"), value: brandProfile?.bio },
+                ];
+                const done = profileFields.filter((f) => f.value).length;
+                const total = profileFields.length;
+                const pct = Math.round((done / total) * 100);
+                const missing = profileFields.filter((f) => !f.value);
+                const isComplete = pct === 100;
+                return (
+                  <div className="rounded-2xl border border-border/60 bg-white p-5 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium">{t("brand.profileCompletion")}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {isComplete
+                            ? t("brand.profileCompletionDone")
+                            : t("brand.profileCompletionDesc")}
+                        </p>
+                      </div>
+                      <div className="relative h-14 w-14 shrink-0 ml-4">
+                        <svg className="h-14 w-14 -rotate-90" viewBox="0 0 36 36">
+                          <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent/20" />
+                          <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray={`${pct * 0.972} 100`} className="text-accent transition-all" strokeLinecap="round" />
+                        </svg>
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold">{pct}%</span>
+                      </div>
+                    </div>
+                    {!isComplete && missing.length > 0 && (
+                      <div className="mt-3 space-y-1">
+                        <p className="text-xs text-muted-foreground">{t("brand.profileCompletionMissing")}:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {missing.map((f) => (
+                            <span key={f.key} className="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-0.5 text-[11px] font-medium text-accent">
+                              {f.label}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {!isComplete && (
+                      <Button variant="outline" size="sm" className="mt-3 w-full rounded-xl" onClick={() => navigate({ to: "/brand", search: { page: "settings" } })}>
+                        {t("brand.profileCompletionAction")}
+                      </Button>
+                    )}
+                  </div>
+                );
+              })()}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="rounded-2xl border border-border/60 bg-white p-4 sm:p-6 shadow-sm">
                   <p className="text-xs text-muted-foreground">{t("brand.sidebarSavedCreators")}</p>
@@ -2421,6 +2477,10 @@ function BrandDashboard() {
                   <div className="space-y-1.5">
                     <Label>{t("contact.contactPerson")}</Label>
                     <Input {...pReg("contact_person")} className="w-full rounded-xl" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>{t("contact.phone")}</Label>
+                    <Input {...pReg("phone")} type="tel" className="w-full rounded-xl" />
                   </div>
                   <div className="space-y-1.5">
                     <Label>{t("brand.settingsWebsite")}</Label>

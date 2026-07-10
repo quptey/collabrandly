@@ -81,9 +81,6 @@ export const brandAppSchema = z
     email: z.string().email("Invalid email"),
     password: z.string().min(6, "At least 6 characters"),
     confirmPassword: z.string().min(6, "At least 6 characters"),
-    phone: z.string().min(1, "Phone is required"),
-    website: z.string().url("Invalid URL").or(z.literal("")),
-    industry: z.string().min(1, "Industry is required"),
     terms: z.literal(true, { errorMap: () => ({ message: "You must agree to the terms" }) }),
   })
   .refine((d) => d.password === d.confirmPassword, {
@@ -111,6 +108,9 @@ export const onboardingBrandSchema = z.object({
   social_link: z.string().optional(),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
   industry: z.string().optional(),
+  bio: z.string().optional(),
+  contact_person: z.string().optional(),
+  phone: z.string().optional(),
 });
 
 export const collectionSchema = z.object({
