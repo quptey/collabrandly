@@ -75,7 +75,7 @@ export function AdminAnalyticsPanel({ qc }: AnalyticsDashboardProps) {
     queryFn: async () => {
       const { data } = await supabase
         .from("report_requests")
-        .select("status, created_at")
+        .select("status, amount, payment_status, created_at")
         .order("created_at", { ascending: false });
       return data ?? [];
     },
@@ -108,6 +108,12 @@ export function AdminAnalyticsPanel({ qc }: AnalyticsDashboardProps) {
     const visitors = events.filter((e: any) => e.event_name === "visited_site").length;
     const uniqueVisitors = new Set(events.filter((e: any) => e.event_name === "visited_site").map((e: any) => e.session_id)).size;
 
+    const openDisputes = dealsData.filter((d: any) => d.status === "dispute").length;
+    const paidReportsSold = reportRequests.filter((r: any) => r.status === "completed" || r.payment_status === "completed").length;
+    const reportRevenue = reportRequests
+      .filter((r: any) => r.status === "completed" || r.payment_status === "completed")
+      .reduce((sum: number, r: any) => sum + (parseFloat(r.amount) || 0), 0);
+
     return {
       totalUsers: profiles.length,
       creators: creators.length,
@@ -122,7 +128,10 @@ export function AdminAnalyticsPanel({ qc }: AnalyticsDashboardProps) {
       proposalsSent,
       dealsCreated,
       dealsCompleted,
+      openDisputes,
       complaints,
+      paidReportsSold,
+      reportRevenue,
       reportClicked,
       reportPaymentStarted,
       reportPaymentCompleted,
@@ -190,7 +199,10 @@ export function AdminAnalyticsPanel({ qc }: AnalyticsDashboardProps) {
         <MetricCard label={t("admin.completedProfiles")} value={metrics.profileCompleted} />
         <MetricCard label={t("admin.dealsCreated")} value={metrics.dealsCreated} />
         <MetricCard label={t("admin.dealsCompleted")} value={metrics.dealsCompleted} />
+        <MetricCard label={t("admin.openDisputes")} value={metrics.openDisputes} />
         <MetricCard label={t("admin.complaints")} value={metrics.complaints} />
+        <MetricCard label={t("admin.paidReportsSold")} value={metrics.paidReportsSold} />
+        <MetricCard label={t("admin.reportRevenue")} value={`$${metrics.reportRevenue}`} />
         <MetricCard label={t("admin.reportClicks")} value={metrics.reportClicked} />
         <MetricCard label={t("admin.reportPayments")} value={metrics.reportPaymentCompleted} />
       </div>

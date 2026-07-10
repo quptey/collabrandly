@@ -25,7 +25,7 @@ export function AdminSeedDataPanel({ qc }: AdminSeedDataPanelProps) {
       const { data } = await supabase
         .from("profiles")
         .select(
-          "id, display_name, completed_deals, complaints_count, audience_quality, audience_gender, audience_age, audience_cities, follower_count, follower_range",
+          "id, display_name, completed_deals, complaints_count, audience_quality, audience_gender, audience_age, audience_cities, follower_count, follower_range, engagement_rate, average_rating",
         )
         .eq("role", "creator")
         .order("display_name", { ascending: true })
@@ -80,6 +80,8 @@ export function AdminSeedDataPanel({ qc }: AdminSeedDataPanelProps) {
               <th className="px-3 py-3">{t("admin.age")}</th>
               <th className="px-3 py-3">{t("admin.cities")}</th>
               <th className="px-3 py-3">{t("admin.followers")}</th>
+              <th className="px-3 py-3">{t("admin.engagement")}</th>
+              <th className="px-3 py-3">{t("admin.rating")}</th>
               <th className="px-3 py-3 text-right">{t("admin.action")}</th>
             </tr>
           </thead>
@@ -152,6 +154,23 @@ export function AdminSeedDataPanel({ qc }: AdminSeedDataPanelProps) {
                     className="w-20 h-8 text-sm"
                     value={getEdit(c.id, "follower_count", c.follower_count ?? 0)}
                     onChange={(e) => setEdit(c.id, "follower_count", Number(e.target.value))}
+                  />
+                </td>
+                <td className="px-3 py-3">
+                  <Input
+                    type="text"
+                    className="w-16 h-8 text-sm"
+                    value={getEdit(c.id, "engagement_rate", c.engagement_rate ?? "")}
+                    onChange={(e) => setEdit(c.id, "engagement_rate", e.target.value)}
+                  />
+                </td>
+                <td className="px-3 py-3">
+                  <Input
+                    type="number"
+                    step="0.01"
+                    className="w-16 h-8 text-sm"
+                    value={getEdit(c.id, "average_rating", c.average_rating ?? 0)}
+                    onChange={(e) => setEdit(c.id, "average_rating", Number(e.target.value))}
                   />
                 </td>
                 <td className="px-3 py-3 text-right">

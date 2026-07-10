@@ -26,6 +26,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as ReportIdRouteImport } from './routes/report.$id'
 import { Route as DealIdRouteImport } from './routes/deal.$id'
 import { Route as CreatorIdRouteImport } from './routes/creator.$id'
+import { Route as BrandIdRouteImport } from './routes/brand.$id'
 import { Route as AuthUpdatePasswordRouteImport } from './routes/auth.update-password'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
@@ -117,6 +118,11 @@ const CreatorIdRoute = CreatorIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => CreatorRoute,
 } as any)
+const BrandIdRoute = BrandIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BrandRoute,
+} as any)
 const AuthUpdatePasswordRoute = AuthUpdatePasswordRouteImport.update({
   id: '/update-password',
   path: '/update-password',
@@ -147,7 +153,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRouteWithChildren
-  '/brand': typeof BrandRoute
+  '/brand': typeof BrandRouteWithChildren
   '/campaigns': typeof CampaignsRoute
   '/creator': typeof CreatorRouteWithChildren
   '/marketplace': typeof MarketplaceRoute
@@ -160,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
+  '/brand/$id': typeof BrandIdRoute
   '/creator/$id': typeof CreatorIdRoute
   '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
@@ -171,7 +178,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRouteWithChildren
-  '/brand': typeof BrandRoute
+  '/brand': typeof BrandRouteWithChildren
   '/campaigns': typeof CampaignsRoute
   '/creator': typeof CreatorRouteWithChildren
   '/marketplace': typeof MarketplaceRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByTo {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
+  '/brand/$id': typeof BrandIdRoute
   '/creator/$id': typeof CreatorIdRoute
   '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
@@ -196,7 +204,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRouteWithChildren
-  '/brand': typeof BrandRoute
+  '/brand': typeof BrandRouteWithChildren
   '/campaigns': typeof CampaignsRoute
   '/creator': typeof CreatorRouteWithChildren
   '/marketplace': typeof MarketplaceRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/update-password': typeof AuthUpdatePasswordRoute
+  '/brand/$id': typeof BrandIdRoute
   '/creator/$id': typeof CreatorIdRoute
   '/deal/$id': typeof DealIdRoute
   '/report/$id': typeof ReportIdRouteWithChildren
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/reset-password'
     | '/auth/update-password'
+    | '/brand/$id'
     | '/creator/$id'
     | '/deal/$id'
     | '/report/$id'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/reset-password'
     | '/auth/update-password'
+    | '/brand/$id'
     | '/creator/$id'
     | '/deal/$id'
     | '/report/$id'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/auth/reset-password'
     | '/auth/update-password'
+    | '/brand/$id'
     | '/creator/$id'
     | '/deal/$id'
     | '/report/$id'
@@ -295,7 +307,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRouteWithChildren
-  BrandRoute: typeof BrandRoute
+  BrandRoute: typeof BrandRouteWithChildren
   CampaignsRoute: typeof CampaignsRoute
   CreatorRoute: typeof CreatorRouteWithChildren
   MarketplaceRoute: typeof MarketplaceRoute
@@ -432,6 +444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorIdRouteImport
       parentRoute: typeof CreatorRoute
     }
+    '/brand/$id': {
+      id: '/brand/$id'
+      path: '/$id'
+      fullPath: '/brand/$id'
+      preLoaderRoute: typeof BrandIdRouteImport
+      parentRoute: typeof BrandRoute
+    }
     '/auth/update-password': {
       id: '/auth/update-password'
       path: '/update-password'
@@ -484,6 +503,16 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface BrandRouteChildren {
+  BrandIdRoute: typeof BrandIdRoute
+}
+
+const BrandRouteChildren: BrandRouteChildren = {
+  BrandIdRoute: BrandIdRoute,
+}
+
+const BrandRouteWithChildren = BrandRoute._addFileChildren(BrandRouteChildren)
+
 interface CreatorRouteChildren {
   CreatorIdRoute: typeof CreatorIdRoute
 }
@@ -511,7 +540,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRouteWithChildren,
-  BrandRoute: BrandRoute,
+  BrandRoute: BrandRouteWithChildren,
   CampaignsRoute: CampaignsRoute,
   CreatorRoute: CreatorRouteWithChildren,
   MarketplaceRoute: MarketplaceRoute,

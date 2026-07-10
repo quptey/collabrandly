@@ -1393,7 +1393,7 @@ function ReputationPanel({ qc }: { qc: any }) {
     queryFn: async () => {
       const { data } = await supabase
         .from("profiles")
-        .select("id, display_name, completed_deals, complaints_count")
+        .select("id, display_name, completed_deals, complaints_count, average_rating")
         .eq("role", "creator")
         .order("display_name", { ascending: true });
       return data ?? [];
@@ -1420,19 +1420,20 @@ function ReputationPanel({ qc }: { qc: any }) {
             <th className="px-4 py-3">{t("admin.name")}</th>
             <th className="px-4 py-3">{t("admin.completedDeals")}</th>
             <th className="px-4 py-3">{t("admin.complaints")}</th>
+            <th className="px-4 py-3">{t("admin.rating")}</th>
             <th className="px-4 py-3 text-right">{t("admin.action")}</th>
           </tr>
         </thead>
         <tbody>
           {creators.length === 0 ? (
             <tr>
-              <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+              <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
                 {t("admin.noCreators")}
               </td>
             </tr>
           ) : (
             creators.map((c: any) => {
-              const edit = editing[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 };
+              const edit = editing[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0, average_rating: c.average_rating ?? 0 };
               return (
                 <tr key={c.id} className="border-t border-border">
                   <td className="px-4 py-3 font-medium">{c.display_name}</td>
@@ -1441,7 +1442,7 @@ function ReputationPanel({ qc }: { qc: any }) {
                       type="number"
                       className="w-20 h-8 text-sm"
                       value={edit.completed_deals}
-                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 }, completed_deals: Number(e.target.value) } }))}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0, average_rating: c.average_rating ?? 0 }, completed_deals: Number(e.target.value) } }))}
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -1449,7 +1450,16 @@ function ReputationPanel({ qc }: { qc: any }) {
                       type="number"
                       className="w-20 h-8 text-sm"
                       value={edit.complaints_count}
-                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0 }, complaints_count: Number(e.target.value) } }))}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0, average_rating: c.average_rating ?? 0 }, complaints_count: Number(e.target.value) } }))}
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <Input
+                      type="number"
+                      step="0.01"
+                      className="w-16 h-8 text-sm"
+                      value={edit.average_rating}
+                      onChange={(e) => setEditing((prev) => ({ ...prev, [c.id]: { ...prev[c.id] ?? { completed_deals: c.completed_deals ?? 0, complaints_count: c.complaints_count ?? 0, average_rating: c.average_rating ?? 0 }, average_rating: Number(e.target.value) } }))}
                     />
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -1694,8 +1704,10 @@ function PaidReportsPanel({ qc }: { qc: any }) {
       <table className="w-full text-sm">
         <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
           <tr>
-            <th className="px-4 py-3">{t("admin.brand")}</th>
+            <th className="px-4 py-3">{t("admin.buyer")}</th>
             <th className="px-4 py-3">{t("admin.creator")}</th>
+            <th className="px-4 py-3">{t("admin.amount")}</th>
+            <th className="px-4 py-3">{t("admin.paymentStatus")}</th>
             <th className="px-4 py-3">{t("admin.status")}</th>
             <th className="px-4 py-3">{t("admin.date")}</th>
           </tr>
@@ -1703,16 +1715,29 @@ function PaidReportsPanel({ qc }: { qc: any }) {
         <tbody>
           {reportRequests.length === 0 ? (
             <tr>
-              <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+              <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
                 {t("admin.noPaidReports")}
               </td>
             </tr>
           ) : (
             reportRequests.map((r: any) => (
               <tr key={r.id} className="border-t border-border">
-                <td className="px-4 py-3 font-medium">{r.brand_name ?? r.brand_id}</td>
+                <td className="px-4 py-3 font-medium">{r.brand_name ?? r.buyer_email ?? r.brand_id?.slice(0, 8)}</td>
                 <td className="px-4 py-3 text-muted-foreground">
-                  {r.profiles?.display_name ?? "—"}
+                  {r.profiles?.display_name ?? "\u2014"}
+                </td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {r.amount ? `$${r.amount}` : "\u2014"}
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`rounded-full px-2 py-1 text-xs font-medium ${
+                    r.payment_status === "completed" ? "bg-success/10 text-success border border-success/30" :
+                    r.payment_status === "pending" ? "bg-warning/10 text-warning border border-warning/30" :
+                    r.payment_status === "failed" ? "bg-destructive/10 text-destructive" :
+                    "bg-secondary text-muted-foreground"
+                  }`}>
+                    {r.payment_status || r.status}
+                  </span>
                 </td>
                 <td className="px-4 py-3">
                   <span className="rounded-full bg-secondary px-2 py-1 text-xs capitalize">

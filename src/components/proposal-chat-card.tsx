@@ -5,10 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import {
   Check, X, CheckCheck, AlertTriangle, Shield,
   SendHorizonal, DollarSign, Clock, CircleCheckBig,
-  Star, MessageSquareText, Ban,
+  Star, MessageSquareText, Ban, Flag,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
@@ -58,6 +60,8 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
   const [reviewComment, setReviewComment] = useState("");
   const [sendingReview, setSendingReview] = useState(false);
   const [deadlineDays, setDeadlineDays] = useState<number | null>(null);
+  const [disputeDialogOpen, setDisputeDialogOpen] = useState(false);
+  const [disputeReason, setDisputeReason] = useState("");
   const hasSentDeadlineNotif = useRef(false);
 
   const { data: deal } = useQuery({
@@ -73,13 +77,20 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     queryKey: ["deal-review", dealId, user?.id],
     queryFn: async () => {
       if (!user) return null;
-      const { data } = await supabase
+      let data = await supabase
         .from("creator_reviews")
-        .select("id, rating, comment")
+        .select("id, rating, comment, reviewer_id")
         .eq("deal_id", dealId)
         .eq("reviewer_id", user.id)
         .maybeSingle();
-      return data;
+      if (data.data) return data.data;
+      data = await supabase
+        .from("brand_reviews")
+        .select("id, rating, comment, reviewer_id")
+        .eq("deal_id", dealId)
+        .eq("reviewer_id", user.id)
+        .maybeSingle();
+      return data.data;
     },
     enabled: !!user,
   });
@@ -224,28 +235,52 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     });
   }
 
-  async function handleDispute() {
-    if (!user) return;
-    await updateStatus("dispute");
+  function openDisputeDialog() {
+    setDisputeReason("");
+    setDisputeDialogOpen(true);
+  }
+
+  async function handleConfirmDispute() {
+    if (!user || !disputeReason.trim()) return;
+    const payload: any = { status: "dispute", dispute_reason: disputeReason.trim(), dispute_opened_by: user.id };
+    await supabase.from("deals").update(payload).eq("id", dealId);
+    qc.invalidateQueries({ queryKey: ["chat-deal", dealId] });
+    setDisputeDialogOpen(false);
+    setDisputeReason("");
     const otherId = isBrand ? creatorId : brandId;
     createNotification({
       userId: otherId, type: "deal_disputed",
       title: t("trust.notifDealDisputedTitle"), body: t("trust.notifDealDisputedBody"),
       link: `/brand?page=messages&chat=${user.id}`,
     });
+    toast.success(t("trust.dealDisputeOpened"));
   }
 
   async function handleSubmitReview() {
     if (!user || rating === 0) return;
     setSendingReview(true);
-    const { error } = await supabase.from("creator_reviews").insert({
-      deal_id: dealId,
-      creator_id: creatorId,
-      reviewer_id: user.id,
-      rating,
-      comment: reviewComment || "",
-      status: "completed",
-    });
+    let error;
+    if (isBrand) {
+      const res = await supabase.from("creator_reviews").insert({
+        deal_id: dealId,
+        creator_id: creatorId,
+        reviewer_id: user.id,
+        rating,
+        comment: reviewComment || "",
+        status: "completed",
+      });
+      error = res.error;
+    } else {
+      const res = await supabase.from("brand_reviews").insert({
+        deal_id: dealId,
+        brand_id: brandId,
+        reviewer_id: user.id,
+        rating,
+        comment: reviewComment || "",
+        status: "completed",
+      });
+      error = res.error;
+    }
     setSendingReview(false);
     if (error) {
       toast.error(error.message);
@@ -256,6 +291,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     setReviewComment("");
     qc.invalidateQueries({ queryKey: ["deal-review", dealId, user.id] });
     qc.invalidateQueries({ queryKey: ["creator-public", creatorId] });
+    qc.invalidateQueries({ queryKey: ["brand-public", brandId] });
   }
 
   const timeline: { label: string; time: Date | null }[] = [
@@ -398,7 +434,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
               <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold bg-green-600 hover:bg-green-700" onClick={handleComplete}>
                 <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmCompletion")}
               </Button>
-              <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={handleDispute}>
+              <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
                 <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
               </Button>
             </div>
@@ -409,7 +445,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
             <div className="space-y-2">
               <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingBrandReview")}</p>
               {canCreatorDispute && (
-                <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={handleDispute}>
+                <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
                   <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
                 </Button>
               )}
@@ -425,7 +461,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
 
           {/* Brand: dispute before work submitted */}
           {isBrand && isFirstPayment && (
-            <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={handleDispute}>
+            <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
               <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
             </Button>
           )}
@@ -527,6 +563,44 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
           )}
         </div>
       )}
+
+      {/* Dispute reason dialog */}
+      <Dialog open={disputeDialogOpen} onOpenChange={setDisputeDialogOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="font-display text-lg flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-red-500" />
+              {t("trust.openDispute")}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">{t("trust.disputeReasonPrompt")}</p>
+            <div className="space-y-2">
+              <Label>{t("admin.disputeReason")}</Label>
+              <Textarea
+                value={disputeReason}
+                onChange={(e) => setDisputeReason(e.target.value)}
+                placeholder={t("trust.disputeReasonPlaceholder") || "Describe the reason for the dispute..."}
+                rows={3}
+              />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" size="sm" onClick={() => setDisputeDialogOpen(false)}>
+                {t("admin.cancel")}
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={!disputeReason.trim()}
+                onClick={handleConfirmDispute}
+              >
+                <Flag className="mr-1.5 h-4 w-4" />
+                {t("trust.sendDispute")}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Timeline */}
       {isActive || isCompleted || isFinalPayment || isDispute ? (

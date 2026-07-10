@@ -14,6 +14,7 @@ import {
   ExternalLink,
   Globe,
   Flag,
+  Star,
 } from "lucide-react";
 import { useT } from "@/i18n";
 import { useAuth } from "@/lib/auth-context";
@@ -779,6 +780,11 @@ function CreatorProfilePublic() {
           </section>
         )}
 
+        {/* Public Reviews */}
+        <section className="mt-8 mb-8">
+          <ReviewsSection targetId={creator.id} targetType="creator" t={t} />
+        </section>
+
         {!isBrand && user?.id !== id && (
           <div className="mt-5 mb-12">
             <Button className="w-full rounded-2xl h-12" onClick={openContactDialog}>
@@ -801,6 +807,96 @@ function CreatorProfilePublic() {
         reportedId={creator.id}
         userType="creator"
       />
+    </div>
+  );
+}
+
+function ReviewsSection({ targetId, targetType, t, limit: showLimit = 10 }: { targetId: string; targetType: "creator" | "brand"; t: any; limit?: number }) {
+  const table = targetType === "creator" ? "creator_reviews" : "brand_reviews";
+  const targetColumn = targetType === "creator" ? "creator_id" : "brand_id";
+
+  const { data: reviews = [] } = useQuery({
+    queryKey: ["public-reviews", targetType, targetId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from(table as any)
+        .select(`*, reviewer:profiles!${table}_reviewer_id_fkey(display_name, avatar_url)`)
+        .eq(targetColumn, targetId)
+        .eq("moderation_status", "approved")
+        .order("created_at", { ascending: false })
+        .limit(showLimit);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  if (reviews.length === 0) return null;
+
+  const avgRating =
+    reviews.reduce((sum: number, r: any) => sum + (r.rating || 0), 0) / reviews.length;
+
+  return (
+    <div className="rounded-3xl bg-white p-6 shadow-sm border border-border/40">
+      <div className="flex items-center gap-3 mb-4">
+        <h3 className="font-display text-lg font-semibold">
+          {t("admin.reviews")}
+        </h3>
+        <span className="text-xs text-muted-foreground">
+          ({reviews.length})
+        </span>
+        <div className="flex items-center gap-1 ml-auto">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star
+              key={star}
+              className={`h-4 w-4 ${
+                star <= Math.round(avgRating)
+                  ? "fill-amber-400 text-amber-400"
+                  : "text-muted-foreground/20"
+              }`}
+            />
+          ))}
+          <span className="ml-1 text-sm font-medium">{avgRating.toFixed(1)}</span>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {reviews.map((r: any) => (
+          <div key={r.id} className="rounded-2xl border border-border/40 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="h-7 w-7 rounded-full bg-warm overflow-hidden shrink-0">
+                {r.reviewer?.avatar_url ? (
+                  <img src={r.reviewer.avatar_url} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <div className="grid h-full w-full place-items-center text-[10px] font-medium text-muted-foreground">
+                    {r.reviewer?.display_name?.[0] ?? "?"}
+                  </div>
+                )}
+              </div>
+              <span className="text-sm font-medium">{r.reviewer?.display_name || "Anonymous"}</span>
+              <span className="text-[10px] text-muted-foreground ml-auto">
+                {new Date(r.created_at).toLocaleDateString("en-GB", {
+                  day: "numeric", month: "short", year: "numeric",
+                })}
+              </span>
+            </div>
+            <div className="flex gap-0.5 mb-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className={`h-3.5 w-3.5 ${
+                    star <= (r.rating || 0)
+                      ? "fill-amber-400 text-amber-400"
+                      : "text-muted-foreground/20"
+                  }`}
+                />
+              ))}
+            </div>
+            {r.comment && (
+              <p className="text-sm text-muted-foreground mt-1">"{r.comment}"</p>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
