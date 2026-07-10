@@ -37,7 +37,8 @@ ALTER TABLE deals ADD COLUMN IF NOT EXISTS dispute_resolved_at TIMESTAMPTZ;
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS total_reviews INTEGER DEFAULT 0;
 
 -- 4. RLS for deals to allow admin to update
-CREATE POLICY IF NOT EXISTS "Admin can update deals"
+DROP POLICY IF EXISTS "Admin can update deals" ON deals;
+CREATE POLICY "Admin can update deals"
   ON deals FOR UPDATE
   USING (
     EXISTS (SELECT 1 FROM user_roles WHERE user_id = auth.uid() AND role = 'admin')
