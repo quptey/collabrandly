@@ -1540,8 +1540,7 @@ function BrandDashboard() {
                             className="h-8 w-full rounded-xl text-xs font-medium"
                             onClick={(e) => {
                               e.preventDefault();
-                              setCollaborationCreator(c);
-                              setCollaborationOpen(true);
+                              navigate({ to: "/creator/$id", params: { id: c.id } });
                             }}
                           >
                             <Handshake className="mr-1 h-3.5 w-3.5" />
