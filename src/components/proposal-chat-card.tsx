@@ -268,6 +268,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
         rating,
         comment: reviewComment || "",
         status: "completed",
+        moderation_status: "approved",
       });
       error = res.error;
     } else {
@@ -278,6 +279,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
         rating,
         comment: reviewComment || "",
         status: "completed",
+        moderation_status: "approved",
       });
       error = res.error;
     }
@@ -339,7 +341,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
       )}
 
       {/* Safe payment recommendation */}
-      {(isConfirmed || isFirstPayment || isWorkSubmitted) && (
+      {(isConfirmed || isFirstPayment || isWorkSubmitted || isFinalPayment) && (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-amber-800 mb-1.5">
             <Shield className="h-3.5 w-3.5" /> {t("trust.safePaymentTitle")}
