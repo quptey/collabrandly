@@ -113,7 +113,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     if (!isActive || !deal.deadline) return;
     const diff = new Date(deal.deadline).getTime() - Date.now();
     const daysUntilDeadline = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    if (daysUntilDeadline <= 2 && daysUntilDeadline >= 0 && user.id === creatorId && (s === "confirmed" || s === "first_payment")) {
+    if (daysUntilDeadline <= 2 && daysUntilDeadline >= 0 && user.id === creatorId && (s === "confirmed" || s === "first_payment" || s === "work_submitted" || s === "final_payment")) {
       hasSentDeadlineNotif.current = true;
       createNotification({
         userId: creatorId, type: "deal_review_required",
@@ -138,8 +138,8 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
   const isFinalPayment = s === "final_payment";
   const isDispute = s === "dispute";
   const isRejected = s === "rejected";
-  const isActive = !isDispute && !isRejected && !isFinalPayment && !isPending;
-  const canReview = (isCompleted || isFinalPayment) && !existingReview && user;
+  const isActive = !isDispute && !isRejected && !isCompleted && !isPending;
+  const canReview = isCompleted && !existingReview && user;
 
   const workSubmittedAt = meta.workSubmittedAt ? new Date(meta.workSubmittedAt) : null;
   const canCreatorDispute = isWorkSubmitted && workSubmittedAt &&
@@ -205,6 +205,17 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
 
   async function handleComplete() {
     if (!user) return;
+    await updateStatus("final_payment", { finalPaymentAt: new Date().toISOString() });
+    toast.success(t("trust.workConfirmed"));
+    createNotification({
+      userId: creatorId, type: "work_confirmed",
+      title: t("trust.notifWorkConfirmedTitle"), body: t("trust.notifWorkConfirmedBody"),
+      link: `/brand?page=messages&chat=${brandId}`,
+    });
+  }
+
+  async function handleFinalPayment() {
+    if (!user) return;
     await updateStatus("completed", { completedAt: new Date().toISOString() });
     toast.success(t("trust.cooperationCompleted"));
     createNotification({
@@ -221,17 +232,6 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
       userId: brandId, type: "deal_review_required",
       title: t("trust.notifReviewBrandTitle"), body: t("trust.notifReviewBrandBody"),
       link: `/brand?page=messages&chat=${creatorId}`,
-    });
-  }
-
-  async function handleFinalPayment() {
-    if (!user) return;
-    await updateStatus("final_payment", { finalPaymentAt: new Date().toISOString() });
-    toast.success(t("trust.finalPaymentDone"));
-    createNotification({
-      userId: creatorId, type: "final_payment_confirmed",
-      title: t("trust.notifFinalPaymentTitle"), body: t("trust.notifFinalPaymentBody"),
-      link: `/brand?page=messages&chat=${brandId}`,
     });
   }
 
@@ -299,8 +299,8 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     { label: t("trust.timelineCreatorAccepted"), time: deal.updated_at && !isPending ? new Date(deal.updated_at) : null },
     { label: t("trust.timelineFirstPayment"), time: meta.firstPaymentAt ? new Date(meta.firstPaymentAt) : null },
     { label: t("trust.timelineWorkSubmitted"), time: meta.workSubmittedAt ? new Date(meta.workSubmittedAt) : null },
+    { label: t("trust.timelineWorkConfirmed"), time: meta.finalPaymentAt ? new Date(meta.finalPaymentAt) : null },
     { label: t("trust.timelineCompleted"), time: meta.completedAt ? new Date(meta.completedAt) : null },
-    { label: t("trust.timelineFinalPayment"), time: meta.finalPaymentAt ? new Date(meta.finalPaymentAt) : null },
   ].filter((e) => e.time !== null || (e.label === t("trust.timelineProposalCreated") && deal.created_at));
 
   return (
@@ -432,7 +432,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
           {isBrand && isWorkSubmitted && (
             <div className="flex gap-2">
               <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold bg-green-600 hover:bg-green-700" onClick={handleComplete}>
-                <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmCompletion")}
+                <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmWork")}
               </Button>
               <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
                 <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
@@ -452,11 +452,25 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
             </div>
           )}
 
-          {/* Brand: final payment after completion */}
-          {isBrand && isCompleted && (
-            <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFinalPayment}>
-              <DollarSign className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFinalPayment")}
-            </Button>
+          {/* Creator waiting for final payment */}
+          {isCreator && isFinalPayment && (
+            <div className="space-y-2">
+              <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingFinalPayment")}</p>
+            </div>
+          )}
+
+          {/* Brand: final payment after work confirmed */}
+          {isBrand && isFinalPayment && (
+            <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-semibold text-indigo-800">
+                <DollarSign className="h-4 w-4" /> {t("trust.finalPaymentTitle")}
+              </div>
+              <p className="text-[11px] text-indigo-700">{t("trust.finalPaymentDesc")}</p>
+              <p className="text-[10px] text-indigo-500 italic">{t("trust.safePaymentDisclaimer")}</p>
+              <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFinalPayment}>
+                <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFinalPaymentSent")}
+              </Button>
+            </div>
           )}
 
           {/* Brand: dispute before work submitted */}
@@ -468,16 +482,11 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
 
           {/* Completed state */}
           {isCompleted && (
-            <div className="text-center text-xs font-medium text-green-600 py-1">
-              {t("trust.cooperationCompleted")}
-            </div>
-          )}
-
-          {/* Final payment done */}
-          {isFinalPayment && (
-            <div className="text-center text-xs font-medium text-green-600 py-1">
-              <CircleCheckBig className="inline h-4 w-4 mr-1" />
-              {t("trust.allDone")}
+            <div className="text-center space-y-2 py-2">
+              <div className="text-xs font-medium text-green-600">
+                <CircleCheckBig className="inline h-4 w-4 mr-1" />
+                {t("trust.cooperationCompleted")}
+              </div>
             </div>
           )}
 
@@ -544,7 +553,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
       )}
 
       {/* Show existing review */}
-      {existingReview && (isCompleted || isFinalPayment) && (
+      {existingReview && isCompleted && (
         <div className="rounded-xl border border-green-100 bg-green-50/30 p-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-green-700 mb-1">
             <MessageSquareText className="h-3.5 w-3.5" /> {t("trust.yourReview")}
@@ -603,7 +612,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
       </Dialog>
 
       {/* Timeline */}
-      {isActive || isCompleted || isFinalPayment || isDispute ? (
+      {isActive || isCompleted || isDispute ? (
         <div className="rounded-xl border border-border/40 bg-white p-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-2">
             <Clock className="h-3.5 w-3.5" /> {t("trust.timeline")}

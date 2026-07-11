@@ -2447,7 +2447,7 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
     refetchInterval: 5000,
   });
 
-  const isChatLocked = chatDeal && (chatDeal.status === "completed" || chatDeal.status === "dispute" || chatDeal.status === "final_payment");
+  const isChatLocked = false;
 
   async function sendAttachment(file: File) {
     if (!userId || !selectedConversation) return;
@@ -2779,11 +2779,6 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
 
             {/* Input */}
             <div className="border-t border-border/60 p-4 px-6">
-              {isChatLocked ? (
-                <div className="flex items-center justify-center gap-2 py-4 text-[11px] text-muted-foreground">
-                  <Lock className="h-3.5 w-3.5" /> {t("trust.chatLocked")}
-                </div>
-              ) : (
                 <div className="flex gap-3">
                   <input
                     ref={fileInputRef}
@@ -2825,7 +2820,6 @@ function MessagesPage({ userId, qc, chatUser }: { userId: string; qc: any; chatU
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>
-              )}
             </div>
           </>
         ) : (

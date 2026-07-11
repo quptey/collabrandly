@@ -671,8 +671,6 @@ function BrandDashboard() {
     refetchInterval: 5000,
   });
 
-  const isChatLocked = chatDeal && (chatDeal.status === "completed" || chatDeal.status === "dispute" || chatDeal.status === "final_payment");
-
   async function sendAttachment(file: File) {
     if (!user || !selectedChat) return;
     setUploadingFile(true);
@@ -2198,20 +2196,25 @@ function BrandDashboard() {
                       <div ref={messagesEndRef} />
                     </div>
                     <div className="border-t border-border/40 p-4 space-y-2">
-                      {isChatLocked ? (
-                        <div className="flex items-center justify-center gap-2 py-4 text-[11px] text-muted-foreground">
-                          <Lock className="h-3.5 w-3.5" /> {t("trust.chatLocked")}
-                        </div>
-                      ) : (
-                        <>
-                          <Button
-                            variant="outline"
-                            className="w-full rounded-2xl h-10 text-sm font-medium"
-                            onClick={() => setProposalOpen(true)}
-                          >
-                            <Send className="mr-2 h-4 w-4" /> {t("trust.proposalSend")}
-                          </Button>
-                          <form
+                      {chatDeal && chatDeal.status === "completed" && (
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-2xl h-10 text-sm font-medium border-dashed border-accent/40 text-accent hover:bg-accent/5"
+                          onClick={() => setProposalOpen(true)}
+                        >
+                          <Plus className="mr-2 h-4 w-4" /> {t("trust.newCollaboration")}
+                        </Button>
+                      )}
+                      {(!chatDeal || chatDeal.status !== "completed") && (
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-2xl h-10 text-sm font-medium"
+                          onClick={() => setProposalOpen(true)}
+                        >
+                          <Send className="mr-2 h-4 w-4" /> {t("trust.proposalSend")}
+                        </Button>
+                      )}
+                      <form
                             onSubmit={(e) => {
                               e.preventDefault();
                               sendMessage();
@@ -2253,8 +2256,6 @@ function BrandDashboard() {
                               <Send className="h-4 w-4" />
                             </Button>
                           </form>
-                        </>
-                      )}
                     </div>
 
                     {/* Proposal modal */}
