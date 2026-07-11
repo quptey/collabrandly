@@ -39,14 +39,14 @@ function updateMeta(deal: any, updates: Record<string, string>) {
 
 function statusLabel(t: any, deal: any) {
   const labels: Record<string, string> = {
-    pending: t("trust.dealStatusPending"),
-    confirmed: t("trust.dealStatusConfirmed"),
-    first_payment: t("trust.firstPaymentConfirmed"),
-    work_submitted: t("trust.workSubmitted"),
-    completed: t("trust.dealStatusCompleted"),
-    final_payment: t("trust.finalPaymentDone"),
-    dispute: t("trust.dealStatusDispute"),
-    rejected: t("trust.proposalRejected"),
+    pending: "🟡 " + t("trust.waitingCreator"),
+    confirmed: "🔵 " + t("trust.inProgress"),
+    first_payment: "🔵 " + t("trust.inProgress"),
+    work_submitted: "🟠 " + t("trust.waitingBrandReview"),
+    final_payment: "💰 " + t("trust.waitingFinalPayment"),
+    completed: "🟢 " + t("trust.dealStatusCompleted"),
+    dispute: "🔴 " + t("trust.dealStatusDispute"),
+    rejected: "❌ " + t("trust.proposalRejected"),
   };
   return labels[deal.status] || deal.status;
 }
@@ -141,9 +141,16 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
   const isActive = !isDispute && !isRejected && !isCompleted && !isPending;
   const canReview = isCompleted && !existingReview && user;
 
+  const firstPaymentSent = !!(meta.firstPaymentSentAt || (isFirstPayment && !meta.firstPaymentConfirmedAt));
+  const firstPaymentConfirmed = !!meta.firstPaymentConfirmedAt;
+  const finalPaymentSent = !!meta.finalPaymentSentAt;
+  const finalPaymentConfirmed = !!meta.finalPaymentConfirmedAt;
+  const creatorCanSubmit = (isConfirmed || isFirstPayment) && firstPaymentConfirmed;
+
   const workSubmittedAt = meta.workSubmittedAt ? new Date(meta.workSubmittedAt) : null;
-  const canCreatorDispute = isWorkSubmitted && workSubmittedAt &&
-    (Date.now() - workSubmittedAt.getTime() > 7 * 24 * 60 * 60 * 1000);
+  const finalPaymentAcceptedAt = meta.finalPaymentAt ? new Date(meta.finalPaymentAt) : null;
+  const canCreatorDisputeFinal = isFinalPayment && finalPaymentSent && finalPaymentAcceptedAt &&
+    (Date.now() - finalPaymentAcceptedAt.getTime() > 7 * 24 * 60 * 60 * 1000);
 
   async function updateStatus(newStatus: string, metaUpdates?: Record<string, string>) {
     const payload: any = { status: newStatus };
@@ -178,13 +185,31 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
 
   async function handleFirstPayment() {
     if (!user) return;
-    await updateStatus("first_payment", { firstPaymentAt: new Date().toISOString() });
+    await updateStatus("first_payment", { firstPaymentSentAt: new Date().toISOString() });
     toast.success(t("trust.firstPaymentDone"));
     createNotification({
-      userId: creatorId, type: "first_payment_confirmed",
+      userId: creatorId, type: "first_payment_sent",
       title: t("trust.notifFirstPaymentTitle"), body: t("trust.notifFirstPaymentBody"),
       link: `/brand?page=messages&chat=${brandId}`,
     });
+  }
+
+  async function handleConfirmFirstPayment() {
+    if (!user) return;
+    const st = isFirstPayment ? "first_payment" : "confirmed";
+    await updateStatus(st, { firstPaymentConfirmedAt: new Date().toISOString() });
+    toast.success(t("trust.firstPaymentConfirmed"));
+    createNotification({
+      userId: brandId, type: "first_payment_confirmed",
+      title: t("trust.notifFirstPaymentConfirmedTitle"), body: t("trust.notifFirstPaymentConfirmedBody"),
+      link: `/brand?page=messages&chat=${creatorId}`,
+    });
+  }
+
+  async function handleFirstPaymentNotReceived() {
+    if (!user) return;
+    setDisputeReason(t("trust.firstPaymentNotReceivedReason") || "First payment not received");
+    setDisputeDialogOpen(true);
   }
 
   async function handleSubmitWork() {
@@ -214,14 +239,25 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
     });
   }
 
-  async function handleFinalPayment() {
+  async function handleFinalPaymentSent() {
     if (!user) return;
-    await updateStatus("completed", { completedAt: new Date().toISOString() });
+    await updateStatus("final_payment", { finalPaymentSentAt: new Date().toISOString() });
+    toast.success(t("trust.finalPaymentSent"));
+    createNotification({
+      userId: creatorId, type: "final_payment_sent",
+      title: t("trust.notifFinalPaymentSentTitle"), body: t("trust.notifFinalPaymentSentBody"),
+      link: `/brand?page=messages&chat=${brandId}`,
+    });
+  }
+
+  async function handleConfirmFinalPayment() {
+    if (!user) return;
+    await updateStatus("completed", { completedAt: new Date().toISOString(), finalPaymentConfirmedAt: new Date().toISOString() });
     toast.success(t("trust.cooperationCompleted"));
     createNotification({
-      userId: creatorId, type: "deal_completed",
+      userId: brandId, type: "deal_completed",
       title: t("trust.notifDealCompletedTitle"), body: t("trust.notifDealCompletedBody"),
-      link: `/brand?page=messages&chat=${brandId}`,
+      link: `/brand?page=messages&chat=${creatorId}`,
     });
     createNotification({
       userId: creatorId, type: "deal_review_required",
@@ -233,6 +269,12 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
       title: t("trust.notifReviewBrandTitle"), body: t("trust.notifReviewBrandBody"),
       link: `/brand?page=messages&chat=${creatorId}`,
     });
+  }
+
+  async function handleFinalPaymentNotReceived() {
+    if (!user) return;
+    setDisputeReason(t("trust.finalPaymentNotReceivedReason") || "Final payment not received");
+    setDisputeDialogOpen(true);
   }
 
   function openDisputeDialog() {
@@ -299,9 +341,10 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
   const timeline: { label: string; time: Date | null }[] = [
     { label: t("trust.timelineProposalCreated"), time: deal.created_at ? new Date(deal.created_at) : null },
     { label: t("trust.timelineCreatorAccepted"), time: deal.updated_at && !isPending ? new Date(deal.updated_at) : null },
-    { label: t("trust.timelineFirstPayment"), time: meta.firstPaymentAt ? new Date(meta.firstPaymentAt) : null },
+    { label: t("trust.timelineFirstPayment"), time: meta.firstPaymentSentAt ? new Date(meta.firstPaymentSentAt) : null },
     { label: t("trust.timelineWorkSubmitted"), time: meta.workSubmittedAt ? new Date(meta.workSubmittedAt) : null },
     { label: t("trust.timelineWorkConfirmed"), time: meta.finalPaymentAt ? new Date(meta.finalPaymentAt) : null },
+    { label: t("trust.timelineFinalPaymentSent"), time: meta.finalPaymentSentAt ? new Date(meta.finalPaymentSentAt) : null },
     { label: t("trust.timelineCompleted"), time: meta.completedAt ? new Date(meta.completedAt) : null },
   ].filter((e) => e.time !== null || (e.label === t("trust.timelineProposalCreated") && deal.created_at));
 
@@ -336,12 +379,14 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
             <li>4. {t("trust.safeDealStep4")}</li>
             <li>5. {t("trust.safeDealStep5")}</li>
             <li>6. {t("trust.safeDealStep6")}</li>
+            <li>7. {t("trust.safeDealStep7")}</li>
+            <li>8. {t("trust.safeDealStep8")}</li>
           </ol>
         </div>
       )}
 
       {/* Safe payment recommendation */}
-      {(isConfirmed || isFirstPayment || isWorkSubmitted || isFinalPayment) && (
+      {(isConfirmed || isFirstPayment || isFinalPayment) && (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-amber-800 mb-1.5">
             <Shield className="h-3.5 w-3.5" /> {t("trust.safePaymentTitle")}
@@ -394,8 +439,8 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
 
         {/* Actions */}
         <div className="mt-4 space-y-2">
-          {/* Creator: accept/reject on pending */}
-          {isCreator && isPending && (
+          {/* ===== STEP 1: PENDING ===== */}
+          {isPending && isCreator && (
             <div className="flex gap-2">
               <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold" onClick={handleAccept}>
                 <Check className="mr-1.5 h-3.5 w-3.5" /> {t("trust.acceptProposal")}
@@ -405,84 +450,128 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
               </Button>
             </div>
           )}
-
-          {/* Brand waiting */}
-          {isBrand && isPending && (
+          {isPending && isBrand && (
             <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingCreator")}</p>
           )}
 
-          {/* Brand: first payment confirmation */}
-          {isBrand && isConfirmed && (
-            <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFirstPayment}>
-              <DollarSign className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFirstPayment")}
-            </Button>
-          )}
-
-          {/* Creator waiting after first payment */}
-          {isCreator && isFirstPayment && (
-            <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingWorkStart")}</p>
-          )}
-
-          {/* Creator: submit work */}
-          {isCreator && (isConfirmed || isFirstPayment) && (
-            <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleSubmitWork}>
-              <SendHorizonal className="mr-1.5 h-3.5 w-3.5" /> {t("trust.submitWork")}
-            </Button>
-          )}
-
-          {/* Brand: review work */}
-          {isBrand && isWorkSubmitted && (
-            <div className="flex gap-2">
-              <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold bg-green-600 hover:bg-green-700" onClick={handleComplete}>
-                <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmWork")}
-              </Button>
-              <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
-                <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
-              </Button>
-            </div>
-          )}
-
-          {/* Creator waiting after work submitted */}
-          {isCreator && isWorkSubmitted && (
-            <div className="space-y-2">
-              <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingBrandReview")}</p>
-              {canCreatorDispute && (
-                <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
-                  <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
+          {/* ===== STEP 2-3: IN PROGRESS (confirmed / first_payment) ===== */}
+          {(isConfirmed || isFirstPayment) && (
+            <>
+              {/* Brand: send first payment */}
+              {isBrand && !firstPaymentSent && (
+                <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFirstPayment}>
+                  <DollarSign className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFirstPayment")}
                 </Button>
               )}
-            </div>
+              {/* Brand: waiting for creator to confirm payment */}
+              {isBrand && firstPaymentSent && !firstPaymentConfirmed && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingCreatorConfirmPayment")}</p>
+              )}
+              {/* Brand: waiting for work */}
+              {isBrand && firstPaymentConfirmed && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingWorkStart")}</p>
+              )}
+
+              {/* Creator: waiting for brand to send payment */}
+              {isCreator && !firstPaymentSent && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingFirstPayment")}</p>
+              )}
+              {/* Creator: confirm first payment received */}
+              {isCreator && firstPaymentSent && !firstPaymentConfirmed && (
+                <div className="rounded-xl border border-blue-200 bg-blue-50 p-3 space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-blue-800">
+                    <DollarSign className="h-4 w-4" /> {t("trust.firstPaymentReceivedTitle")}
+                  </div>
+                  <p className="text-[11px] text-blue-700">{t("trust.firstPaymentReceivedDesc")}</p>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold" onClick={handleConfirmFirstPayment}>
+                      <Check className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFirstPaymentReceived")}
+                    </Button>
+                    <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={handleFirstPaymentNotReceived}>
+                      <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.paymentNotReceived")}
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {/* Creator: submit work */}
+              {isCreator && firstPaymentConfirmed && (
+                <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleSubmitWork}>
+                  <SendHorizonal className="mr-1.5 h-3.5 w-3.5" /> {t("trust.submitWork")}
+                </Button>
+              )}
+            </>
           )}
 
-          {/* Creator waiting for final payment */}
-          {isCreator && isFinalPayment && (
-            <div className="space-y-2">
-              <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingFinalPayment")}</p>
-            </div>
+          {/* ===== STEP 5-6: WAITING FOR BRAND REVIEW (work_submitted) ===== */}
+          {isWorkSubmitted && (
+            <>
+              {isBrand && (
+                <div className="flex gap-2">
+                  <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold bg-green-600 hover:bg-green-700" onClick={handleComplete}>
+                    <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.acceptWork")}
+                  </Button>
+                  <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
+                    <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
+                  </Button>
+                </div>
+              )}
+              {isCreator && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingBrandReview")}</p>
+              )}
+            </>
           )}
 
-          {/* Brand: final payment after work confirmed */}
-          {isBrand && isFinalPayment && (
-            <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-semibold text-indigo-800">
-                <DollarSign className="h-4 w-4" /> {t("trust.finalPaymentTitle")}
-              </div>
-              <p className="text-[11px] text-indigo-700">{t("trust.finalPaymentDesc")}</p>
-              <p className="text-[10px] text-indigo-500 italic">{t("trust.safePaymentDisclaimer")}</p>
-              <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFinalPayment}>
-                <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFinalPaymentSent")}
-              </Button>
-            </div>
+          {/* ===== STEP 7-8: WAITING FOR FINAL PAYMENT (final_payment) ===== */}
+          {isFinalPayment && (
+            <>
+              {/* Brand: send final payment */}
+              {isBrand && !finalPaymentSent && (
+                <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-indigo-800">
+                    <DollarSign className="h-4 w-4" /> {t("trust.finalPaymentTitle")}
+                  </div>
+                  <p className="text-[11px] text-indigo-700">{t("trust.finalPaymentDesc")}</p>
+                  <p className="text-[10px] text-indigo-500 italic">{t("trust.safePaymentDisclaimer")}</p>
+                  <Button size="sm" className="w-full rounded-xl h-9 text-xs font-semibold" onClick={handleFinalPaymentSent}>
+                    <CheckCheck className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFinalPaymentSent")}
+                  </Button>
+                </div>
+              )}
+              {/* Brand: waiting for creator to confirm */}
+              {isBrand && finalPaymentSent && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingCreatorConfirmPayment")}</p>
+              )}
+
+              {/* Creator: waiting for brand to send */}
+              {isCreator && !finalPaymentSent && (
+                <p className="text-[11px] text-muted-foreground text-center">{t("trust.waitingFinalPayment")}</p>
+              )}
+              {/* Creator: confirm final payment received */}
+              {isCreator && finalPaymentSent && !finalPaymentConfirmed && (
+                <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-3 space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-indigo-800">
+                    <DollarSign className="h-4 w-4" /> {t("trust.finalPaymentReceivedTitle")}
+                  </div>
+                  <p className="text-[11px] text-indigo-700">{t("trust.finalPaymentReceivedDesc")}</p>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="flex-1 rounded-xl h-9 text-xs font-semibold" onClick={handleConfirmFinalPayment}>
+                      <Check className="mr-1.5 h-3.5 w-3.5" /> {t("trust.confirmFinalPaymentReceived")}
+                    </Button>
+                    <Button size="sm" variant="outline" className="flex-1 rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={handleFinalPaymentNotReceived}>
+                      <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.paymentNotReceived")}
+                    </Button>
+                  </div>
+                  {canCreatorDisputeFinal && (
+                    <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
+                      <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
+                    </Button>
+                  )}
+                </div>
+              )}
+            </>
           )}
 
-          {/* Brand: dispute before work submitted */}
-          {isBrand && isFirstPayment && (
-            <Button size="sm" variant="outline" className="w-full rounded-xl h-9 text-xs text-red-600 border-red-200 hover:bg-red-50" onClick={openDisputeDialog}>
-              <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> {t("trust.openDispute")}
-            </Button>
-          )}
-
-          {/* Completed state */}
+          {/* ===== COMPLETED ===== */}
           {isCompleted && (
             <div className="text-center space-y-2 py-2">
               <div className="text-xs font-medium text-green-600">
@@ -492,7 +581,7 @@ export function ProposalChatCard({ dealId, brandId, creatorId }: ProposalChatCar
             </div>
           )}
 
-          {/* Dispute state with admin review message */}
+          {/* ===== DISPUTE ===== */}
           {isDispute && (
             <div className="space-y-2">
               <div className="text-center text-xs font-medium text-red-600 py-1">
