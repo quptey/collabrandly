@@ -103,6 +103,7 @@ import {
   type FollowerRange,
 } from "@/lib/constants";
 import { ProposalChatCard } from "@/components/proposal-chat-card";
+import { CollaborationReviewModal } from "@/components/collaboration-review-modal";
 
 const brandSearchSchema = z.object({
   page: fallback(
@@ -2971,6 +2972,8 @@ function StatusBadge({ status }: { status: string }) {
 function CollaborationsSection({ brandId }: { brandId: string }) {
   const { t } = useT();
   const qc = useQueryClient();
+  const [reviewCol, setReviewCol] = useState<any | null>(null);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   const { data: collaborations = [] } = useQuery({
     queryKey: ["brand-collaborations", brandId],
@@ -3160,10 +3163,38 @@ function CollaborationsSection({ brandId }: { brandId: string }) {
                   </Select>
                 </div>
               </div>
+
+              {col.status === "completed" && (
+                <div className="mt-3 border-t border-border/40 pt-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full rounded-xl text-xs"
+                    onClick={() => {
+                      setReviewCol(col);
+                      setReviewOpen(true);
+                    }}
+                  >
+                    <Star className="mr-1.5 h-3.5 w-3.5 text-amber-400" />
+                    {t("trust.rateCollaboration")}
+                  </Button>
+                </div>
+              )}
             </div>
           ))}
         </div>
       )}
+
+      <CollaborationReviewModal
+        open={reviewOpen}
+        onOpenChange={setReviewOpen}
+        collaborationId={reviewCol?.id ?? ""}
+        targetId={reviewCol?.creator?.id ?? ""}
+        targetType="creator"
+        reviewerId={brandId}
+        targetName={reviewCol?.creator?.display_name ?? ""}
+        invalidateKey={["brand-collaborations", brandId]}
+      />
     </div>
   );
 }

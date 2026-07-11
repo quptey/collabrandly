@@ -654,7 +654,8 @@
     "markResolved": "Отметить решённым",
     "commentSaved": "Комментарий сохранён",
     "disputeResolved": "Спор отмечен как решённый",
-    "followers": "Подписчики"
+    "followers": "Подписчики",
+    "reviews": "Отзывы"
   },
   "auth": {
     "signInTitle": "С возвращением",
@@ -1319,6 +1320,9 @@
     "describeProblem": "Опишите проблему",
     "problemPlaceholder": "Что пошло не так?",
     "reviewSubmitted": "Спасибо! Ваша оценка учтена.",
+    "reviewThankYou": "Спасибо за ваш отзыв!",
+    "reviewThankYouDesc": "Ваш отзыв теперь виден в публичном профиле.",
+    "reviewAlreadyExists": "Вы уже оставили отзыв об этом сотрудничестве",
     "audienceGreen": "🟢 Аудитория выглядит живой",
     "audienceYellow": "🟡 Требует проверки",
     "audienceRed": "🔴 Возможна накрутка",

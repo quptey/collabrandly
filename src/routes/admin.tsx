@@ -25,6 +25,7 @@ import {
   AlertTriangle,
   Database,
   PieChart,
+  Star,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
@@ -276,6 +277,10 @@ function AdminDashboard() {
             <TabsTrigger value="reports">
               <Flag className="mr-2 h-4 w-4" />
               {t("admin.reportsTab")}
+            </TabsTrigger>
+            <TabsTrigger value="reviews">
+              <Star className="mr-2 h-4 w-4" />
+              {t("admin.reviews")}
             </TabsTrigger>
             <TabsTrigger value="complaintModeration">
               <ShieldCheck className="mr-2 h-4 w-4" />
@@ -623,6 +628,10 @@ function AdminDashboard() {
           <TabsContent value="reports">
             <ReportsPanel qc={qc} />
           </TabsContent>
+          <TabsContent value="reviews">
+            <AdminReviewsPanel qc={qc} />
+          </TabsContent>
+
           <TabsContent value="complaintModeration">
             <AdminComplaintModerationPanel qc={qc} />
           </TabsContent>
@@ -1752,6 +1761,139 @@ function PaidReportsPanel({ qc }: { qc: any }) {
           )}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+/* ==================== ADMIN REVIEWS PANEL ==================== */
+function AdminReviewsPanel({ qc }: { qc: any }) {
+  const { t } = useT();
+  const [filter, setFilter] = useState<"all" | "creator_reviews" | "brand_reviews">("all");
+  const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
+
+  const { data: creatorReviews = [] } = useQuery({
+    queryKey: ["admin-creator-reviews"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("creator_reviews")
+        .select("*, reviewer:profiles!creator_reviews_reviewer_id_fkey(display_name), creator:profiles!creator_reviews_creator_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(100);
+      return data ?? [];
+    },
+  });
+
+  const { data: brandReviews = [] } = useQuery({
+    queryKey: ["admin-brand-reviews"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("brand_reviews")
+        .select("*, reviewer:profiles!brand_reviews_reviewer_id_fkey(display_name), brand:profiles!brand_reviews_brand_id_fkey(display_name)")
+        .order("created_at", { ascending: false })
+        .limit(100);
+      return data ?? [];
+    },
+  });
+
+  async function deleteReview(table: string, id: string) {
+    if (!confirm("Delete this review?")) return;
+    const { error } = await supabase.from(table as any).delete().eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success("Review deleted");
+    qc.invalidateQueries({ queryKey: ["admin-creator-reviews"] });
+    qc.invalidateQueries({ queryKey: ["admin-brand-reviews"] });
+  }
+
+  async function hideReview(table: string, id: string) {
+    const { error } = await supabase.from(table as any).update({ moderation_status: "rejected" }).eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success("Review hidden");
+    qc.invalidateQueries({ queryKey: ["admin-creator-reviews"] });
+    qc.invalidateQueries({ queryKey: ["admin-brand-reviews"] });
+  }
+
+  const allReviews = [
+    ...creatorReviews.map((r: any) => ({ ...r, _type: "creator_reviews" as const })),
+    ...brandReviews.map((r: any) => ({ ...r, _type: "brand_reviews" as const })),
+  ].filter((r) => filter === "all" || r._type === filter);
+
+  if (sortBy === "oldest") allReviews.reverse();
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-display text-2xl font-semibold">{t("admin.reviews")}</h2>
+        <div className="flex items-center gap-2">
+          <select
+            className="rounded-xl border border-border/60 bg-white px-3 py-1.5 text-xs"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value as any)}
+          >
+            <option value="all">All</option>
+            <option value="creator_reviews">Creator Reviews</option>
+            <option value="brand_reviews">Brand Reviews</option>
+          </select>
+          <select
+            className="rounded-xl border border-border/60 bg-white px-3 py-1.5 text-xs"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
+      </div>
+
+      {allReviews.length === 0 ? (
+        <div className="rounded-3xl border border-dashed border-border bg-card p-16 text-center text-muted-foreground">
+          No reviews yet
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {allReviews.map((r: any) => (
+            <div key={r.id + r._type} className="rounded-2xl border border-border bg-card p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="font-medium">{r.reviewer?.display_name || "?"}</span>
+                  <span className="text-muted-foreground">→</span>
+                  <span className="font-medium">{r.creator?.display_name || r.brand?.display_name || "?"}</span>
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                    r._type === "creator_reviews" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
+                  }`}>
+                    {r._type === "creator_reviews" ? "Brand→Creator" : "Creator→Brand"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                    r.moderation_status === "approved" ? "bg-success/10 text-success" :
+                    r.moderation_status === "rejected" ? "bg-destructive/10 text-destructive" :
+                    "bg-warning/10 text-warning"
+                  }`}>{r.moderation_status}</span>
+                  <span className="text-[10px] text-muted-foreground">
+                    {new Date(r.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} className={`h-3 w-3 ${star <= (r.rating || 0) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/20"}`} />
+                ))}
+              </div>
+              {r.comment && <p className="text-sm text-muted-foreground">"{r.comment}"</p>}
+              <div className="flex gap-2 pt-1">
+                <Button size="sm" variant="destructive" onClick={() => deleteReview(r._type, r.id)}>
+                  <Trash2 className="mr-1 h-3.5 w-3.5" /> Delete
+                </Button>
+                {r.moderation_status !== "rejected" && (
+                  <Button size="sm" variant="outline" onClick={() => hideReview(r._type, r.id)}>
+                    <X className="mr-1 h-3.5 w-3.5" /> Hide
+                  </Button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

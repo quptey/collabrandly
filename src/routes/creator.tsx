@@ -98,6 +98,7 @@ import {
 import { SocialLinkInput } from "@/components/social-link-input";
 import { getNotificationRoute } from "@/lib/notifications";
 import { InstagramIcon, TelegramIcon } from "@/components/social-icons";
+import { CollaborationReviewModal } from "@/components/collaboration-review-modal";
 
 const creatorSearchSchema = z.object({
   page: fallback(
@@ -1889,6 +1890,8 @@ function AnalyticCard({
 function CollaborationsPage({ creatorId, qc }: { creatorId: string; qc: any }) {
   const { t } = useT();
   const navigate = useNavigate();
+  const [reviewCol, setReviewCol] = useState<any | null>(null);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   const { data: collaborations = [] } = useQuery({
     queryKey: ["creator-collaborations", creatorId],
@@ -2172,9 +2175,37 @@ function CollaborationsPage({ creatorId, qc }: { creatorId: string; qc: any }) {
                     </Select>
                   </div>
                 </div>
+
+                {col.status === "completed" && (
+                  <div className="mt-3 border-t border-border/40 pt-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full rounded-xl text-xs"
+                      onClick={() => {
+                        setReviewCol(col);
+                        setReviewOpen(true);
+                      }}
+                    >
+                      <Star className="mr-1.5 h-3.5 w-3.5 text-amber-400" />
+                      {t("trust.rateCollaboration")}
+                    </Button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
+
+          <CollaborationReviewModal
+            open={reviewOpen}
+            onOpenChange={setReviewOpen}
+            collaborationId={reviewCol?.id ?? ""}
+            targetId={reviewCol?.brand?.id ?? ""}
+            targetType="brand"
+            reviewerId={creatorId}
+            targetName={reviewCol?.brand?.brand_name || reviewCol?.brand?.display_name || ""}
+            invalidateKey={["creator-collaborations", creatorId]}
+          />
         </section>
       )}
 

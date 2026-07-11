@@ -654,7 +654,8 @@
     "markResolved": "Mark resolved",
     "commentSaved": "Comment saved",
     "disputeResolved": "Dispute resolved",
-    "followers": "Followers"
+    "followers": "Followers",
+    "reviews": "Reviews"
   },
   "auth": {
     "signInTitle": "Welcome back",
@@ -1319,6 +1320,9 @@
     "describeProblem": "Describe the problem",
     "problemPlaceholder": "What went wrong?",
     "reviewSubmitted": "Thank you! Your rating has been recorded.",
+    "reviewThankYou": "Thank you for your review!",
+    "reviewThankYouDesc": "Your review is now visible on the public profile.",
+    "reviewAlreadyExists": "You have already reviewed this collaboration",
     "audienceGreen": "🟢 Audience looks authentic",
     "audienceYellow": "🟡 Needs verification",
     "audienceRed": "🔴 Possible bot activity",
